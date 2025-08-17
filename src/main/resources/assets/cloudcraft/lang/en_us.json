@@ -1,0 +1,13 @@
+{
+  "itemGroup.cloudcraft": "CloudCraft Tab",
+  "block.cloudcraft.example_block": "Example Block",
+  "item.cloudcraft.example_item": "Example Item",
+
+  "cloudcraft.configuration.title": "CloudCraft Configs",
+  "cloudcraft.configuration.section.cloudcraft.common.toml": "CloudCraft Configs",
+  "cloudcraft.configuration.section.cloudcraft.common.toml.title": "CloudCraft Configs",
+  "cloudcraft.configuration.items": "Item List",
+  "cloudcraft.configuration.logDirtBlock": "Log Dirt Block",
+  "cloudcraft.configuration.magicNumberIntroduction": "Magic Number Text",
+  "cloudcraft.configuration.magicNumber": "Magic Number"
+}
