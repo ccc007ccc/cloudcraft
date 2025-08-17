@@ -1,7 +1,8 @@
 {
-  "itemGroup.cloudcraft": "Example Mod Tab",
-  "block.cloudcraft.example_block": "Example Block",
-  "item.cloudcraft.example_item": "Example Item",
+  "itemGroup.cloudcraft": "CloudCraft",
+  "item.cloudcraft.cloud": "Cloud",
+  "item.cloudcraft.cloud_fragment": "Cloud Fragment",
+  "item.cloudcraft.cloud_block": "Cloud Block",
 
   "cloudcraft.configuration.title": "CloudCraft Configs",
   "cloudcraft.configuration.section.cloudcraft.common.toml": "CloudCraft Configs",
