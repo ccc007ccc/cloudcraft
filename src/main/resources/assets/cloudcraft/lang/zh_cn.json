@@ -2,7 +2,11 @@
   "itemGroup.cloudcraft": "云之工艺",
   "item.cloudcraft.cloud": "云",
   "item.cloudcraft.cloud_fragment": "云碎片",
+
+  "item.cloudcraft.potion_bottle_splash_solid_cloud": "凝云药水",
+
   "item.cloudcraft.cloud_block": "云块",
+  "item.cloudcraft.gas_state_converter": "气态转换器",
 
   "cloudcraft.configuration.title": "云之工艺 配置",
   "cloudcraft.configuration.section.cloudcraft.common.toml": "云之工艺 配置",

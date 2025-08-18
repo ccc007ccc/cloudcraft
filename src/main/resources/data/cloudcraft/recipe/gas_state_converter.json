@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "B": "minecraft:glass_bottle",
+    "G": "minecraft:glass_pane",
+    "J": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    "III",
+    "BGB",
+    "IJI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:gas_state_converter"
+  }
+}

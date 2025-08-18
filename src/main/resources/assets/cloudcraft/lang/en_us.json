@@ -2,7 +2,11 @@
   "itemGroup.cloudcraft": "CloudCraft",
   "item.cloudcraft.cloud": "Cloud",
   "item.cloudcraft.cloud_fragment": "Cloud Fragment",
+
+  "item.cloudcraft.potion_bottle_splash_solid_cloud": "Cloud Solid Potion",
+
   "item.cloudcraft.cloud_block": "Cloud Block",
+  "item.cloudcraft.gas_state_converter": "Gas State Converter",
 
   "cloudcraft.configuration.title": "CloudCraft Configs",
   "cloudcraft.configuration.section.cloudcraft.common.toml": "CloudCraft Configs",

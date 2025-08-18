@@ -47,8 +47,11 @@ public class CloudCraft {
         // 注册 commonSetup 方法以进行 mod 加载
         modEventBus.addListener(this::commonSetup);
 
+        // 注册模组物品
         ModItems.register(modEventBus);
+        // 注册模组创造模式物品栏
         ModCreativeModeTabs.register(modEventBus);
+        // 注册模组方块
         ModBlocks.register(modEventBus);
 
         // 为我们感兴趣的服务器和其他游戏事件注册我们自己。
