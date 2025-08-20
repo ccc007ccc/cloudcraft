@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "cloudcraft:block/cumulus_cloud_block_gas"
+    }
+  }
+}

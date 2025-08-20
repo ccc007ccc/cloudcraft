@@ -1,8 +1,8 @@
 package com.tr1c.cloudcraft.block;
 
 import com.tr1c.cloudcraft.CloudCraft;
-import com.tr1c.cloudcraft.block.custom.cloud_block.CloudBlock;
-import com.tr1c.cloudcraft.block.custom.cloud_block.CloudBlockGas;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlock;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlockGas;
 import com.tr1c.cloudcraft.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -23,22 +23,22 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(CloudCraft.MOD_ID);
 
-    // 注册云方块
-    public static final DeferredBlock<Block> CLOUD_BLOCK =
-            registerBlocks("cloud_block", () -> new CloudBlock(
+    // 注册积云方块
+    public static final DeferredBlock<Block> CUMULUS_CLOUD_BLOCK =
+            registerBlocks("cumulus_cloud_block", () -> new CumulusCloudBlock(
                     BlockBehaviour.Properties.of()
                     .destroyTime(0.2F) // 设置破坏时间
                     .explosionResistance(0.1F) // 设置爆炸抗性
-                    .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(CloudCraft.MOD_ID + ":cloud_block")))
+                    .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(CloudCraft.MOD_ID + ":cumulus_cloud_block")))
                     .sound(SoundType.SNOW)
             ));
 
-    // 注册气态云方块
-    public static final DeferredBlock<CloudBlockGas> CLOUD_BLOCK_GAS =
-            registerBlocks("cloud_block_gas", () -> new CloudBlockGas(
+    // 注册气态积云方块
+    public static final DeferredBlock<CumulusCloudBlockGas> CLOUD_BLOCK_GAS =
+            registerBlocks("cumulus_cloud_block_gas", () -> new CumulusCloudBlockGas(
                     BlockBehaviour.Properties.of()
-                            .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(CloudCraft.MOD_ID + ":cloud_block_gas"))),
-                    CLOUD_BLOCK.get().defaultBlockState() // 传入对应的固态云方块状态
+                            .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(CloudCraft.MOD_ID + ":cumulus_cloud_block_gas"))),
+                    CUMULUS_CLOUD_BLOCK.get().defaultBlockState() // 传入对应的固态云方块状态
             ));
 
     // 注册气态转换器

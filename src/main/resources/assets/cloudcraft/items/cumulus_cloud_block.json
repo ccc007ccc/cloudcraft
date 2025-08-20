@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "cloudcraft:item/cloud_block"
+    "model": "cloudcraft:item/cumulus_cloud_block"
   }
 }

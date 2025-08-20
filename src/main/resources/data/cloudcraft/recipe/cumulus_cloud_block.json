@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "F": "cloudcraft:cloud_fragment"
+    "F": "cloudcraft:cumulus_cloud_fragment"
   },
   "pattern": [
     "FF",
@@ -10,6 +10,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "cloudcraft:cloud_block"
+    "id": "cloudcraft:cumulus_cloud_block"
   }
 }

@@ -1,7 +1,7 @@
 package com.tr1c.cloudcraft.effect;
 
 import com.tr1c.cloudcraft.block.ModBlocks;
-import com.tr1c.cloudcraft.block.custom.cloud_block.CloudBlockGas;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlockGas;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
@@ -31,8 +31,8 @@ public class CloudWalkerEffect extends MobEffect {
             BlockState state = level.getBlockState(targetPos);
 
             // 只转换气态云为固态云
-            if (state.getBlock() instanceof CloudBlockGas) {
-                level.setBlockAndUpdate(targetPos, ModBlocks.CLOUD_BLOCK.get().defaultBlockState());
+            if (state.getBlock() instanceof CumulusCloudBlockGas) {
+                level.setBlockAndUpdate(targetPos, ModBlocks.CUMULUS_CLOUD_BLOCK.get().defaultBlockState());
             }
         }
 

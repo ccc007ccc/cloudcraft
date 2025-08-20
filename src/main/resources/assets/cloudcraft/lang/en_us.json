@@ -1,15 +1,15 @@
 {
   "itemGroup.cloudcraft": "CloudCraft",
   "item.cloudcraft.cloud": "Cloud",
-  "item.cloudcraft.cloud_fragment": "Cloud Fragment",
+  "item.cloudcraft.cumulus_cloud_fragment": "Cumulus Cloud Fragment",
 
   "item.minecraft.potion.effect.potion_bottle_solid_cloud": "Solid Cloud",
   "item.minecraft.splash_potion.effect.potion_bottle_solid_cloud": "Splash Solid Cloud",
   "item.minecraft.lingering_potion.effect.potion_bottle_solid_cloud": "Lingering Solid Cloud",
 
 
-  "item.cloudcraft.cloud_block": "Cloud Block",
-  "item.cloudcraft.cloud_block_gas": "Cloud",
+  "item.cloudcraft.cumulus_cloud_block": "Cumulus Cloud Block",
+  "item.cloudcraft.cumulus_cloud_block_gas": "Cumulus Cloud",
   "item.cloudcraft.gas_state_converter": "Gas State Converter",
 
   "effect.cloudcraft.cloud_walker": "Cloud Walker",

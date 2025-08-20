@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "cloudcraft:cloud_block"
+              "name": "cloudcraft:cumulus_cloud_block"
             },
             {
               "type": "minecraft:item",
@@ -59,7 +59,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "cloudcraft:cloud_fragment"
+              "name": "cloudcraft:cumulus_cloud_fragment"
             }
           ]
         }
@@ -67,5 +67,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "cloudcraft:cloud_block"
+  "random_sequence": "cloudcraft:cumulus_cloud_block"
 }

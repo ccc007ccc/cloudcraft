@@ -1,14 +1,14 @@
 {
   "itemGroup.cloudcraft": "云之工艺",
   "item.cloudcraft.cloud": "云",
-  "item.cloudcraft.cloud_fragment": "云碎片",
+  "item.cloudcraft.cumulus_cloud_fragment": "积云碎片",
 
   "item.minecraft.potion.effect.potion_bottle_solid_cloud": "凝云药水",
   "item.minecraft.splash_potion.effect.potion_bottle_solid_cloud": "喷溅型凝云药水",
   "item.minecraft.lingering_potion.effect.potion_bottle_solid_cloud": "滞留型凝云药水",
 
-  "item.cloudcraft.cloud_block": "云块",
-  "item.cloudcraft.cloud_block_gas": "云",
+  "item.cloudcraft.cumulus_cloud_block": "积云块",
+  "item.cloudcraft.cumulus_cloud_block_gas": "积云",
   "item.cloudcraft.gas_state_converter": "气态转换器",
 
   "effect.cloudcraft.cloud_walker": "云层行者",

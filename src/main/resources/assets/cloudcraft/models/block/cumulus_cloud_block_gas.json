@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "cloudcraft:block/cloud_block/cloud_block_gas"
+    "all": "cloudcraft:block/cloud_block/cumulus_cloud_block_gas"
   },
   "render_type": "translucent"
 }

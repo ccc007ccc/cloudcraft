@@ -23,8 +23,8 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("itemGroup.cloudcraft")) // 设置物品栏标题
                     .displayItems((parameters, output) -> { // 设置物品栏中显示的物品
                         output.accept(ModItems.CLOUD); // 添加云物品
-                        output.accept(ModItems.CLOUD_FRAGMENT); // 添加云碎片
-                        output.accept(ModBlocks.CLOUD_BLOCK); // 添加云方块
+                        output.accept(ModItems.CUMULUS_CLOUD_FRAGMENT); // 添加云碎片
+                        output.accept(ModBlocks.CUMULUS_CLOUD_BLOCK); // 添加云方块
                         output.accept(ModBlocks.CLOUD_BLOCK_GAS); // 添加云气体方块
                         output.accept(ModBlocks.GAS_STATE_CONVERTER); // 添加气态转换器
                     })

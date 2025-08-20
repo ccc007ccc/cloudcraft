@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "cloudcraft:cloud_block"
+    "cloudcraft:cumulus_cloud_block"
   ],
   "result": {
     "count": 4,
-    "id": "cloudcraft:cloud_fragment"
+    "id": "cloudcraft:cumulus_cloud_fragment"
   }
 }

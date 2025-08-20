@@ -49,9 +49,9 @@ public class ModItems {
             ));
 
     // 注册云碎片物品
-    public static final DeferredItem<Item> CLOUD_FRAGMENT =
-            ITEMS.register("cloud_fragment", () -> new Item(new Item.Properties().useItemDescriptionPrefix()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse(CloudCraft.MOD_ID + ":cloud_fragment")))
+    public static final DeferredItem<Item> CUMULUS_CLOUD_FRAGMENT =
+            ITEMS.register("cumulus_cloud_fragment", () -> new Item(new Item.Properties().useItemDescriptionPrefix()
+                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse(CloudCraft.MOD_ID + ":cumulus_cloud_fragment")))
                     .stacksTo(16))); // 设置最大堆叠数量为16
 
     // 在事件总线上注册物品
