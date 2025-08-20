@@ -3,9 +3,9 @@
   "item.cloudcraft.cloud": "云",
   "item.cloudcraft.cloud_fragment": "云碎片",
 
-  "item.minecraft.potion.effect.potion_bottle_splash_solid_cloud": "凝云药水",
-  "item.minecraft.splash_potion.effect.potion_bottle_splash_solid_cloud": "喷溅型凝云药水",
-  "item.minecraft.lingering_potion.effect.potion_bottle_splash_solid_cloud": "滞留型凝云药水",
+  "item.minecraft.potion.effect.potion_bottle_solid_cloud": "凝云药水",
+  "item.minecraft.splash_potion.effect.potion_bottle_solid_cloud": "喷溅型凝云药水",
+  "item.minecraft.lingering_potion.effect.potion_bottle_solid_cloud": "滞留型凝云药水",
 
   "item.cloudcraft.cloud_block": "云块",
   "item.cloudcraft.cloud_block_gas": "云",

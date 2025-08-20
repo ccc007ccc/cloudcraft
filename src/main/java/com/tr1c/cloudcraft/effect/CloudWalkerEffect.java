@@ -10,18 +10,30 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CloudWalkerEffect extends MobEffect {
+
     public CloudWalkerEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
 
     @Override
     public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
-        BlockPos below = entity.blockPosition().below();
-        BlockState state = level.getBlockState(below);
+        BlockPos center = entity.blockPosition(); // 玩家所在方块
+        int[][] offsets = new int[][] {
+                {0, -1, 0},  // 脚下
+                {1, -1, 0},  // 右下
+                {-1, -1, 0}, // 左下
+                {0, -1, 1},  // 前下
+                {0, -1, -1}  // 后下
+        };
 
-        // 假设 CloudBlockGas 是可穿透的云
-        if (state.getBlock() instanceof CloudBlockGas) {
-            level.setBlockAndUpdate(below, ModBlocks.CLOUD_BLOCK.get().defaultBlockState());
+        for (int[] offset : offsets) {
+            BlockPos targetPos = center.offset(offset[0], offset[1], offset[2]);
+            BlockState state = level.getBlockState(targetPos);
+
+            // 只转换气态云为固态云
+            if (state.getBlock() instanceof CloudBlockGas) {
+                level.setBlockAndUpdate(targetPos, ModBlocks.CLOUD_BLOCK.get().defaultBlockState());
+            }
         }
 
         return super.applyEffectTick(level, entity, amplifier);
@@ -29,6 +41,6 @@ public class CloudWalkerEffect extends MobEffect {
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-        return true; // 每 tick 调用 applyEffectTick
+        return true; // 每 tick 都调用 applyEffectTick
     }
 }
