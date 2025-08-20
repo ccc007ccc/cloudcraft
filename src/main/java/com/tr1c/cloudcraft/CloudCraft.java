@@ -1,8 +1,10 @@
 package com.tr1c.cloudcraft;
 
 import com.tr1c.cloudcraft.block.ModBlocks;
+import com.tr1c.cloudcraft.effect.ModEffects;
 import com.tr1c.cloudcraft.item.ModCreativeModeTabs;
 import com.tr1c.cloudcraft.item.ModItems;
+import com.tr1c.cloudcraft.potion.ModPotion;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -47,12 +49,16 @@ public class CloudCraft {
         // 注册 commonSetup 方法以进行 mod 加载
         modEventBus.addListener(this::commonSetup);
 
-        // 注册模组物品
-        ModItems.register(modEventBus);
-        // 注册模组创造模式物品栏
-        ModCreativeModeTabs.register(modEventBus);
         // 注册模组方块
         ModBlocks.register(modEventBus);
+        // 注册模组物品
+        ModItems.register(modEventBus);
+        // 注册模组药水
+        ModPotion.register(modEventBus);
+        // 注册模组效果
+        ModEffects.register(modEventBus);
+        // 注册模组创造模式物品栏
+        ModCreativeModeTabs.register(modEventBus);
 
         // 为我们感兴趣的服务器和其他游戏事件注册我们自己。
         // 请注意，仅当我们希望 *这个* 类 (CloudCraft) 直接响应事件时，这才是必需的。

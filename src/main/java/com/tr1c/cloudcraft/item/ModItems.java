@@ -1,6 +1,8 @@
 package com.tr1c.cloudcraft.item;
 
 import com.tr1c.cloudcraft.CloudCraft;
+import net.minecraft.client.color.item.Potion;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -11,6 +13,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.SplashPotionItem;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.neoforged.bus.api.IEventBus;
@@ -50,12 +53,6 @@ public class ModItems {
             ITEMS.register("cloud_fragment", () -> new Item(new Item.Properties().useItemDescriptionPrefix()
                     .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse(CloudCraft.MOD_ID + ":cloud_fragment")))
                     .stacksTo(16))); // 设置最大堆叠数量为16
-
-    // 注册凝云药水物品
-    public static final DeferredItem<Item> POTION_BOTTLE_SPLASH_SOLID_CLOUD =
-            ITEMS.register("potion_bottle_splash_solid_cloud", () -> new SplashPotionItem(new Item.Properties().useItemDescriptionPrefix()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse(CloudCraft.MOD_ID + ":potion_bottle_splash_solid_cloud")))
-                    .stacksTo(1)));
 
     // 在事件总线上注册物品
     public static void register(IEventBus modEventBus) {

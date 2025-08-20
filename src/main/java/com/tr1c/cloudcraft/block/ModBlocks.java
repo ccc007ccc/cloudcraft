@@ -1,7 +1,8 @@
 package com.tr1c.cloudcraft.block;
 
 import com.tr1c.cloudcraft.CloudCraft;
-import com.tr1c.cloudcraft.block.custom.CloudBlock;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CloudBlock;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CloudBlockGas;
 import com.tr1c.cloudcraft.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -32,6 +33,15 @@ public class ModBlocks {
                     .sound(SoundType.SNOW)
             ));
 
+    // 注册气态云方块
+    public static final DeferredBlock<CloudBlockGas> CLOUD_BLOCK_GAS =
+            registerBlocks("cloud_block_gas", () -> new CloudBlockGas(
+                    BlockBehaviour.Properties.of()
+                            .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(CloudCraft.MOD_ID + ":cloud_block_gas"))),
+                    CLOUD_BLOCK.get().defaultBlockState() // 传入对应的固态云方块状态
+            ));
+
+    // 注册气态转换器
     public static final DeferredBlock<Block> GAS_STATE_CONVERTER =
             registerBlocks("gas_state_converter", () -> new RotatableBlock(
                     BlockBehaviour.Properties.of()

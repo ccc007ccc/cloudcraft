@@ -3,10 +3,16 @@
   "item.cloudcraft.cloud": "Cloud",
   "item.cloudcraft.cloud_fragment": "Cloud Fragment",
 
-  "item.cloudcraft.potion_bottle_splash_solid_cloud": "Cloud Solid Potion",
+  "item.minecraft.potion.effect.potion_bottle_splash_solid_cloud": "Solid Cloud",
+  "item.minecraft.splash_potion.effect.potion_bottle_splash_solid_cloud": "Splash Solid Cloud",
+  "item.minecraft.lingering_potion.effect.potion_bottle_splash_solid_cloud": "Lingering Solid Cloud",
+
 
   "item.cloudcraft.cloud_block": "Cloud Block",
+  "item.cloudcraft.cloud_block_gas": "Cloud",
   "item.cloudcraft.gas_state_converter": "Gas State Converter",
+
+  "effect.cloudcraft.cloud_walker": "Cloud Walker",
 
   "cloudcraft.configuration.title": "CloudCraft Configs",
   "cloudcraft.configuration.section.cloudcraft.common.toml": "CloudCraft Configs",
