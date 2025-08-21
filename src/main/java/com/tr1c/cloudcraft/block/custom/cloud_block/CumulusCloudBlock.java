@@ -24,9 +24,13 @@ public class CumulusCloudBlock extends BaseCloudBlock {
         if (!level.isClientSide && entity instanceof LivingEntity living) {
             boolean hasCloudWalker = living.hasEffect(ModEffects.CLOUD_WALKER);
 
-            // 如果有 Cloud Walker 效果且跌落距离小于等于 2，则不破坏方块
-            if (hasCloudWalker && entity.fallDistance <= 2f) {
+            // 如果有 Cloud Walker 效果且跌落距离小于等于 2.5，则不破坏方块
+            if (hasCloudWalker && entity.fallDistance <= 2.5f) {
                 return; // 直接跳过踩踏逻辑
+            }
+            // 如果有 Cloud Walker 效果且潜行了,跌落距离小于等于 4.5，则不破坏方块
+            if (hasCloudWalker && living.isCrouching() && entity.fallDistance <= 4.5f) {
+                return;
             }
 
             // 跌落距离大于 1.5 或没有 Cloud Walker 效果，继续原来的逻辑

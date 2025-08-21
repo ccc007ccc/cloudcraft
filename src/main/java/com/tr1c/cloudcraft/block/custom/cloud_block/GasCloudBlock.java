@@ -70,51 +70,53 @@ public abstract class GasCloudBlock extends HalfTransparentBlock {
      * @param radius 半径（球形）
      */
     private void handleCloudWalkerPotion(Level level, BlockPos pos, Entity potion, double radius) {
-        ItemStack stack = null;
+        if (!level.isClientSide) {
+            ItemStack stack = null;
 
-        if (potion instanceof ThrownSplashPotion splash) stack = splash.getItem();
-        else if (potion instanceof ThrownLingeringPotion linger) stack = linger.getItem();
-        else return;
+            if (potion instanceof ThrownSplashPotion splash) stack = splash.getItem();
+            else if (potion instanceof ThrownLingeringPotion linger) stack = linger.getItem();
+            else return;
 
-        PotionContents contents = stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+            PotionContents contents = stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
 
-        // 遍历所有效果，检查是否有 cloud_walker
-        boolean hasCloudWalker = false;
-        for (MobEffectInstance effect : contents.getAllEffects()) {
-            if (effect.getEffect() == ModEffects.CLOUD_WALKER) {
-                hasCloudWalker = true;
-                break;
+            // 遍历所有效果，检查是否有 cloud_walker
+            boolean hasCloudWalker = false;
+            for (MobEffectInstance effect : contents.getAllEffects()) {
+                if (effect.getEffect() == ModEffects.CLOUD_WALKER) {
+                    hasCloudWalker = true;
+                    break;
+                }
             }
-        }
-        if (!hasCloudWalker) return;
+            if (!hasCloudWalker) return;
 
-        // 触发原版药水粒子和声音效果
-        if (level instanceof ServerLevel serverLevel) {
-            serverLevel.levelEvent(2002, pos, contents.getColor());
-        }
+            // 触发原版药水粒子和声音效果
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.levelEvent(2002, pos, contents.getColor());
+            }
 
-        int intRadius = (int) Math.ceil(radius);
+            int intRadius = (int) Math.ceil(radius);
 
-        // 遍历球形范围内的方块
-        for (int dx = -intRadius; dx <= intRadius; dx++) {
-            for (int dy = -intRadius; dy <= intRadius; dy++) {
-                for (int dz = -intRadius; dz <= intRadius; dz++) {
-                    BlockPos targetPos = pos.offset(dx, dy, dz);
+            // 遍历球形范围内的方块
+            for (int dx = -intRadius; dx <= intRadius; dx++) {
+                for (int dy = -intRadius; dy <= intRadius; dy++) {
+                    for (int dz = -intRadius; dz <= intRadius; dz++) {
+                        BlockPos targetPos = pos.offset(dx, dy, dz);
 
-                    // 球形判断
-                    double distanceSq = pos.distSqr(targetPos);
-                    if (distanceSq <= radius * radius) {
-                        BlockState targetState = level.getBlockState(targetPos);
-                        if (targetState.getBlock() instanceof GasCloudBlock gasBlock) {
-                            gasBlock.solidify(level, targetPos);
+                        // 球形判断
+                        double distanceSq = pos.distSqr(targetPos);
+                        if (distanceSq <= radius * radius) {
+                            BlockState targetState = level.getBlockState(targetPos);
+                            if (targetState.getBlock() instanceof GasCloudBlock gasBlock) {
+                                gasBlock.solidify(level, targetPos);
+                            }
                         }
                     }
                 }
             }
-        }
 
-        // 移除药水实体
-        potion.discard();
+            // 移除药水实体
+            potion.discard();
+        }
     }
 
 
