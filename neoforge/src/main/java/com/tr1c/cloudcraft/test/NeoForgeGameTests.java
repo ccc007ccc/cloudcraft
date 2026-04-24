@@ -1,0 +1,170 @@
+package com.tr1c.cloudcraft.test;
+
+import com.tr1c.cloudcraft.CloudCraft;
+import com.tr1c.cloudcraft.block.NeoForgeModBlocks;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRules;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRuntime;
+import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.gametest.framework.FunctionGameTestInstance;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.gametest.framework.TestData;
+import net.minecraft.gametest.framework.TestEnvironmentDefinition;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Rotation;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.RegisterGameTestsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Consumer;
+
+public final class NeoForgeGameTests {
+    private static final Identifier EMPTY_STRUCTURE = Identifier.withDefaultNamespace("empty");
+    private static final int MAX_TICKS = 40;
+    private static final DeferredRegister<Consumer<GameTestHelper>> TEST_FUNCTIONS = DeferredRegister.create(Registries.TEST_FUNCTION, CloudCraft.MOD_ID);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> GAS_CLOUD_SOLIDIFIES = TEST_FUNCTIONS.register("gas_cloud_solidifies", () -> NeoForgeGameTests::gasCloudSolidifies);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WALKER_EFFECT_SOLIDIFIES_AROUND_ENTITY = TEST_FUNCTIONS.register(
+            "cloud_walker_effect_solidifies_around_entity",
+            () -> NeoForgeGameTests::cloudWalkerEffectSolidifiesAroundEntity);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SOLIDIFY_IN_RADIUS_CONVERTS_NEARBY_GAS_CLOUDS = TEST_FUNCTIONS.register(
+            "solidify_in_radius_converts_nearby_gas_clouds",
+            () -> NeoForgeGameTests::solidifyInRadiusConvertsNearbyGasClouds);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> EFFECT_SOLIDIFIES_CROSS_SHAPE_ONLY = TEST_FUNCTIONS.register(
+            "effect_solidifies_cross_shape_only",
+            () -> NeoForgeGameTests::effectSolidifiesCrossShapeOnly);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SOLIDIFY_IN_RADIUS_KEEPS_NON_GAS_BLOCKS = TEST_FUNCTIONS.register(
+            "solidify_in_radius_keeps_non_gas_blocks",
+            () -> NeoForgeGameTests::solidifyInRadiusKeepsNonGasBlocks);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WALKER_SHORT_CIRCUIT_KEEPS_DISTANT_GAS = TEST_FUNCTIONS.register(
+            "cloud_walker_short_circuit_keeps_distant_gas",
+            () -> NeoForgeGameTests::cloudWalkerShortCircuitKeepsDistantGas);
+
+    private NeoForgeGameTests() {
+    }
+
+    public static void register(IEventBus modEventBus) {
+        TEST_FUNCTIONS.register(modEventBus);
+    }
+
+    public static void register(RegisterGameTestsEvent event) {
+        Holder<TestEnvironmentDefinition> environment = event.registerEnvironment(id("default_environment"), new TestEnvironmentDefinition.AllOf());
+        register(event, environment, GAS_CLOUD_SOLIDIFIES);
+        register(event, environment, CLOUD_WALKER_EFFECT_SOLIDIFIES_AROUND_ENTITY);
+        register(event, environment, SOLIDIFY_IN_RADIUS_CONVERTS_NEARBY_GAS_CLOUDS);
+        register(event, environment, EFFECT_SOLIDIFIES_CROSS_SHAPE_ONLY);
+        register(event, environment, SOLIDIFY_IN_RADIUS_KEEPS_NON_GAS_BLOCKS);
+        register(event, environment, CLOUD_WALKER_SHORT_CIRCUIT_KEEPS_DISTANT_GAS);
+    }
+
+    private static void register(RegisterGameTestsEvent event, Holder<TestEnvironmentDefinition> environment, DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> testFunction) {
+        event.registerTest(
+                testFunction.getKey().identifier(),
+                new FunctionGameTestInstance(
+                        testFunction.getKey(),
+                        new TestData<>(environment, EMPTY_STRUCTURE, MAX_TICKS, 0, true, Rotation.NONE)));
+    }
+
+    private static void gasCloudSolidifies(GameTestHelper helper) {
+        BlockPos target = new BlockPos(0, 0, 0);
+        helper.setBlock(target, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get().solidify(helper.getLevel(), helper.absolutePos(target));
+        helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), target);
+        helper.succeed();
+    }
+
+    private static void cloudWalkerEffectSolidifiesAroundEntity(GameTestHelper helper) {
+        BlockPos center = new BlockPos(0, 1, 0);
+        BlockPos target = center.below();
+        helper.setBlock(target, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+
+        var pig = helper.spawnWithNoFreeWill(EntityType.PIG, center);
+        NeoForgeModEffects.CLOUD_WALKER.value().applyEffectTick(helper.getLevel(), pig, 0);
+
+        helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), target);
+        helper.succeed();
+    }
+
+    private static void solidifyInRadiusConvertsNearbyGasClouds(GameTestHelper helper) {
+        BlockPos center = new BlockPos(0, 0, 0);
+        BlockPos nearTarget = new BlockPos(1, 0, 0);
+        BlockPos farTarget = new BlockPos(3, 0, 0);
+        helper.setBlock(center, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(nearTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(farTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+
+        CloudTransformationRuntime.solidifyInRadius(helper.getLevel(), helper.absolutePos(center), CloudTransformationRules.SPLASH_POTION_RADIUS);
+
+        helper.runAfterDelay(2, () -> {
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), center);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), nearTarget);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), farTarget);
+            helper.succeed();
+        });
+    }
+
+    private static void effectSolidifiesCrossShapeOnly(GameTestHelper helper) {
+        BlockPos center = new BlockPos(0, 1, 0);
+        BlockPos below = new BlockPos(0, 0, 0);
+        BlockPos east = new BlockPos(1, 0, 0);
+        BlockPos west = new BlockPos(-1, 0, 0);
+        BlockPos south = new BlockPos(0, 0, 1);
+        BlockPos north = new BlockPos(0, 0, -1);
+        BlockPos diagonal = new BlockPos(1, 0, 1);
+        helper.setBlock(below, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(east, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(west, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(south, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(north, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(diagonal, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+
+        CloudTransformationRuntime.solidifyAroundEntity(helper.getLevel(), helper.absolutePos(center));
+
+        helper.runAfterDelay(2, () -> {
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), below);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), east);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), west);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), south);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), north);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), diagonal);
+            helper.succeed();
+        });
+    }
+
+    private static void solidifyInRadiusKeepsNonGasBlocks(GameTestHelper helper) {
+        BlockPos center = new BlockPos(0, 0, 0);
+        BlockPos nonGasTarget = new BlockPos(1, 0, 0);
+        helper.setBlock(center, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(nonGasTarget, NeoForgeModBlocks.GAS_STATE_CONVERTER.get());
+
+        CloudTransformationRuntime.solidifyInRadius(helper.getLevel(), helper.absolutePos(center), CloudTransformationRules.SPLASH_POTION_RADIUS);
+
+        helper.runAfterDelay(2, () -> {
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), center);
+            helper.assertBlockPresent(NeoForgeModBlocks.GAS_STATE_CONVERTER.get(), nonGasTarget);
+            helper.succeed();
+        });
+    }
+
+    private static void cloudWalkerShortCircuitKeepsDistantGas(GameTestHelper helper) {
+        BlockPos center = new BlockPos(0, 1, 0);
+        BlockPos distantTarget = new BlockPos(0, 0, 2);
+        helper.setBlock(distantTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+
+        var pig = helper.spawnWithNoFreeWill(EntityType.PIG, center);
+        NeoForgeModEffects.CLOUD_WALKER.value().applyEffectTick(helper.getLevel(), pig, 0);
+
+        helper.runAfterDelay(2, () -> {
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), distantTarget);
+            helper.succeed();
+        });
+    }
+
+    private static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(CloudCraft.MOD_ID, path);
+    }
+}

@@ -14,13 +14,18 @@ out
 .idea
 
 # gradle
-build
-.gradle
+**/build/
+**/.gradle/
 
 # other
 eclipse
-run
-runs
+**/run/
+**/runs/
 run-data
+**/bin/
+common/src/generated/resources/.cache/
+.claude/
+.mcp.json
+design/
 
 repo

@@ -1,25 +1,43 @@
+# CloudCraft
 
-Installation information
-=======
+## 项目结构
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+- `common/`：平台无关的方块、物品、效果、药水、通用规则、datagen 与共享资源
+- `fabric/`：Fabric 平台注册、客户端初始化与平台适配
+- `neoforge/`：NeoForge 平台注册、客户端初始化、GameTest 与 datagen 接入
+- `buildSrc/`：共享 Gradle 构建逻辑
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+## 常用命令
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+```bash
+./gradlew build
+./gradlew :common:test
+./gradlew :fabric:build
+./gradlew :neoforge:runGameTestServer
+./gradlew :neoforge:runClientData
+```
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+涉及客户端、渲染或平台接入时，还需要手工运行：
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+```bash
+./gradlew :fabric:runClient
+./gradlew :neoforge:runClient
+```
+
+## Datagen
+
+生成资源由 NeoForge `clientData` 任务触发，输出到 `common/src/generated/resources`。修改生成逻辑后运行：
+
+```bash
+./gradlew :neoforge:runClientData
+git diff --exit-code -- common/src/generated/resources
+```
+
+## 验证重点
+
+每次修改核心玩法后至少确认：
+
+1. `./gradlew build`
+2. `./gradlew :common:test`
+3. `./gradlew :fabric:build`
+4. `./gradlew :neoforge:runGameTestServer`

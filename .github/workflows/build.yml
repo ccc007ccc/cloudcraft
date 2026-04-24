@@ -21,10 +21,20 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # This is needed to be able to run ./gradlew below
-      # You can run `git update-index --chmod +x gradlew` then remove this step.
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
         run: ./gradlew build
+
+      - name: Run Fabric platform checks
+        run: ./gradlew :fabric:build
+
+      - name: Run NeoForge GameTests
+        run: ./gradlew :neoforge:runGameTestServer
+
+      - name: Run datagen
+        run: ./gradlew :neoforge:runClientData
+
+      - name: Verify generated resources are fresh
+        run: git diff --exit-code -- common/src/generated/resources
