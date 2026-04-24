@@ -52,6 +52,7 @@ public final class CloudCraftBlockDefinitions {
     private static Map<String, BlockFactory> definitions() {
         Map<String, BlockFactory> definitions = new LinkedHashMap<>();
         definitions.put(ModIds.CUMULUS_CLOUD_BLOCK, (properties, effect, fragment, solid) -> createCumulusCloudBlock(properties, effect, fragment));
+        // Gas block construction receives the solid state's supplier from platform registries.
         definitions.put(ModIds.CUMULUS_CLOUD_BLOCK_GAS, (properties, effect, fragment, solid) -> createCloudBlockGas(properties, solid, effect));
         definitions.put(ModIds.GAS_STATE_CONVERTER, (properties, effect, fragment, solid) -> createGasStateConverter(properties));
         return Collections.unmodifiableMap(definitions);

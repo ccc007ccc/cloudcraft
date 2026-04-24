@@ -21,12 +21,9 @@ public final class FabricModCreativeModeTabs {
             .title(Component.translatable("itemGroup.cloudcraft"))
             .displayItems((parameters, output) -> CloudCraftCreativeTabContents.populate(
                     output,
-                    FabricModItems.CLOUD,
-                    FabricModItems.CUMULUS_CLOUD_FRAGMENT,
-                    FabricModPotions.SOLID_CLOUD,
-                    FabricModBlocks.CUMULUS_CLOUD_BLOCK,
-                    FabricModBlocks.CUMULUS_CLOUD_BLOCK_GAS,
-                    FabricModBlocks.GAS_STATE_CONVERTER))
+                    FabricModItems::itemById,
+                    FabricModBlocks::blockById,
+                    FabricModPotions.SOLID_CLOUD))
             .build();
 
     private FabricModCreativeModeTabs() {

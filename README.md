@@ -24,14 +24,22 @@
 ./gradlew :neoforge:runClient
 ```
 
+当前自动化运行态测试集中在 NeoForge GameTest，Fabric 在 CI 中先覆盖编译与 common 规则测试。修改 Fabric 注册、客户端初始化或 Fabric 专属适配时，至少运行 `./gradlew :common:test`、`./gradlew :fabric:build`，并手工启动 `./gradlew :fabric:runClient` 验证进入游戏与相关功能。
+
 ## Datagen
 
-生成资源由 NeoForge `clientData` 任务触发，输出到 `common/src/generated/resources`。修改生成逻辑后运行：
+生成资源由 NeoForge `clientData` 任务统一触发，输出到 `common/src/generated/resources`，供两个加载器共享。datagen provider 仍放在 `common`，NeoForge 只作为当前唯一执行入口，避免 Fabric 再维护一套重复生成流程。修改生成逻辑后运行：
 
 ```bash
 ./gradlew :neoforge:runClientData
 git diff --exit-code -- common/src/generated/resources
 ```
+
+资源边界：
+
+- `common/src/main/resources`：手写资源，例如语言文件、纹理和复杂手写模型
+- `common/src/generated/resources`：datagen 产物，不手工修改
+- `fabric` / `neoforge`：只放平台专属资源，不复制 common 资源
 
 ## 验证重点
 

@@ -64,13 +64,13 @@ public final class CloudCraftAssetProvider implements DataProvider {
     private static List<String> itemDefinitionIds() {
         List<String> ids = new ArrayList<>(CloudCraftRegistryDefinitions.itemIds());
         ids.addAll(CloudCraftRegistryDefinitions.blockItemIds());
-        ids.add(ModIds.SOLID_CLOUD_POTION);
+        ids.addAll(CloudCraftRegistryDefinitions.potionBottleItemModelIds());
         return List.copyOf(ids);
     }
 
     private static List<String> generatedItemModelIds() {
         List<String> ids = new ArrayList<>(CloudCraftRegistryDefinitions.itemIds());
-        ids.add(ModIds.SOLID_CLOUD_POTION);
+        ids.addAll(CloudCraftRegistryDefinitions.potionBottleItemModelIds());
         return List.copyOf(ids);
     }
 

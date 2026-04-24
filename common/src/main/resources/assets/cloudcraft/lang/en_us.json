@@ -3,9 +3,9 @@
   "item.cloudcraft.cloud": "Cloud",
   "item.cloudcraft.cumulus_cloud_fragment": "Cumulus Cloud Fragment",
 
-  "item.minecraft.potion.effect.potion_bottle_solid_cloud": "Solid Cloud",
-  "item.minecraft.splash_potion.effect.potion_bottle_solid_cloud": "Splash Solid Cloud",
-  "item.minecraft.lingering_potion.effect.potion_bottle_solid_cloud": "Lingering Solid Cloud",
+  "item.minecraft.potion.effect.solid_cloud": "Solid Cloud",
+  "item.minecraft.splash_potion.effect.solid_cloud": "Splash Solid Cloud",
+  "item.minecraft.lingering_potion.effect.solid_cloud": "Lingering Solid Cloud",
 
 
   "item.cloudcraft.cumulus_cloud_block": "Cumulus Cloud Block",

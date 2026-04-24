@@ -15,7 +15,8 @@ public final class ModIds {
     public static final String CUMULUS_CLOUD_BLOCK_GAS = "cumulus_cloud_block_gas";
     public static final String GAS_STATE_CONVERTER = "gas_state_converter";
     public static final String CLOUD_WALKER = "cloud_walker";
-    public static final String SOLID_CLOUD_POTION = "potion_bottle_solid_cloud";
+    public static final String SOLID_CLOUD_POTION = "solid_cloud";
+    public static final String SOLID_CLOUD_POTION_BOTTLE_MODEL = "potion_bottle_solid_cloud";
     public static final String CLOUD_TAB = "cloud_tab";
 
     private ModIds() {

@@ -27,6 +27,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Run common unit tests
+        run: ./gradlew :common:test
+
       - name: Run Fabric platform checks
         run: ./gradlew :fabric:build
 

@@ -2,6 +2,7 @@ package com.tr1c.cloudcraft.datagen;
 
 import com.mojang.serialization.JsonOps;
 import com.tr1c.cloudcraft.CloudCraft;
+import com.tr1c.cloudcraft.registry.CloudCraftRegistryDefinitions;
 import com.tr1c.cloudcraft.registry.ModIds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -86,10 +87,14 @@ public final class CloudCraftLootTableProvider implements DataProvider {
                             .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE), 1))
                             .apply(LimitCount.limitCount(IntRange.range(1, 4)))
                             .apply(ApplyExplosionDecay.explosionDecay())));
+            add(block(ModIds.CUMULUS_CLOUD_BLOCK_GAS), noDrop());
+            dropSelf(block(ModIds.GAS_STATE_CONVERTER));
         }
 
         protected Iterable<Block> getKnownBlocks() {
-            return List.of(block(ModIds.CUMULUS_CLOUD_BLOCK));
+            return CloudCraftRegistryDefinitions.blockIds().stream()
+                    .map(CloudCraftLootTableProvider::block)
+                    .toList();
         }
     }
 }

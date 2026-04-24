@@ -22,12 +22,9 @@ public final class NeoForgeModCreativeModeTabs {
             .title(Component.translatable("itemGroup.cloudcraft"))
             .displayItems((parameters, output) -> CloudCraftCreativeTabContents.populate(
                     output,
-                    NeoForgeModItems.CLOUD.get(),
-                    NeoForgeModItems.CUMULUS_CLOUD_FRAGMENT.get(),
-                    NeoForgeModPotions.SOLID_CLOUD,
-                    NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(),
-                    NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(),
-                    NeoForgeModBlocks.GAS_STATE_CONVERTER.get()))
+                    NeoForgeModItems::itemById,
+                    NeoForgeModBlocks::blockById,
+                    NeoForgeModPotions.SOLID_CLOUD))
             .build());
 
     private NeoForgeModCreativeModeTabs() {
