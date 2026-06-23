@@ -1,0 +1,58 @@
+{
+  "dimensions": {
+    "minecraft:overworld": {
+      "type": "minecraft:overworld",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "preset": "minecraft:overworld"
+        },
+        "settings": "minecraft:overworld"
+      }
+    },
+    "minecraft:the_end": {
+      "type": "minecraft:the_end",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:the_end"
+        },
+        "settings": "minecraft:end"
+      }
+    },
+    "minecraft:the_nether": {
+      "type": "minecraft:the_nether",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "preset": "minecraft:nether"
+        },
+        "settings": "minecraft:nether"
+      }
+    },
+    "cloudcraft:cloud_dimension": {
+      "type": "cloudcraft:cloud_dimension",
+      "generator": {
+        "type": "minecraft:flat",
+        "settings": {
+          "biome": "cloudcraft:cumulus_fields",
+          "features": true,
+          "lakes": false,
+          "layers": [
+            {
+              "block": "minecraft:air",
+              "height": 96
+            },
+            {
+              "block": "cloudcraft:cumulus_cloud_block",
+              "height": 3
+            }
+          ],
+          "structure_overrides": []
+        }
+      }
+    }
+  }
+}

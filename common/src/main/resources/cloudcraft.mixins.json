@@ -5,6 +5,7 @@
   "mixins": [
     "AbstractContainerMenuInvoker",
     "InventoryMenuMixin",
+    "MinecraftServerAccessor",
     "ServerGamePacketListenerImplMixin"
   ],
   "client": [

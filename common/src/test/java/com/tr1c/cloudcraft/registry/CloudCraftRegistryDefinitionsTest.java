@@ -232,7 +232,9 @@ class CloudCraftRegistryDefinitionsTest {
     void shouldHaveCloudDimensionData() {
         assertMainResource("data/cloudcraft/dimension/cloud_dimension.json");
         assertMainResource("data/cloudcraft/dimension_type/cloud_dimension.json");
+        assertMainResource("data/minecraft/worldgen/world_preset/normal.json");
         assertMainResource("data/cloudcraft/worldgen/biome/cumulus_fields.json");
+        assertMainResource("data/minecraft/tags/worldgen/world_preset/normal.json");
         assertMainResource("data/cloudcraft/worldgen/configured_feature/stratus_cloud_patch.json");
         assertMainResource("data/cloudcraft/worldgen/configured_feature/nimbostratus_cloud_patch.json");
         assertMainResource("data/cloudcraft/worldgen/configured_feature/cumulonimbus_cloud_patch.json");
@@ -247,10 +249,18 @@ class CloudCraftRegistryDefinitionsTest {
     void shouldEnableNaturalCloudDimensionFeatures() throws IOException {
         String dimension = Files.readString(MAIN_RESOURCES.resolve("data/cloudcraft/dimension/cloud_dimension.json"));
         String preset = Files.readString(MAIN_RESOURCES.resolve("data/cloudcraft/worldgen/world_preset/cloud_dimension.json"));
+        String normalPreset = Files.readString(MAIN_RESOURCES.resolve("data/minecraft/worldgen/world_preset/normal.json"));
+        String normalPresetTag = Files.readString(MAIN_RESOURCES.resolve("data/minecraft/tags/worldgen/world_preset/normal.json"));
         String biome = Files.readString(MAIN_RESOURCES.resolve("data/cloudcraft/worldgen/biome/cumulus_fields.json"));
 
         assertTrue(dimension.contains("\"features\": true"));
         assertTrue(preset.contains("\"features\": true"));
+        assertTrue(normalPreset.contains("\"minecraft:overworld\""));
+        assertTrue(normalPreset.contains("\"minecraft:the_nether\""));
+        assertTrue(normalPreset.contains("\"minecraft:the_end\""));
+        assertTrue(normalPreset.contains("\"cloudcraft:cloud_dimension\""));
+        assertTrue(normalPresetTag.contains("\"replace\": false"));
+        assertTrue(normalPresetTag.contains("\"cloudcraft:cloud_dimension\""));
         assertTrue(biome.contains("\"cloudcraft:stratus_cloud_patch\""));
         assertTrue(biome.contains("\"cloudcraft:nimbostratus_cloud_patch\""));
         assertTrue(biome.contains("\"cloudcraft:cumulonimbus_cloud_patch\""));

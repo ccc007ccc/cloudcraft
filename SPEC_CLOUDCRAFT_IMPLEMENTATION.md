@@ -133,7 +133,7 @@
 - [x] 入口材料与早期云科技线相关。
 - [x] 避免直接复制原版传送门而没有云主题机制。
 - [x] 潜行右键 `gas_state_converter` 可作为云维度往返入口。
-- [ ] 默认世界和旧世界自动实例化云维度仍需平台侧或加载流程方案确认。
+- [x] 默认世界和旧世界自动实例化云维度已通过数据包维度入口和运行时服务器维度可用性验证确认。
 
 ### 6.2 维度注册
 
@@ -220,5 +220,6 @@
 - [x] 物品贴图审计显示所有正式 `textures/item/*.png` 的可见像素边界都在画布中心 ±0.5 像素内；喷气背包、基础框架、压缩气罐、稳定喷口、高压腔体等对称部件镜像差异为 0%。
 - [x] Fabric 客户端烟测可启动到 Minecraft 1.21.11 主菜单；日志显示 ResourceManager 加载 `cloudcraft`，并成功创建 `minecraft:textures/atlas/items.png-atlas`。
 - [x] NeoForge GameTest 已验证 `cloudcraft:cumulus_fields` biome 运行时包含 `stratus_cloud_patch`、`nimbostratus_cloud_patch`、`cumulonimbus_cloud_patch`、`cirrus_gas_wisps` 四个 placed feature。
+- [x] NeoForge GameTest 已验证普通服务器世界中 `MinecraftServer#getLevel(cloudcraft:cloud_dimension)` 非空，云维度不依赖手动选择自定义 world preset 才能被传送逻辑访问。
 - [x] NeoForge GameTest 已验证 `cloudcraft:cloud_wisp` 可生成，且保持浮空、非充能、无爆炸。
-- [x] NeoForge GameTest 已验证积雨云簇会生成视觉闪电雷暴事件，雨层云簇会在承托面上方凝结水源；16 个必需测试全部通过。
+- [x] NeoForge GameTest 已验证积雨云簇会生成视觉闪电雷暴事件，雨层云簇会在承托面上方凝结水源；17 个必需测试全部通过。

@@ -10,6 +10,7 @@ import com.tr1c.cloudcraft.item.FabricModItems;
 import com.tr1c.cloudcraft.potion.FabricModPotions;
 import com.tr1c.cloudcraft.registry.CloudCraftBrewingDefinitions;
 import com.tr1c.cloudcraft.weather.FabricCloudWeatherBootstrap;
+import com.tr1c.cloudcraft.world.FabricCloudDimensionBootstrap;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.minecraft.core.Registry;
@@ -28,5 +29,6 @@ public class CloudCraftFabric implements ModInitializer {
         FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> builder.addMix(solidCloud.input(), solidCloud.ingredient(), solidCloud.result()));
         FabricCloudTechBootstrap.register();
         FabricCloudWeatherBootstrap.register();
+        FabricCloudDimensionBootstrap.register();
     }
 }

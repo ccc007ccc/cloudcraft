@@ -27,6 +27,7 @@ import net.minecraft.gametest.framework.TestData;
 import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
@@ -73,6 +74,9 @@ public final class NeoForgeGameTests {
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LOADS = TEST_FUNCTIONS.register(
             "cloud_dimension_loads",
             () -> NeoForgeGameTests::cloudDimensionLoads);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_SERVER_LEVEL_AVAILABLE = TEST_FUNCTIONS.register(
+            "cloud_dimension_server_level_available",
+            () -> NeoForgeGameTests::cloudDimensionServerLevelAvailable);
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR = TEST_FUNCTIONS.register(
             "cloud_dimension_landing_creates_return_anchor",
             () -> NeoForgeGameTests::cloudDimensionLandingCreatesReturnAnchor);
@@ -110,6 +114,7 @@ public final class NeoForgeGameTests {
         register(event, environment, GAS_STATE_CONVERTER_SOLIDIFIES_GAS_CLOUDS);
         register(event, environment, GAS_STATE_CONVERTER_GASIFIES_SOLID_CLOUDS);
         register(event, environment, CLOUD_DIMENSION_LOADS);
+        register(event, environment, CLOUD_DIMENSION_SERVER_LEVEL_AVAILABLE);
         register(event, environment, CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR);
         register(event, environment, CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE);
         register(event, environment, CLOUD_DIMENSION_BIOME_HAS_NATURAL_FEATURES);
@@ -278,6 +283,13 @@ public final class NeoForgeGameTests {
         helper.assertTrue(
                 worldPresetRegistry.containsKey(cloudPreset),
                 "Cloud dimension world preset should be loaded");
+        helper.succeed();
+    }
+
+    private static void cloudDimensionServerLevelAvailable(GameTestHelper helper) {
+        ServerLevel cloudLevel = helper.getLevel().getServer().getLevel(CloudDimensionKeys.CLOUD_DIMENSION);
+
+        helper.assertTrue(cloudLevel != null, "Cloud dimension should be available on ordinary server worlds");
         helper.succeed();
     }
 
