@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "cloudcraft:cumulonimbus_cloud_block",
+    "minecraft:blaze_powder"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:storm_core"
+  }
+}

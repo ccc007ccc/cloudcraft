@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownLingeringPotion;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
 import net.minecraft.world.item.ItemStack;
@@ -16,10 +17,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class GasCloudBlock extends HalfTransparentBlock {
+    private static final VoxelShape TOP_SUPPORT_SHAPE = box(0.0, 15.0, 0.0, 16.0, 16.0, 16.0);
+
     private final Holder<MobEffect> cloudWalkerEffect;
 
     public GasCloudBlock(Properties properties, Holder<MobEffect> cloudWalkerEffect) {
@@ -72,8 +76,29 @@ public abstract class GasCloudBlock extends HalfTransparentBlock {
     }
 
     @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (!canSupportEntity(level, pos, context)) {
+            return Shapes.empty();
+        }
+        return TOP_SUPPORT_SHAPE;
+    }
+
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return Shapes.empty();
+    }
+
+    private boolean canSupportEntity(BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (!(context instanceof EntityCollisionContext entityContext)) {
+            return false;
+        }
+        Entity entity = entityContext.getEntity();
+        if (!(entity instanceof LivingEntity living)) {
+            return false;
+        }
+        boolean topLayer = !(level.getBlockState(pos.above()).getBlock() instanceof GasCloudBlock);
+        return context.isAbove(TOP_SUPPORT_SHAPE, pos, true)
+                && GasCloudSupportRules.shouldSupport(living.hasEffect(cloudWalkerEffect), living.isCrouching(), topLayer);
     }
 
     private record CloudWalkerPotionHit(Entity entity, ItemStack stack, double radius) {

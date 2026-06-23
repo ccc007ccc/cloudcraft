@@ -80,15 +80,29 @@ public final class CloudCraftLootTableProvider implements DataProvider {
         @Override
         public void generate() {
             HolderLookup.RegistryLookup<net.minecraft.world.item.enchantment.Enchantment> enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
-            add(block(ModIds.CUMULUS_CLOUD_BLOCK), createSilkTouchDispatchTable(
-                    block(ModIds.CUMULUS_CLOUD_BLOCK),
+            addCloudBlockLoot(enchantments, ModIds.CUMULUS_CLOUD_BLOCK);
+            add(block(ModIds.CUMULUS_CLOUD_BLOCK_GAS), noDrop());
+            addCloudBlockLoot(enchantments, ModIds.STRATUS_CLOUD_BLOCK);
+            add(block(ModIds.STRATUS_CLOUD_BLOCK_GAS), noDrop());
+            addCloudBlockLoot(enchantments, ModIds.CIRRUS_CLOUD_BLOCK);
+            add(block(ModIds.CIRRUS_CLOUD_BLOCK_GAS), noDrop());
+            addCloudBlockLoot(enchantments, ModIds.ALTOSTRATUS_CLOUD_BLOCK);
+            add(block(ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS), noDrop());
+            addCloudBlockLoot(enchantments, ModIds.NIMBOSTRATUS_CLOUD_BLOCK);
+            add(block(ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS), noDrop());
+            addCloudBlockLoot(enchantments, ModIds.CUMULONIMBUS_CLOUD_BLOCK);
+            add(block(ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS), noDrop());
+            dropSelf(block(ModIds.GAS_STATE_CONVERTER));
+        }
+
+        private void addCloudBlockLoot(HolderLookup.RegistryLookup<net.minecraft.world.item.enchantment.Enchantment> enchantments, String id) {
+            add(block(id), createSilkTouchDispatchTable(
+                    block(id),
                     LootItem.lootTableItem(item(ModIds.CUMULUS_CLOUD_FRAGMENT))
                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
                             .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE), 1))
                             .apply(LimitCount.limitCount(IntRange.range(1, 4)))
                             .apply(ApplyExplosionDecay.explosionDecay())));
-            add(block(ModIds.CUMULUS_CLOUD_BLOCK_GAS), noDrop());
-            dropSelf(block(ModIds.GAS_STATE_CONVERTER));
         }
 
         protected Iterable<Block> getKnownBlocks() {

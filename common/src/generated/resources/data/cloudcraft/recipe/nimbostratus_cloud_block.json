@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "cloudcraft:stratus_cloud_block",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:nimbostratus_cloud_block"
+  }
+}

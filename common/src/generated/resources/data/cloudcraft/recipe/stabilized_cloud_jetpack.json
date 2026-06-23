@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": "cloudcraft:cirrus_filament",
+    "J": "cloudcraft:cloud_jetpack",
+    "N": "cloudcraft:stabilized_nozzle"
+  },
+  "pattern": [
+    " F ",
+    "NJN",
+    " F "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:stabilized_cloud_jetpack"
+  }
+}

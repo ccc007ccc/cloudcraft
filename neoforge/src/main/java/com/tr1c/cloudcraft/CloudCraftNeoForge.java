@@ -15,7 +15,7 @@ public class CloudCraftNeoForge {
     }
 
     private void gatherClientData(GatherDataEvent.Client event) {
-        NeoForgeDataGenerators.register(event);
+        NeoForgeDataGenerators.registerClient(event);
     }
 
 }

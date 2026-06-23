@@ -1,6 +1,7 @@
 package com.tr1c.cloudcraft;
 
 import com.tr1c.cloudcraft.block.NeoForgeModBlocks;
+import com.tr1c.cloudcraft.cloudtech.NeoForgeCloudTechClient;
 import com.tr1c.cloudcraft.registry.CloudCraftRenderLayerDefinitions;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;

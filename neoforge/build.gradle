@@ -58,3 +58,9 @@ sourceSets.configureEach {
         }
     }
 }
+
+tasks.register('runCommonData') {
+    group = 'neoForge runs'
+    description = 'Runs CloudCraft datagen into common/src/generated/resources.'
+    dependsOn tasks.named('runClientData')
+}

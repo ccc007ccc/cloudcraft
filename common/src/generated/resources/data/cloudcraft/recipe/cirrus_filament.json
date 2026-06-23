@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "cloudcraft:cirrus_cloud_block",
+    "minecraft:string"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:cirrus_filament"
+  }
+}

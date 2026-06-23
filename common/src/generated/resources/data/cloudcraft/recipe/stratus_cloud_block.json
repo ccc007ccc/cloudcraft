@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "cloudcraft:cumulus_cloud_block",
+    "minecraft:snowball"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:stratus_cloud_block"
+  }
+}

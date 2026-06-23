@@ -7,6 +7,11 @@ import java.util.function.Function;
 public final class CloudCraftRenderLayerDefinitions {
     private static final List<String> TRANSLUCENT_BLOCK_IDS = List.of(
             ModIds.CUMULUS_CLOUD_BLOCK_GAS,
+            ModIds.STRATUS_CLOUD_BLOCK_GAS,
+            ModIds.CIRRUS_CLOUD_BLOCK_GAS,
+            ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS,
+            ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS,
+            ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS,
             ModIds.GAS_STATE_CONVERTER
     );
 

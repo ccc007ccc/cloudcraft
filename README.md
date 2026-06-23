@@ -14,7 +14,7 @@
 ./gradlew :common:test
 ./gradlew :fabric:build
 ./gradlew :neoforge:runGameTestServer
-./gradlew :neoforge:runClientData
+./gradlew :neoforge:runCommonData
 ```
 
 涉及客户端、渲染或平台接入时，还需要手工运行：
@@ -31,7 +31,7 @@
 生成资源由 NeoForge `clientData` 任务统一触发，输出到 `common/src/generated/resources`，供两个加载器共享。datagen provider 仍放在 `common`，NeoForge 只作为当前唯一执行入口，避免 Fabric 再维护一套重复生成流程。修改生成逻辑后运行：
 
 ```bash
-./gradlew :neoforge:runClientData
+./gradlew :neoforge:runCommonData
 git diff --exit-code -- common/src/generated/resources
 ```
 

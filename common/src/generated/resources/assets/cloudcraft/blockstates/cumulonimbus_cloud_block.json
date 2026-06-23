@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "cloudcraft:block/cumulonimbus_cloud_block"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "package": "com.tr1c.cloudcraft.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AbstractContainerMenuInvoker",
+    "InventoryMenuMixin",
+    "ServerGamePacketListenerImplMixin"
+  ],
+  "client": [
+    "client.AbstractContainerScreenAccessor",
+    "client.AbstractContainerScreenMixin",
+    "client.CreativeModeInventoryScreenMixin",
+    "client.InventoryScreenMixin",
+    "client.RecipeBookScreenMixin",
+    "client.SlotAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

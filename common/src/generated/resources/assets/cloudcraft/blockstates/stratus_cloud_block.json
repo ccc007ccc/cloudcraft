@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "cloudcraft:block/stratus_cloud_block"
+    }
+  }
+}

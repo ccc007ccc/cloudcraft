@@ -46,12 +46,19 @@ public final class CloudCraftAssetProvider implements DataProvider {
             save(futures, output, itemModels, itemId, blockParentItemModel(assetPath("block", itemId)));
         }
 
-        save(futures, output, blockStates, ModIds.CUMULUS_CLOUD_BLOCK, singleVariantBlockState(assetPath("block", ModIds.CUMULUS_CLOUD_BLOCK)));
-        save(futures, output, blockStates, ModIds.CUMULUS_CLOUD_BLOCK_GAS, singleVariantBlockState(assetPath("block", ModIds.CUMULUS_CLOUD_BLOCK_GAS)));
+        saveCloudBlockAssets(futures, output, ModIds.CUMULUS_CLOUD_BLOCK, false);
+        saveCloudBlockAssets(futures, output, ModIds.CUMULUS_CLOUD_BLOCK_GAS, true);
+        saveCloudBlockAssets(futures, output, ModIds.STRATUS_CLOUD_BLOCK, false);
+        saveCloudBlockAssets(futures, output, ModIds.STRATUS_CLOUD_BLOCK_GAS, true);
+        saveCloudBlockAssets(futures, output, ModIds.CIRRUS_CLOUD_BLOCK, false);
+        saveCloudBlockAssets(futures, output, ModIds.CIRRUS_CLOUD_BLOCK_GAS, true);
+        saveCloudBlockAssets(futures, output, ModIds.ALTOSTRATUS_CLOUD_BLOCK, false);
+        saveCloudBlockAssets(futures, output, ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS, true);
+        saveCloudBlockAssets(futures, output, ModIds.NIMBOSTRATUS_CLOUD_BLOCK, false);
+        saveCloudBlockAssets(futures, output, ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS, true);
+        saveCloudBlockAssets(futures, output, ModIds.CUMULONIMBUS_CLOUD_BLOCK, false);
+        saveCloudBlockAssets(futures, output, ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS, true);
         save(futures, output, blockStates, ModIds.GAS_STATE_CONVERTER, horizontalFacingBlockState(assetPath("block", ModIds.GAS_STATE_CONVERTER)));
-
-        save(futures, output, blockModels, ModIds.CUMULUS_CLOUD_BLOCK, cubeAllBlockModel(assetPath("block/cloud_block", ModIds.CUMULUS_CLOUD_BLOCK), false));
-        save(futures, output, blockModels, ModIds.CUMULUS_CLOUD_BLOCK_GAS, cubeAllBlockModel(assetPath("block/cloud_block", ModIds.CUMULUS_CLOUD_BLOCK_GAS), true));
 
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
@@ -64,14 +71,17 @@ public final class CloudCraftAssetProvider implements DataProvider {
     private static List<String> itemDefinitionIds() {
         List<String> ids = new ArrayList<>(CloudCraftRegistryDefinitions.itemIds());
         ids.addAll(CloudCraftRegistryDefinitions.blockItemIds());
-        ids.addAll(CloudCraftRegistryDefinitions.potionBottleItemModelIds());
         return List.copyOf(ids);
     }
 
     private static List<String> generatedItemModelIds() {
         List<String> ids = new ArrayList<>(CloudCraftRegistryDefinitions.itemIds());
-        ids.addAll(CloudCraftRegistryDefinitions.potionBottleItemModelIds());
         return List.copyOf(ids);
+    }
+
+    private void saveCloudBlockAssets(List<CompletableFuture<?>> futures, CachedOutput output, String id, boolean translucent) {
+        save(futures, output, blockStates, id, singleVariantBlockState(assetPath("block", id)));
+        save(futures, output, blockModels, id, cubeAllBlockModel(assetPath("block/cloud_block", id), translucent));
     }
 
     private static String assetPath(String kind, String path) {

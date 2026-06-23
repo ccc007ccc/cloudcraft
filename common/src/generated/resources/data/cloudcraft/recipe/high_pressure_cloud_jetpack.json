@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": "cloudcraft:high_pressure_chamber",
+    "J": "cloudcraft:stabilized_cloud_jetpack",
+    "S": "cloudcraft:storm_core"
+  },
+  "pattern": [
+    " S ",
+    "H J",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:high_pressure_cloud_jetpack"
+  }
+}

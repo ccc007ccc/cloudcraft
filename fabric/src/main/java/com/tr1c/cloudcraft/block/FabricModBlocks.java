@@ -1,6 +1,7 @@
 package com.tr1c.cloudcraft.block;
 
 import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlockGas;
+import com.tr1c.cloudcraft.block.custom.cloud_block.MotionGasCloudBlock;
 import com.tr1c.cloudcraft.effect.FabricModEffects;
 import com.tr1c.cloudcraft.item.FabricModItems;
 import com.tr1c.cloudcraft.registry.CloudCraftBlockDefinitions;
@@ -22,6 +23,16 @@ public final class FabricModBlocks {
 
     public static final Block CUMULUS_CLOUD_BLOCK = blockById(ModIds.CUMULUS_CLOUD_BLOCK);
     public static final CumulusCloudBlockGas CUMULUS_CLOUD_BLOCK_GAS = (CumulusCloudBlockGas) blockById(ModIds.CUMULUS_CLOUD_BLOCK_GAS);
+    public static final Block STRATUS_CLOUD_BLOCK = blockById(ModIds.STRATUS_CLOUD_BLOCK);
+    public static final MotionGasCloudBlock STRATUS_CLOUD_BLOCK_GAS = (MotionGasCloudBlock) blockById(ModIds.STRATUS_CLOUD_BLOCK_GAS);
+    public static final Block CIRRUS_CLOUD_BLOCK = blockById(ModIds.CIRRUS_CLOUD_BLOCK);
+    public static final MotionGasCloudBlock CIRRUS_CLOUD_BLOCK_GAS = (MotionGasCloudBlock) blockById(ModIds.CIRRUS_CLOUD_BLOCK_GAS);
+    public static final Block ALTOSTRATUS_CLOUD_BLOCK = blockById(ModIds.ALTOSTRATUS_CLOUD_BLOCK);
+    public static final MotionGasCloudBlock ALTOSTRATUS_CLOUD_BLOCK_GAS = (MotionGasCloudBlock) blockById(ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS);
+    public static final Block NIMBOSTRATUS_CLOUD_BLOCK = blockById(ModIds.NIMBOSTRATUS_CLOUD_BLOCK);
+    public static final MotionGasCloudBlock NIMBOSTRATUS_CLOUD_BLOCK_GAS = (MotionGasCloudBlock) blockById(ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS);
+    public static final Block CUMULONIMBUS_CLOUD_BLOCK = blockById(ModIds.CUMULONIMBUS_CLOUD_BLOCK);
+    public static final MotionGasCloudBlock CUMULONIMBUS_CLOUD_BLOCK_GAS = (MotionGasCloudBlock) blockById(ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS);
     public static final Block GAS_STATE_CONVERTER = blockById(ModIds.GAS_STATE_CONVERTER);
 
     private FabricModBlocks() {
@@ -49,7 +60,7 @@ public final class FabricModBlocks {
                 BlockBehaviour.Properties.of().setId(ModIds.blockKey(id)),
                 FabricModEffects.CLOUD_WALKER,
                 () -> FabricModItems.CUMULUS_CLOUD_FRAGMENT,
-                () -> blocks.get(ModIds.CUMULUS_CLOUD_BLOCK).defaultBlockState());
+                solidId -> blocks.get(solidId).defaultBlockState());
     }
 
     public static Block blockById(String id) {
@@ -58,5 +69,9 @@ public final class FabricModBlocks {
             throw new IllegalArgumentException("Unknown block: " + id);
         }
         return block;
+    }
+
+    public static void register() {
+        // Class loading performs the Fabric registry calls above.
     }
 }

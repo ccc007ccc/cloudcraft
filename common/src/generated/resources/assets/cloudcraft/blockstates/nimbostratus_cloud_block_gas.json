@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "cloudcraft:block/nimbostratus_cloud_block_gas"
+    }
+  }
+}

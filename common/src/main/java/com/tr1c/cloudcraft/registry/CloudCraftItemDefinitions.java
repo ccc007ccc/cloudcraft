@@ -1,5 +1,6 @@
 package com.tr1c.cloudcraft.registry;
 
+import com.tr1c.cloudcraft.item.custom.JetpackItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -49,10 +50,31 @@ public final class CloudCraftItemDefinitions {
         return new Item(properties.useItemDescriptionPrefix().stacksTo(16));
     }
 
+    public static Item createProgressionMaterial(Item.Properties properties) {
+        return new Item(properties.useItemDescriptionPrefix().stacksTo(16));
+    }
+
+    public static Item createJetpackUpgrade(Item.Properties properties) {
+        return new Item(properties.useItemDescriptionPrefix().stacksTo(1));
+    }
+
+    public static Item createCloudJetpack(Item.Properties properties) {
+        return new JetpackItem(properties.useItemDescriptionPrefix().stacksTo(1));
+    }
+
     private static Map<String, ItemFactory> definitions() {
         Map<String, ItemFactory> definitions = new LinkedHashMap<>();
         definitions.put(ModIds.CLOUD, CloudCraftItemDefinitions::createCloud);
         definitions.put(ModIds.CUMULUS_CLOUD_FRAGMENT, CloudCraftItemDefinitions::createCumulusCloudFragment);
+        definitions.put(ModIds.COMPRESSED_CANISTER, CloudCraftItemDefinitions::createProgressionMaterial);
+        definitions.put(ModIds.CIRRUS_FILAMENT, CloudCraftItemDefinitions::createProgressionMaterial);
+        definitions.put(ModIds.STORM_CORE, CloudCraftItemDefinitions::createProgressionMaterial);
+        definitions.put(ModIds.BASIC_JETPACK_FRAME, CloudCraftItemDefinitions::createJetpackUpgrade);
+        definitions.put(ModIds.STABILIZED_NOZZLE, CloudCraftItemDefinitions::createJetpackUpgrade);
+        definitions.put(ModIds.HIGH_PRESSURE_CHAMBER, CloudCraftItemDefinitions::createJetpackUpgrade);
+        definitions.put(ModIds.CLOUD_JETPACK, CloudCraftItemDefinitions::createCloudJetpack);
+        definitions.put(ModIds.STABILIZED_CLOUD_JETPACK, CloudCraftItemDefinitions::createCloudJetpack);
+        definitions.put(ModIds.HIGH_PRESSURE_CLOUD_JETPACK, CloudCraftItemDefinitions::createCloudJetpack);
         return Collections.unmodifiableMap(definitions);
     }
 

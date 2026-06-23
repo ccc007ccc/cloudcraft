@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "cloudcraft:cumulus_cloud_fragment",
+    "F": "cloudcraft:basic_jetpack_frame",
+    "L": "minecraft:leather"
+  },
+  "pattern": [
+    "CLC",
+    "CFC",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:cloud_jetpack"
+  }
+}

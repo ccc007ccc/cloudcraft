@@ -1,6 +1,7 @@
 package com.tr1c.cloudcraft;
 
 import com.tr1c.cloudcraft.block.NeoForgeModBlocks;
+import com.tr1c.cloudcraft.cloudtech.NeoForgeCloudTechBootstrap;
 import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
 import com.tr1c.cloudcraft.item.NeoForgeModCreativeModeTabs;
 import com.tr1c.cloudcraft.item.NeoForgeModItems;

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "cloudcraft:cumulus_cloud_block",
+    "minecraft:fire_charge"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:cumulonimbus_cloud_block"
+  }
+}

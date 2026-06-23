@@ -6,7 +6,7 @@ public final class NeoForgeDataGenerators {
     private NeoForgeDataGenerators() {
     }
 
-    public static void register(GatherDataEvent.Client event) {
+    public static void registerClient(GatherDataEvent.Client event) {
         event.createProvider(CloudCraftAssetProvider::new);
         event.createProvider(CloudCraftRecipeProvider::new);
         event.createProvider(CloudCraftLootTableProvider::new);

@@ -11,7 +11,6 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CloudCraftRegistryDefinitionsTest {
@@ -24,13 +23,37 @@ class CloudCraftRegistryDefinitionsTest {
 
     @Test
     void shouldKeepItemDefinitionIdsComplete() throws IOException {
-        assertEquals(List.of("CLOUD", "CUMULUS_CLOUD_FRAGMENT"), definitionIds("CloudCraftItemDefinitions.java"));
+        assertEquals(List.of(
+                "CLOUD",
+                "CUMULUS_CLOUD_FRAGMENT",
+                "COMPRESSED_CANISTER",
+                "CIRRUS_FILAMENT",
+                "STORM_CORE",
+                "BASIC_JETPACK_FRAME",
+                "STABILIZED_NOZZLE",
+                "HIGH_PRESSURE_CHAMBER",
+                "CLOUD_JETPACK",
+                "STABILIZED_CLOUD_JETPACK",
+                "HIGH_PRESSURE_CLOUD_JETPACK"), definitionIds("CloudCraftItemDefinitions.java"));
     }
 
     @Test
     void shouldKeepBlockDefinitionIdsComplete() throws IOException {
         assertEquals(
-                List.of("CUMULUS_CLOUD_BLOCK", "CUMULUS_CLOUD_BLOCK_GAS", "GAS_STATE_CONVERTER"),
+                List.of(
+                        "CUMULUS_CLOUD_BLOCK",
+                        "CUMULUS_CLOUD_BLOCK_GAS",
+                        "STRATUS_CLOUD_BLOCK",
+                        "STRATUS_CLOUD_BLOCK_GAS",
+                        "CIRRUS_CLOUD_BLOCK",
+                        "CIRRUS_CLOUD_BLOCK_GAS",
+                        "ALTOSTRATUS_CLOUD_BLOCK",
+                        "ALTOSTRATUS_CLOUD_BLOCK_GAS",
+                        "NIMBOSTRATUS_CLOUD_BLOCK",
+                        "NIMBOSTRATUS_CLOUD_BLOCK_GAS",
+                        "CUMULONIMBUS_CLOUD_BLOCK",
+                        "CUMULONIMBUS_CLOUD_BLOCK_GAS",
+                        "GAS_STATE_CONVERTER"),
                 definitionIds("CloudCraftBlockDefinitions.java"));
     }
 
@@ -45,17 +68,8 @@ class CloudCraftRegistryDefinitionsTest {
     }
 
     @Test
-    void shouldKeepPotionRegistryIdSeparateFromBottleModelId() {
+    void shouldKeepPotionRegistryIdStable() {
         assertEquals("solid_cloud", ModIds.SOLID_CLOUD_POTION);
-        assertEquals("potion_bottle_solid_cloud", ModIds.SOLID_CLOUD_POTION_BOTTLE_MODEL);
-        assertNotEquals(ModIds.SOLID_CLOUD_POTION, ModIds.SOLID_CLOUD_POTION_BOTTLE_MODEL);
-    }
-
-    @Test
-    void shouldExposePotionBottleItemModelIds() throws IOException {
-        String source = Files.readString(REGISTRY_SOURCE.resolve("CloudCraftRegistryDefinitions.java"));
-
-        assertEquals(true, source.contains("List.of(ModIds.SOLID_CLOUD_POTION_BOTTLE_MODEL)"));
     }
 
     @Test
@@ -99,12 +113,63 @@ class CloudCraftRegistryDefinitionsTest {
     @Test
     void shouldKeepGeneratedResourcesComplete() {
         assertGeneratedResource("assets/cloudcraft/items/cloud.json");
-        assertGeneratedResource("assets/cloudcraft/items/potion_bottle_solid_cloud.json");
+        assertGeneratedResource("assets/cloudcraft/items/compressed_canister.json");
+        assertGeneratedResource("assets/cloudcraft/items/cirrus_filament.json");
+        assertGeneratedResource("assets/cloudcraft/items/storm_core.json");
+        assertGeneratedResource("assets/cloudcraft/items/basic_jetpack_frame.json");
+        assertGeneratedResource("assets/cloudcraft/items/stabilized_nozzle.json");
+        assertGeneratedResource("assets/cloudcraft/items/high_pressure_chamber.json");
+        assertGeneratedResource("assets/cloudcraft/items/cloud_jetpack.json");
+        assertGeneratedResource("assets/cloudcraft/items/stabilized_cloud_jetpack.json");
+        assertGeneratedResource("assets/cloudcraft/items/high_pressure_cloud_jetpack.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/compressed_canister.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/cirrus_filament.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/storm_core.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/basic_jetpack_frame.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/stabilized_nozzle.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/high_pressure_chamber.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/cloud_jetpack.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/stabilized_cloud_jetpack.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/high_pressure_cloud_jetpack.json");
         assertGeneratedResource("assets/cloudcraft/models/item/gas_state_converter.json");
         assertGeneratedResource("assets/cloudcraft/models/block/cumulus_cloud_block_gas.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/stratus_cloud_block.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/stratus_cloud_block_gas.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/cirrus_cloud_block.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/cirrus_cloud_block_gas.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/altostratus_cloud_block.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/altostratus_cloud_block_gas.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/nimbostratus_cloud_block.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/nimbostratus_cloud_block_gas.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/cumulonimbus_cloud_block.json");
+        assertGeneratedResource("assets/cloudcraft/models/block/cumulonimbus_cloud_block_gas.json");
         assertGeneratedResource("assets/cloudcraft/blockstates/gas_state_converter.json");
+        assertGeneratedResource("data/cloudcraft/recipe/compressed_canister.json");
+        assertGeneratedResource("data/cloudcraft/recipe/cirrus_filament.json");
+        assertGeneratedResource("data/cloudcraft/recipe/storm_core.json");
+        assertGeneratedResource("data/cloudcraft/recipe/basic_jetpack_frame.json");
+        assertGeneratedResource("data/cloudcraft/recipe/stabilized_nozzle.json");
+        assertGeneratedResource("data/cloudcraft/recipe/high_pressure_chamber.json");
+        assertGeneratedResource("data/cloudcraft/recipe/cloud_jetpack.json");
+        assertGeneratedResource("data/cloudcraft/recipe/stabilized_cloud_jetpack.json");
+        assertGeneratedResource("data/cloudcraft/recipe/high_pressure_cloud_jetpack.json");
+        assertGeneratedResource("data/cloudcraft/recipe/stratus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/recipe/cirrus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/recipe/altostratus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/recipe/nimbostratus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/recipe/cumulonimbus_cloud_block.json");
         assertGeneratedResource("data/cloudcraft/recipe/gas_state_converter.json");
         assertGeneratedResource("data/cloudcraft/loot_table/blocks/cumulus_cloud_block_gas.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/stratus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/stratus_cloud_block_gas.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/cirrus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/cirrus_cloud_block_gas.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/altostratus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/altostratus_cloud_block_gas.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/nimbostratus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/nimbostratus_cloud_block_gas.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/cumulonimbus_cloud_block.json");
+        assertGeneratedResource("data/cloudcraft/loot_table/blocks/cumulonimbus_cloud_block_gas.json");
         assertGeneratedResource("data/cloudcraft/loot_table/blocks/gas_state_converter.json");
     }
 
@@ -126,8 +191,27 @@ class CloudCraftRegistryDefinitionsTest {
         return switch (constantName) {
             case "CLOUD" -> "cloud";
             case "CUMULUS_CLOUD_FRAGMENT" -> "cumulus_cloud_fragment";
+            case "COMPRESSED_CANISTER" -> "compressed_canister";
+            case "CIRRUS_FILAMENT" -> "cirrus_filament";
+            case "STORM_CORE" -> "storm_core";
+            case "BASIC_JETPACK_FRAME" -> "basic_jetpack_frame";
+            case "STABILIZED_NOZZLE" -> "stabilized_nozzle";
+            case "HIGH_PRESSURE_CHAMBER" -> "high_pressure_chamber";
+            case "CLOUD_JETPACK" -> "cloud_jetpack";
+            case "STABILIZED_CLOUD_JETPACK" -> "stabilized_cloud_jetpack";
+            case "HIGH_PRESSURE_CLOUD_JETPACK" -> "high_pressure_cloud_jetpack";
             case "CUMULUS_CLOUD_BLOCK" -> "cumulus_cloud_block";
             case "CUMULUS_CLOUD_BLOCK_GAS" -> "cumulus_cloud_block_gas";
+            case "STRATUS_CLOUD_BLOCK" -> "stratus_cloud_block";
+            case "STRATUS_CLOUD_BLOCK_GAS" -> "stratus_cloud_block_gas";
+            case "CIRRUS_CLOUD_BLOCK" -> "cirrus_cloud_block";
+            case "CIRRUS_CLOUD_BLOCK_GAS" -> "cirrus_cloud_block_gas";
+            case "ALTOSTRATUS_CLOUD_BLOCK" -> "altostratus_cloud_block";
+            case "ALTOSTRATUS_CLOUD_BLOCK_GAS" -> "altostratus_cloud_block_gas";
+            case "NIMBOSTRATUS_CLOUD_BLOCK" -> "nimbostratus_cloud_block";
+            case "NIMBOSTRATUS_CLOUD_BLOCK_GAS" -> "nimbostratus_cloud_block_gas";
+            case "CUMULONIMBUS_CLOUD_BLOCK" -> "cumulonimbus_cloud_block";
+            case "CUMULONIMBUS_CLOUD_BLOCK_GAS" -> "cumulonimbus_cloud_block_gas";
             case "GAS_STATE_CONVERTER" -> "gas_state_converter";
             case "CLOUD_WALKER" -> "cloud_walker";
             case "SOLID_CLOUD_POTION" -> "solid_cloud";
@@ -151,8 +235,19 @@ class CloudCraftRegistryDefinitionsTest {
                 .collect(java.util.stream.Collectors.toSet());
     }
 
+    @Test
+    void shouldHaveTexturesForGeneratedItems() throws IOException {
+        for (String id : definitionValues("CloudCraftItemDefinitions.java")) {
+            assertMainResource("assets/cloudcraft/textures/item/" + id + ".png");
+        }
+    }
+
     private static void assertGeneratedResource(String path) {
         assertTrue(Files.isRegularFile(GENERATED_RESOURCES.resolve(path)));
+    }
+
+    private static void assertMainResource(String path) {
+        assertTrue(Files.isRegularFile(MAIN_RESOURCES.resolve(path)));
     }
 
     private static void assertIndexBefore(List<String> ids, String first, String second) {

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "render_type": "translucent",
+  "textures": {
+    "all": "cloudcraft:block/cloud_block/stratus_cloud_block_gas"
+  }
+}

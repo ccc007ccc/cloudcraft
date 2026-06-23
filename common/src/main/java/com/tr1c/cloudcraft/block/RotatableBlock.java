@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
  * 通用旋转方块，支持水平或全方向旋转
  */
 public class RotatableBlock extends Block {
+    private static final ThreadLocal<Boolean> CONSTRUCTING_VERTICAL_ALLOWED = ThreadLocal.withInitial(() -> false);
 
     // 水平旋转方向 (NORTH, SOUTH, EAST, WEST)
     public static final EnumProperty<Direction> FACING_HORIZONTAL = BlockStateProperties.HORIZONTAL_FACING;
@@ -27,8 +28,9 @@ public class RotatableBlock extends Block {
      * @param allowVertical 是否允许上下方向旋转，如果 false 则只允许水平旋转
      */
     public RotatableBlock(Properties properties, boolean allowVertical) {
-        super(properties);
+        super(prepareProperties(properties, allowVertical));
         this.verticalAllowed = allowVertical;
+        CONSTRUCTING_VERTICAL_ALLOWED.remove();
 
         // 默认状态
         this.registerDefaultState(this.stateDefinition.any().setValue(
@@ -39,7 +41,7 @@ public class RotatableBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(verticalAllowed ? FACING_6 : FACING_HORIZONTAL);
+        builder.add(CONSTRUCTING_VERTICAL_ALLOWED.get() ? FACING_6 : FACING_HORIZONTAL);
     }
 
     @Nullable
@@ -48,5 +50,11 @@ public class RotatableBlock extends Block {
         Direction dir = verticalAllowed ? context.getNearestLookingDirection().getOpposite()
                 : context.getHorizontalDirection().getOpposite();
         return this.defaultBlockState().setValue(verticalAllowed ? FACING_6 : FACING_HORIZONTAL, dir);
+    }
+
+    private static Properties prepareProperties(Properties properties, boolean allowVertical) {
+        // Block calls createBlockStateDefinition before this constructor body can assign fields.
+        CONSTRUCTING_VERTICAL_ALLOWED.set(allowVertical);
+        return properties;
     }
 }

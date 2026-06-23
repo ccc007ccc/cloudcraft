@@ -2,6 +2,7 @@ package com.tr1c.cloudcraft.block;
 
 import com.tr1c.cloudcraft.CloudCraft;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlockGas;
+import com.tr1c.cloudcraft.block.custom.cloud_block.MotionGasCloudBlock;
 import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
 import com.tr1c.cloudcraft.item.NeoForgeModItems;
 import com.tr1c.cloudcraft.registry.CloudCraftBlockDefinitions;
@@ -26,6 +27,16 @@ public final class NeoForgeModBlocks {
     public static final DeferredBlock<Block> CUMULUS_CLOUD_BLOCK = deferredBlockById(ModIds.CUMULUS_CLOUD_BLOCK);
     public static final DeferredBlock<CumulusCloudBlockGas> CUMULUS_CLOUD_BLOCK_GAS = deferredBlockById(
             ModIds.CUMULUS_CLOUD_BLOCK_GAS);
+    public static final DeferredBlock<Block> STRATUS_CLOUD_BLOCK = deferredBlockById(ModIds.STRATUS_CLOUD_BLOCK);
+    public static final DeferredBlock<MotionGasCloudBlock> STRATUS_CLOUD_BLOCK_GAS = deferredBlockById(ModIds.STRATUS_CLOUD_BLOCK_GAS);
+    public static final DeferredBlock<Block> CIRRUS_CLOUD_BLOCK = deferredBlockById(ModIds.CIRRUS_CLOUD_BLOCK);
+    public static final DeferredBlock<MotionGasCloudBlock> CIRRUS_CLOUD_BLOCK_GAS = deferredBlockById(ModIds.CIRRUS_CLOUD_BLOCK_GAS);
+    public static final DeferredBlock<Block> ALTOSTRATUS_CLOUD_BLOCK = deferredBlockById(ModIds.ALTOSTRATUS_CLOUD_BLOCK);
+    public static final DeferredBlock<MotionGasCloudBlock> ALTOSTRATUS_CLOUD_BLOCK_GAS = deferredBlockById(ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS);
+    public static final DeferredBlock<Block> NIMBOSTRATUS_CLOUD_BLOCK = deferredBlockById(ModIds.NIMBOSTRATUS_CLOUD_BLOCK);
+    public static final DeferredBlock<MotionGasCloudBlock> NIMBOSTRATUS_CLOUD_BLOCK_GAS = deferredBlockById(ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS);
+    public static final DeferredBlock<Block> CUMULONIMBUS_CLOUD_BLOCK = deferredBlockById(ModIds.CUMULONIMBUS_CLOUD_BLOCK);
+    public static final DeferredBlock<MotionGasCloudBlock> CUMULONIMBUS_CLOUD_BLOCK_GAS = deferredBlockById(ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS);
     public static final DeferredBlock<Block> GAS_STATE_CONVERTER = deferredBlockById(ModIds.GAS_STATE_CONVERTER);
 
     private NeoForgeModBlocks() {
@@ -53,7 +64,7 @@ public final class NeoForgeModBlocks {
                 BlockBehaviour.Properties.of().setId(ModIds.blockKey(id)),
                 NeoForgeModEffects.CLOUD_WALKER,
                 () -> NeoForgeModItems.CUMULUS_CLOUD_FRAGMENT.get(),
-                () -> blocks.get(ModIds.CUMULUS_CLOUD_BLOCK).get().defaultBlockState());
+                solidId -> blocks.get(solidId).get().defaultBlockState());
     }
 
     public static void register(IEventBus modEventBus) {

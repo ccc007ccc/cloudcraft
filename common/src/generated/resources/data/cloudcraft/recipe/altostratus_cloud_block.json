@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "cloudcraft:stratus_cloud_block",
+    "minecraft:light_gray_dye"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudcraft:altostratus_cloud_block"
+  }
+}

@@ -50,6 +50,113 @@ public final class CloudCraftRecipeProvider implements DataProvider {
                 .unlockedBy("has_cumulus_cloud_block", has(item(ModIds.CUMULUS_CLOUD_BLOCK)))
                 .save(recipeOutput, recipeKey(ModIds.CUMULUS_CLOUD_FRAGMENT));
 
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.STRATUS_CLOUD_BLOCK))
+                .requires(item(ModIds.CUMULUS_CLOUD_BLOCK))
+                .requires(Items.SNOWBALL)
+                .unlockedBy("has_cumulus_cloud_block", has(item(ModIds.CUMULUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.STRATUS_CLOUD_BLOCK));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.CIRRUS_CLOUD_BLOCK))
+                .requires(item(ModIds.CUMULUS_CLOUD_BLOCK))
+                .requires(Items.FEATHER)
+                .unlockedBy("has_cumulus_cloud_block", has(item(ModIds.CUMULUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.CIRRUS_CLOUD_BLOCK));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.ALTOSTRATUS_CLOUD_BLOCK))
+                .requires(item(ModIds.STRATUS_CLOUD_BLOCK))
+                .requires(Items.LIGHT_GRAY_DYE)
+                .unlockedBy("has_stratus_cloud_block", has(item(ModIds.STRATUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.ALTOSTRATUS_CLOUD_BLOCK));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.NIMBOSTRATUS_CLOUD_BLOCK))
+                .requires(item(ModIds.STRATUS_CLOUD_BLOCK))
+                .requires(Items.WATER_BUCKET)
+                .unlockedBy("has_stratus_cloud_block", has(item(ModIds.STRATUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.NIMBOSTRATUS_CLOUD_BLOCK));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.CUMULONIMBUS_CLOUD_BLOCK))
+                .requires(item(ModIds.CUMULUS_CLOUD_BLOCK))
+                .requires(Items.FIRE_CHARGE)
+                .unlockedBy("has_cumulus_cloud_block", has(item(ModIds.CUMULUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.CUMULONIMBUS_CLOUD_BLOCK));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.COMPRESSED_CANISTER))
+                .requires(item(ModIds.CUMULUS_CLOUD_FRAGMENT))
+                .requires(Items.COPPER_INGOT)
+                .unlockedBy("has_cumulus_cloud_fragment", has(item(ModIds.CUMULUS_CLOUD_FRAGMENT)))
+                .save(recipeOutput, recipeKey(ModIds.COMPRESSED_CANISTER));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.CIRRUS_FILAMENT))
+                .requires(item(ModIds.CIRRUS_CLOUD_BLOCK))
+                .requires(Items.STRING)
+                .unlockedBy("has_cirrus_cloud_block", has(item(ModIds.CIRRUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.CIRRUS_FILAMENT));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.STORM_CORE))
+                .requires(item(ModIds.CUMULONIMBUS_CLOUD_BLOCK))
+                .requires(Items.BLAZE_POWDER)
+                .unlockedBy("has_cumulonimbus_cloud_block", has(item(ModIds.CUMULONIMBUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.STORM_CORE));
+
+        ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.BASIC_JETPACK_FRAME))
+                .define('I', Items.IRON_INGOT)
+                .define('C', item(ModIds.COMPRESSED_CANISTER))
+                .pattern("I I")
+                .pattern("ICI")
+                .pattern(" I ")
+                .unlockedBy("has_compressed_canister", has(item(ModIds.COMPRESSED_CANISTER)))
+                .save(recipeOutput, recipeKey(ModIds.BASIC_JETPACK_FRAME));
+
+        ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.STABILIZED_NOZZLE))
+                .define('F', item(ModIds.CIRRUS_FILAMENT))
+                .define('C', item(ModIds.COMPRESSED_CANISTER))
+                .define('R', Items.COPPER_INGOT)
+                .pattern(" F ")
+                .pattern("RCR")
+                .pattern(" F ")
+                .unlockedBy("has_cirrus_filament", has(item(ModIds.CIRRUS_FILAMENT)))
+                .save(recipeOutput, recipeKey(ModIds.STABILIZED_NOZZLE));
+
+        ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.HIGH_PRESSURE_CHAMBER))
+                .define('S', item(ModIds.STORM_CORE))
+                .define('C', item(ModIds.COMPRESSED_CANISTER))
+                .define('I', Items.IRON_BLOCK)
+                .pattern(" I ")
+                .pattern("SCS")
+                .pattern(" I ")
+                .unlockedBy("has_storm_core", has(item(ModIds.STORM_CORE)))
+                .save(recipeOutput, recipeKey(ModIds.HIGH_PRESSURE_CHAMBER));
+
+        ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.TRANSPORTATION, item(ModIds.CLOUD_JETPACK))
+                .define('F', item(ModIds.BASIC_JETPACK_FRAME))
+                .define('C', item(ModIds.CUMULUS_CLOUD_FRAGMENT))
+                .define('L', Items.LEATHER)
+                .pattern("CLC")
+                .pattern("CFC")
+                .pattern(" L ")
+                .unlockedBy("has_basic_jetpack_frame", has(item(ModIds.BASIC_JETPACK_FRAME)))
+                .save(recipeOutput, recipeKey(ModIds.CLOUD_JETPACK));
+
+        ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.TRANSPORTATION, item(ModIds.STABILIZED_CLOUD_JETPACK))
+                .define('J', item(ModIds.CLOUD_JETPACK))
+                .define('N', item(ModIds.STABILIZED_NOZZLE))
+                .define('F', item(ModIds.CIRRUS_FILAMENT))
+                .pattern(" F ")
+                .pattern("NJN")
+                .pattern(" F ")
+                .unlockedBy("has_cloud_jetpack", has(item(ModIds.CLOUD_JETPACK)))
+                .save(recipeOutput, recipeKey(ModIds.STABILIZED_CLOUD_JETPACK));
+
+        ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.TRANSPORTATION, item(ModIds.HIGH_PRESSURE_CLOUD_JETPACK))
+                .define('J', item(ModIds.STABILIZED_CLOUD_JETPACK))
+                .define('H', item(ModIds.HIGH_PRESSURE_CHAMBER))
+                .define('S', item(ModIds.STORM_CORE))
+                .pattern(" S ")
+                .pattern("H J")
+                .pattern(" S ")
+                .unlockedBy("has_stabilized_cloud_jetpack", has(item(ModIds.STABILIZED_CLOUD_JETPACK)))
+                .save(recipeOutput, recipeKey(ModIds.HIGH_PRESSURE_CLOUD_JETPACK));
+
         ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.GAS_STATE_CONVERTER))
                 .define('I', Items.IRON_INGOT)
                 .define('B', Items.GLASS_BOTTLE)

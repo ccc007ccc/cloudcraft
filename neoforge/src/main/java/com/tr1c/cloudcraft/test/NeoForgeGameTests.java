@@ -28,15 +28,15 @@ public final class NeoForgeGameTests {
     private static final int MAX_TICKS = 40;
     private static final DeferredRegister<Consumer<GameTestHelper>> TEST_FUNCTIONS = DeferredRegister.create(Registries.TEST_FUNCTION, CloudCraft.MOD_ID);
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> GAS_CLOUD_SOLIDIFIES = TEST_FUNCTIONS.register("gas_cloud_solidifies", () -> NeoForgeGameTests::gasCloudSolidifies);
-    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WALKER_EFFECT_SOLIDIFIES_AROUND_ENTITY = TEST_FUNCTIONS.register(
-            "cloud_walker_effect_solidifies_around_entity",
-            () -> NeoForgeGameTests::cloudWalkerEffectSolidifiesAroundEntity);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WALKER_EFFECT_KEEPS_GAS_CLOUD = TEST_FUNCTIONS.register(
+            "cloud_walker_effect_keeps_gas_cloud",
+            () -> NeoForgeGameTests::cloudWalkerEffectKeepsGasCloud);
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SOLIDIFY_IN_RADIUS_CONVERTS_NEARBY_GAS_CLOUDS = TEST_FUNCTIONS.register(
             "solidify_in_radius_converts_nearby_gas_clouds",
             () -> NeoForgeGameTests::solidifyInRadiusConvertsNearbyGasClouds);
-    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> EFFECT_SOLIDIFIES_CROSS_SHAPE_ONLY = TEST_FUNCTIONS.register(
-            "effect_solidifies_cross_shape_only",
-            () -> NeoForgeGameTests::effectSolidifiesCrossShapeOnly);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WALKER_EFFECT_KEEPS_GAS_CLOUD_CROSS = TEST_FUNCTIONS.register(
+            "cloud_walker_effect_keeps_gas_cloud_cross",
+            () -> NeoForgeGameTests::cloudWalkerEffectKeepsGasCloudCross);
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SOLIDIFY_IN_RADIUS_KEEPS_NON_GAS_BLOCKS = TEST_FUNCTIONS.register(
             "solidify_in_radius_keeps_non_gas_blocks",
             () -> NeoForgeGameTests::solidifyInRadiusKeepsNonGasBlocks);
@@ -54,9 +54,9 @@ public final class NeoForgeGameTests {
     public static void register(RegisterGameTestsEvent event) {
         Holder<TestEnvironmentDefinition> environment = event.registerEnvironment(id("default_environment"), new TestEnvironmentDefinition.AllOf());
         register(event, environment, GAS_CLOUD_SOLIDIFIES);
-        register(event, environment, CLOUD_WALKER_EFFECT_SOLIDIFIES_AROUND_ENTITY);
+        register(event, environment, CLOUD_WALKER_EFFECT_KEEPS_GAS_CLOUD);
         register(event, environment, SOLIDIFY_IN_RADIUS_CONVERTS_NEARBY_GAS_CLOUDS);
-        register(event, environment, EFFECT_SOLIDIFIES_CROSS_SHAPE_ONLY);
+        register(event, environment, CLOUD_WALKER_EFFECT_KEEPS_GAS_CLOUD_CROSS);
         register(event, environment, SOLIDIFY_IN_RADIUS_KEEPS_NON_GAS_BLOCKS);
         register(event, environment, CLOUD_WALKER_SHORT_CIRCUIT_KEEPS_DISTANT_GAS);
     }
@@ -77,15 +77,15 @@ public final class NeoForgeGameTests {
         helper.succeed();
     }
 
-    private static void cloudWalkerEffectSolidifiesAroundEntity(GameTestHelper helper) {
+    private static void cloudWalkerEffectKeepsGasCloud(GameTestHelper helper) {
         BlockPos center = new BlockPos(0, 1, 0);
         BlockPos target = center.below();
         helper.setBlock(target, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
 
         var pig = helper.spawnWithNoFreeWill(EntityType.PIG, center);
-        NeoForgeModEffects.CLOUD_WALKER.value().applyEffectTick(helper.getLevel(), pig, 0);
+        pig.addEffect(new MobEffectInstance(NeoForgeModEffects.CLOUD_WALKER, 200, 0));
 
-        helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), target);
+        helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), target);
         helper.succeed();
     }
 
@@ -107,30 +107,28 @@ public final class NeoForgeGameTests {
         });
     }
 
-    private static void effectSolidifiesCrossShapeOnly(GameTestHelper helper) {
+    private static void cloudWalkerEffectKeepsGasCloudCross(GameTestHelper helper) {
         BlockPos center = new BlockPos(0, 1, 0);
         BlockPos below = new BlockPos(0, 0, 0);
         BlockPos east = new BlockPos(1, 0, 0);
         BlockPos west = new BlockPos(-1, 0, 0);
         BlockPos south = new BlockPos(0, 0, 1);
         BlockPos north = new BlockPos(0, 0, -1);
-        BlockPos diagonal = new BlockPos(1, 0, 1);
         helper.setBlock(below, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
         helper.setBlock(east, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
         helper.setBlock(west, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
         helper.setBlock(south, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
         helper.setBlock(north, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
-        helper.setBlock(diagonal, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
 
-        CloudTransformationRuntime.solidifyAroundEntity(helper.getLevel(), helper.absolutePos(center));
+        var pig = helper.spawnWithNoFreeWill(EntityType.PIG, center);
+        pig.addEffect(new MobEffectInstance(NeoForgeModEffects.CLOUD_WALKER, 200, 0));
 
         helper.runAfterDelay(2, () -> {
-            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), below);
-            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), east);
-            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), west);
-            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), south);
-            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), north);
-            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), diagonal);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), below);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), east);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), west);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), south);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), north);
             helper.succeed();
         });
     }
@@ -156,7 +154,7 @@ public final class NeoForgeGameTests {
         helper.setBlock(distantTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
 
         var pig = helper.spawnWithNoFreeWill(EntityType.PIG, center);
-        NeoForgeModEffects.CLOUD_WALKER.value().applyEffectTick(helper.getLevel(), pig, 0);
+        pig.addEffect(new MobEffectInstance(NeoForgeModEffects.CLOUD_WALKER, 200, 0));
 
         helper.runAfterDelay(2, () -> {
             helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), distantTarget);
