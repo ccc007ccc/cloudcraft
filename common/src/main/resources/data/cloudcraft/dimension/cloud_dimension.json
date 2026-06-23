@@ -4,7 +4,7 @@
     "type": "minecraft:flat",
     "settings": {
       "biome": "cloudcraft:cumulus_fields",
-      "features": false,
+      "features": true,
       "lakes": false,
       "layers": [
         {

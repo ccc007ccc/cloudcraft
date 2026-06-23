@@ -28,7 +28,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.RegisterGameTestsEvent;
@@ -72,6 +74,9 @@ public final class NeoForgeGameTests {
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE = TEST_FUNCTIONS.register(
             "cloud_dimension_landing_supports_jetpack_recharge",
             () -> NeoForgeGameTests::cloudDimensionLandingSupportsJetpackRecharge);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_BIOME_HAS_NATURAL_FEATURES = TEST_FUNCTIONS.register(
+            "cloud_dimension_biome_has_natural_features",
+            () -> NeoForgeGameTests::cloudDimensionBiomeHasNaturalFeatures);
 
     private NeoForgeGameTests() {
     }
@@ -93,6 +98,7 @@ public final class NeoForgeGameTests {
         register(event, environment, CLOUD_DIMENSION_LOADS);
         register(event, environment, CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR);
         register(event, environment, CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE);
+        register(event, environment, CLOUD_DIMENSION_BIOME_HAS_NATURAL_FEATURES);
     }
 
     private static void register(RegisterGameTestsEvent event, Holder<TestEnvironmentDefinition> environment, DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> testFunction) {
@@ -287,6 +293,26 @@ public final class NeoForgeGameTests {
                     "Cloud landing surface should recharge cloud jetpacks");
             helper.succeed();
         });
+    }
+
+    private static void cloudDimensionBiomeHasNaturalFeatures(GameTestHelper helper) {
+        var biomeRegistry = helper.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
+        Biome biome = biomeRegistry.getOrThrow(CloudDimensionKeys.CUMULUS_FIELDS).value();
+
+        assertHasPlacedFeature(helper, biome, "stratus_cloud_patch");
+        assertHasPlacedFeature(helper, biome, "nimbostratus_cloud_patch");
+        assertHasPlacedFeature(helper, biome, "cumulonimbus_cloud_patch");
+        assertHasPlacedFeature(helper, biome, "cirrus_gas_wisps");
+        helper.succeed();
+    }
+
+    private static void assertHasPlacedFeature(GameTestHelper helper, Biome biome, String featureId) {
+        ResourceKey<PlacedFeature> key = ResourceKey.create(Registries.PLACED_FEATURE, ModIds.id(featureId));
+        boolean present = biome.getGenerationSettings().features().stream()
+                .flatMap(holderSet -> holderSet.stream())
+                .anyMatch(holder -> holder.unwrapKey().map(key::equals).orElse(false));
+
+        helper.assertTrue(present, "Cumulus fields should include placed feature " + key.identifier());
     }
 
     private static Identifier id(String path) {

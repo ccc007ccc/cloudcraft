@@ -194,7 +194,7 @@
 
 - [ ] 自定义实体基础包结构。
 - [ ] 最小云生物实体。
-- [ ] 云维度自然生成规则。
+- [x] 云维度自然生成规则。
 - [ ] 天气事件规则。
 - [ ] 积雨云雷暴事件。
 - [ ] 雨层云降雨/水循环事件。
@@ -219,3 +219,4 @@
 - [x] Fabric 服务端烟测可加载 `cloudcraft 1.0.0`，使用 `level-type=cloudcraft:cloud_dimension` 创建新世界，加载 1490 recipes / 1595 advancements，并启动到 `Done`。
 - [x] 物品贴图审计显示所有正式 `textures/item/*.png` 的可见像素边界都在画布中心 ±0.5 像素内；喷气背包、基础框架、压缩气罐、稳定喷口、高压腔体等对称部件镜像差异为 0%。
 - [x] Fabric 客户端烟测可启动到 Minecraft 1.21.11 主菜单；日志显示 ResourceManager 加载 `cloudcraft`，并成功创建 `minecraft:textures/atlas/items.png-atlas`。
+- [x] NeoForge GameTest 已验证 `cloudcraft:cumulus_fields` biome 运行时包含 `stratus_cloud_patch`、`nimbostratus_cloud_patch`、`cumulonimbus_cloud_patch`、`cirrus_gas_wisps` 四个 placed feature，13 个必需测试全部通过。

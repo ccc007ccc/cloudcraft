@@ -10,14 +10,20 @@
   "features": [
     [],
     [],
+    [
+      "cloudcraft:stratus_cloud_patch",
+      "cloudcraft:nimbostratus_cloud_patch",
+      "cloudcraft:cumulonimbus_cloud_patch"
+    ],
     [],
     [],
     [],
     [],
     [],
     [],
-    [],
-    [],
+    [
+      "cloudcraft:cirrus_gas_wisps"
+    ],
     []
   ],
   "has_precipitation": false,

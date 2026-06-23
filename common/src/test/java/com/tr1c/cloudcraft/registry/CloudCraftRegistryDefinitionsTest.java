@@ -221,6 +221,28 @@ class CloudCraftRegistryDefinitionsTest {
         assertMainResource("data/cloudcraft/dimension/cloud_dimension.json");
         assertMainResource("data/cloudcraft/dimension_type/cloud_dimension.json");
         assertMainResource("data/cloudcraft/worldgen/biome/cumulus_fields.json");
+        assertMainResource("data/cloudcraft/worldgen/configured_feature/stratus_cloud_patch.json");
+        assertMainResource("data/cloudcraft/worldgen/configured_feature/nimbostratus_cloud_patch.json");
+        assertMainResource("data/cloudcraft/worldgen/configured_feature/cumulonimbus_cloud_patch.json");
+        assertMainResource("data/cloudcraft/worldgen/configured_feature/cirrus_gas_wisps.json");
+        assertMainResource("data/cloudcraft/worldgen/placed_feature/stratus_cloud_patch.json");
+        assertMainResource("data/cloudcraft/worldgen/placed_feature/nimbostratus_cloud_patch.json");
+        assertMainResource("data/cloudcraft/worldgen/placed_feature/cumulonimbus_cloud_patch.json");
+        assertMainResource("data/cloudcraft/worldgen/placed_feature/cirrus_gas_wisps.json");
+    }
+
+    @Test
+    void shouldEnableNaturalCloudDimensionFeatures() throws IOException {
+        String dimension = Files.readString(MAIN_RESOURCES.resolve("data/cloudcraft/dimension/cloud_dimension.json"));
+        String preset = Files.readString(MAIN_RESOURCES.resolve("data/cloudcraft/worldgen/world_preset/cloud_dimension.json"));
+        String biome = Files.readString(MAIN_RESOURCES.resolve("data/cloudcraft/worldgen/biome/cumulus_fields.json"));
+
+        assertTrue(dimension.contains("\"features\": true"));
+        assertTrue(preset.contains("\"features\": true"));
+        assertTrue(biome.contains("\"cloudcraft:stratus_cloud_patch\""));
+        assertTrue(biome.contains("\"cloudcraft:nimbostratus_cloud_patch\""));
+        assertTrue(biome.contains("\"cloudcraft:cumulonimbus_cloud_patch\""));
+        assertTrue(biome.contains("\"cloudcraft:cirrus_gas_wisps\""));
     }
 
     private static List<String> definitionIds(String sourceFile) throws IOException {
