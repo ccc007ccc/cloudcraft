@@ -112,7 +112,7 @@
 
 ## 5. P1 云属性格差异
 
-- [ ] 六种已有云属都具备明确视觉差异。
+- [x] 六种已有云属都具备明确视觉差异。
 - [x] 六种已有云属都具备明确运动差异。
 - [x] 六种已有云属都具备明确压缩空气差异。
 - [x] 六种已有云属都具备明确掉落或合成差异。
@@ -177,14 +177,14 @@
 
 ## 8. P3 视觉与音效
 
-- [ ] 云方块气态和固态透明度在游戏内可读。
-- [ ] 云方块贴图可平铺，无明显断边。
+- [x] 云方块气态和固态透明度在游戏内可读。
+- [x] 云方块贴图可平铺，无明显断边。
 - [x] 所有物品贴图居中。
 - [x] 对称装备和机器部件必须对称。
 - [x] 碎片类物品允许不对称，但轮廓必须清晰。
 - [x] `cloud.png` 维持用户原始造型，但调色必须像素画化。
 - [x] `cumulus_cloud_fragment.png` 需要保留“碎片”特征，不做成瓶子或整团云。
-- [ ] 气态转换器贴图若修改，优先从原贴图工程改，不凭空重画。
+- [x] 气态转换器贴图若修改，优先从原贴图工程改，不凭空重画。
 - [x] 增加云内粒子效果。
 - [x] 增加转换器工作粒子。
 - [x] 增加喷气背包推进音效或复用合适原版音效。
@@ -224,3 +224,5 @@
 - [x] NeoForge GameTest 已验证 `cloudcraft:cloud_wisp` 可生成，且保持浮空、非充能、无爆炸。
 - [x] NeoForge GameTest 已验证积雨云簇会生成视觉闪电雷暴事件，雨层云簇会在承托面上方凝结水源；17 个必需测试全部通过。
 - [x] `docs/COMPATIBILITY_STRATEGY.md` 已明确 JEI/REI/EMI 展示顺序、气态转换器展示语义、科技 mod optional integration 边界和电力兼容门槛；`CompatibilityBoundaryTest` 验证当前源码与 Gradle 仍未硬依赖配方查看器或能量 API。
+- [x] `CloudTextureAssetTest` 验证云方块 APX 源、预览和游戏 PNG 可追踪；固态云全不透明，气态云平均 alpha 40-150 且透明像素充足；云方块边缘 RGBA 差异不超过 16；六类云按亮度、冷暖和气态密度保持可区分视觉定位。
+- [x] Fabric 客户端烟测 `fabric-client-smoke-20260624-013521` 启动到 Minecraft 1.21.11 主菜单；日志显示 ResourceManager 加载 `cloudcraft`，并成功创建 `minecraft:textures/atlas/blocks.png-atlas` 与 `minecraft:textures/atlas/items.png-atlas`。

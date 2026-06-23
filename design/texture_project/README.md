@@ -2,7 +2,7 @@
 
 Editable AgentPaint sources for CloudCraft hand-authored textures.
 
-Note: the repository currently ignores `design/`, so this folder is a local art project workspace unless `.gitignore` is changed later.
+This folder is tracked with the repository so APX sources, previews, references, and exported game textures remain traceable.
 
 ## Source layout
 
