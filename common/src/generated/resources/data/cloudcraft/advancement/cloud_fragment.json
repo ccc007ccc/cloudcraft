@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:root",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:cumulus_cloud_fragment"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.cloud_fragment.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:cumulus_cloud_fragment"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.cloud_fragment.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

@@ -36,6 +36,8 @@ public final class ModIds {
     public static final String CLOUD_WALKER = "cloud_walker";
     public static final String SOLID_CLOUD_POTION = "solid_cloud";
     public static final String CLOUD_TAB = "cloud_tab";
+    public static final String CLOUD_DIMENSION = "cloud_dimension";
+    public static final String CUMULUS_FIELDS = "cumulus_fields";
 
     private ModIds() {
     }

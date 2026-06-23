@@ -41,7 +41,7 @@ public final class CloudCraftItemDefinitions {
                         .build())
                 .component(DataComponents.CONSUMABLE, Consumable.builder()
                         .onConsume(new ApplyStatusEffectsConsumeEffect(
-                                new MobEffectInstance(MobEffects.LEVITATION, 200, 0),
+                                new MobEffectInstance(MobEffects.SLOW_FALLING, 160, 0),
                                 1.0F))
                         .build()));
     }

@@ -1,0 +1,31 @@
+{
+  "parent": "cloudcraft:gas_state_converter",
+  "criteria": {
+    "entered_dimension": {
+      "conditions": {
+        "to": "cloudcraft:cloud_dimension"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.enter_cloud_dimension.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:gas_state_converter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.enter_cloud_dimension.title"
+    }
+  },
+  "requirements": [
+    [
+      "entered_dimension"
+    ]
+  ]
+}

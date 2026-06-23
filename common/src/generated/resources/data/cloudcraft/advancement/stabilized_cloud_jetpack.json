@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:cloud_jetpack",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:stabilized_cloud_jetpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.stabilized_cloud_jetpack.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:stabilized_cloud_jetpack"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.stabilized_cloud_jetpack.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

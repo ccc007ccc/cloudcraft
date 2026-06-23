@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:cloud_fragment",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:compressed_canister"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.compressed_canister.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:compressed_canister"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.compressed_canister.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:cloud_fragment",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:cirrus_filament"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.cirrus_filament.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:cirrus_filament"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.cirrus_filament.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

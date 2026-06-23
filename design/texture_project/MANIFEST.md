@@ -9,16 +9,25 @@ APX sources in `source/item/` export to `common/src/main/resources/assets/cloudc
 - `cloud.apx` -> `cloud.png`
 - `cloud_jetpack.apx` -> `cloud_jetpack.png`
 - `compressed_canister.apx` -> `compressed_canister.png`
-- `cumulus_cloud_boots.apx` -> `cumulus_cloud_boots.png`
-- `cumulus_cloud_chestplate.apx` -> `cumulus_cloud_chestplate.png`
 - `cumulus_cloud_fragment.apx` -> `cumulus_cloud_fragment.png`
-- `cumulus_cloud_helmet.apx` -> `cumulus_cloud_helmet.png`
-- `cumulus_cloud_leggings.apx` -> `cumulus_cloud_leggings.png`
 - `high_pressure_chamber.apx` -> `high_pressure_chamber.png`
 - `high_pressure_cloud_jetpack.apx` -> `high_pressure_cloud_jetpack.png`
 - `stabilized_cloud_jetpack.apx` -> `stabilized_cloud_jetpack.png`
 - `stabilized_nozzle.apx` -> `stabilized_nozzle.png`
 - `storm_core.apx` -> `storm_core.png`
+
+## Unregistered Armor Reference
+
+These files are not exported to game resources because the armor line is not registered in gameplay yet.
+
+- `reference/unregistered_armor/source/item/cumulus_cloud_helmet.apx`
+- `reference/unregistered_armor/source/item/cumulus_cloud_chestplate.apx`
+- `reference/unregistered_armor/source/item/cumulus_cloud_leggings.apx`
+- `reference/unregistered_armor/source/item/cumulus_cloud_boots.apx`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_helmet.png`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_chestplate.png`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_leggings.png`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_boots.png`
 
 ## Cloud Block Textures
 

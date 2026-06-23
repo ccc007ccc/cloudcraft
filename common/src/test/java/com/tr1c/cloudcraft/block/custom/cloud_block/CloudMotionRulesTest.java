@@ -4,16 +4,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CloudMotionRulesTest {
     @Test
-    void shouldPreserveHorizontalMovementWithoutChangingDirection() {
+    void shouldConvergeHorizontalMovementTowardTargetWithoutChangingDirection() {
         CloudMotionRules.Movement movement = new CloudMotionRules.Movement(1.0, -0.2, -1.0);
 
         CloudMotionRules.Movement adjusted = CloudMotionRules.apply(movement, CloudMotionRules.STRATUS_GAS);
 
-        assertEquals(1.0, adjusted.x(), 0.0001);
-        assertEquals(-1.0, adjusted.z(), 0.0001);
+        assertEquals(-adjusted.z(), adjusted.x(), 0.0001);
+        assertEquals(1.1383, Math.hypot(adjusted.x(), adjusted.z()), 0.0001);
         assertEquals(-0.192, adjusted.y(), 0.0001);
     }
 
@@ -28,15 +29,25 @@ class CloudMotionRulesTest {
     }
 
     @Test
-    void shouldKeepAllCloudGasHorizontalMovement() {
+    void shouldGiveCloudGasTypesDistinctHorizontalMovement() {
         CloudMotionRules.Movement movement = new CloudMotionRules.Movement(1.0, 0.0, 0.0);
 
-        assertEquals(1.0, CloudMotionRules.apply(movement, CloudMotionRules.CUMULUS_GAS).x(), 0.0001);
-        assertEquals(1.0, CloudMotionRules.apply(movement, CloudMotionRules.STRATUS_GAS).x(), 0.0001);
-        assertEquals(1.0, CloudMotionRules.apply(movement, CloudMotionRules.CIRRUS_GAS).x(), 0.0001);
-        assertEquals(1.0, CloudMotionRules.apply(movement, CloudMotionRules.ALTOSTRATUS_GAS).x(), 0.0001);
-        assertEquals(1.0, CloudMotionRules.apply(movement, CloudMotionRules.NIMBOSTRATUS_GAS).x(), 0.0001);
-        assertEquals(1.0, CloudMotionRules.apply(movement, CloudMotionRules.CUMULONIMBUS_GAS).x(), 0.0001);
+        assertEquals(0.974, CloudMotionRules.apply(movement, CloudMotionRules.CIRRUS_GAS).x(), 0.0001);
+        assertEquals(0.9472, CloudMotionRules.apply(movement, CloudMotionRules.CUMULUS_GAS).x(), 0.0001);
+        assertEquals(0.8964, CloudMotionRules.apply(movement, CloudMotionRules.ALTOSTRATUS_GAS).x(), 0.0001);
+        assertEquals(0.8152, CloudMotionRules.apply(movement, CloudMotionRules.STRATUS_GAS).x(), 0.0001);
+        assertEquals(0.7536, CloudMotionRules.apply(movement, CloudMotionRules.NIMBOSTRATUS_GAS).x(), 0.0001);
+        assertEquals(0.7348, CloudMotionRules.apply(movement, CloudMotionRules.CUMULONIMBUS_GAS).x(), 0.0001);
+    }
+
+    @Test
+    void shouldNotImmediatelyClampHorizontalMovementToTarget() {
+        CloudMotionRules.Movement movement = new CloudMotionRules.Movement(1.0, 0.0, 0.0);
+
+        double adjusted = CloudMotionRules.apply(movement, CloudMotionRules.STRATUS_GAS).x();
+
+        assertTrue(adjusted > CloudMotionRules.STRATUS_GAS.horizontalTargetSpeed());
+        assertTrue(adjusted < movement.x());
     }
 
     @Test
@@ -54,7 +65,9 @@ class CloudMotionRulesTest {
 
     @Test
     void shouldRejectInvalidMotionConfiguration() {
-        assertThrows(IllegalArgumentException.class, () -> new CloudMotionRules.Motion(-0.1, 1.0));
-        assertThrows(IllegalArgumentException.class, () -> new CloudMotionRules.Motion(1.0, -0.1));
+        assertThrows(IllegalArgumentException.class, () -> new CloudMotionRules.Motion(-0.1, 0.1, 1.0));
+        assertThrows(IllegalArgumentException.class, () -> new CloudMotionRules.Motion(0.1, -0.1, 1.0));
+        assertThrows(IllegalArgumentException.class, () -> new CloudMotionRules.Motion(0.1, 1.1, 1.0));
+        assertThrows(IllegalArgumentException.class, () -> new CloudMotionRules.Motion(0.1, 0.1, -0.1));
     }
 }

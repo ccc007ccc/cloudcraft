@@ -11,6 +11,7 @@ Note: the repository currently ignores `design/`, so this folder is a local art 
 - `source/block/gas_state_converter/`: model part textures imported from the original tracked PNGs.
 - `source/mob_effect/`: 18x18 status effect icons.
 - `reference/original/`: original tracked PNGs used as conversion/import references.
+- `reference/unregistered_armor/`: cumulus armor art kept as reference only until the armor line is implemented.
 
 ## Export targets
 
@@ -22,6 +23,8 @@ Rendered PNG files are exported to:
 - `common/src/main/resources/assets/cloudcraft/textures/mob_effect/`
 
 Supersampled review previews live under `preview/` and are not game assets.
+
+Unregistered reference art must stay under `reference/` and must not be exported to `common/src/main/resources` until the matching gameplay registration, language keys, recipes, and tests exist.
 
 ## Style
 

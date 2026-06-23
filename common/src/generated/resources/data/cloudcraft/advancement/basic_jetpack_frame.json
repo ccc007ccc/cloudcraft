@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:compressed_canister",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:basic_jetpack_frame"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.basic_jetpack_frame.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:basic_jetpack_frame"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.basic_jetpack_frame.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

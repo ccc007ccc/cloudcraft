@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:basic_jetpack_frame",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:cloud_jetpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.cloud_jetpack.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:cloud_jetpack"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.cloud_jetpack.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

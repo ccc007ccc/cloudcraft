@@ -270,12 +270,12 @@ Minecraft status effect icon, cloud walker, small white boot stepping on a soft 
 
 ## 3. 现在不急着重做的贴图
 
-这些资源仓库里已经有，但**当前定义文件没有注册到正式玩法主线**，所以不是这轮必须生成：
+这些资源已移入 `design/texture_project/reference/unregistered_armor/`，仅作为后续盔甲线参考。当前定义文件没有注册到正式玩法主线，所以不导出到 `common/src/main/resources`：
 
-- `textures/item/cumulus_cloud_helmet.png`
-- `textures/item/cumulus_cloud_chestplate.png`
-- `textures/item/cumulus_cloud_leggings.png`
-- `textures/item/cumulus_cloud_boots.png`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_helmet.png`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_chestplate.png`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_leggings.png`
+- `reference/unregistered_armor/game/textures/item/cumulus_cloud_boots.png`
 
 如果后面你要正式接盔甲线，再单独给它们做一组统一 prompt 更合适。
 

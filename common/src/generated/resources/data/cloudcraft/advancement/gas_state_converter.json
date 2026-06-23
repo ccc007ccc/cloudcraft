@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:compressed_canister",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:gas_state_converter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.cloudcraft.gas_state_converter.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:gas_state_converter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.gas_state_converter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

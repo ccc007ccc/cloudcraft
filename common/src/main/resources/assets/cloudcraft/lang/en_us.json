@@ -46,5 +46,31 @@
   "block.cloudcraft.cumulonimbus_cloud_block_gas": "Cumulonimbus Cloud",
   "block.cloudcraft.gas_state_converter": "Gas State Converter",
 
-  "effect.cloudcraft.cloud_walker": "Cloud Walker"
+  "effect.cloudcraft.cloud_walker": "Cloud Walker",
+
+  "advancements.cloudcraft.root.title": "CloudCraft",
+  "advancements.cloudcraft.root.description": "Find your first usable cloud material.",
+  "advancements.cloudcraft.cloud_fragment.title": "Cloud Breaker",
+  "advancements.cloudcraft.cloud_fragment.description": "Collect a cumulus cloud fragment.",
+  "advancements.cloudcraft.compressed_canister.title": "Pocket Pressure",
+  "advancements.cloudcraft.compressed_canister.description": "Craft a compressed canister for cloud-tech equipment.",
+  "advancements.cloudcraft.cirrus_filament.title": "High-Air Thread",
+  "advancements.cloudcraft.cirrus_filament.description": "Refine cirrus filament for stable airflow parts.",
+  "advancements.cloudcraft.storm_core.title": "Storm in Hand",
+  "advancements.cloudcraft.storm_core.description": "Bind a storm core from cumulonimbus material.",
+  "advancements.cloudcraft.basic_jetpack_frame.title": "Frame for Flight",
+  "advancements.cloudcraft.basic_jetpack_frame.description": "Build the basic frame for a cloud jetpack.",
+  "advancements.cloudcraft.cloud_jetpack.title": "First Lift",
+  "advancements.cloudcraft.cloud_jetpack.description": "Craft a cloud jetpack.",
+  "advancements.cloudcraft.stabilized_cloud_jetpack.title": "Stable Thrust",
+  "advancements.cloudcraft.stabilized_cloud_jetpack.description": "Upgrade to a stabilized cloud jetpack.",
+  "advancements.cloudcraft.high_pressure_cloud_jetpack.title": "High-Pressure Flight",
+  "advancements.cloudcraft.high_pressure_cloud_jetpack.description": "Complete the high-pressure cloud jetpack.",
+  "advancements.cloudcraft.gas_state_converter.title": "Condensation Engine",
+  "advancements.cloudcraft.gas_state_converter.description": "Craft a gas state converter to solidify nearby gas clouds.",
+  "advancements.cloudcraft.enter_cloud_dimension.title": "Above the Weather",
+  "advancements.cloudcraft.enter_cloud_dimension.description": "Use a gas state converter as a cloud anchor and enter the cloud dimension.",
+
+  "message.cloudcraft.cloud_dimension_unavailable": "The cloud dimension is not available.",
+  "message.cloudcraft.gas_state_converter.no_targets": "No nearby gas clouds to condense."
 }

@@ -11,6 +11,7 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CloudCraftRegistryDefinitionsTest {
@@ -55,6 +56,17 @@ class CloudCraftRegistryDefinitionsTest {
                         "CUMULONIMBUS_CLOUD_BLOCK_GAS",
                         "GAS_STATE_CONVERTER"),
                 definitionIds("CloudCraftBlockDefinitions.java"));
+    }
+
+    @Test
+    void shouldCreateFunctionalGasStateConverterBlock() throws IOException {
+        String source = Files.readString(REGISTRY_SOURCE.resolve("CloudCraftBlockDefinitions.java"));
+        int factoryStart = source.indexOf("public static Block createGasStateConverter");
+        int factoryEnd = source.indexOf("private static BlockBehaviour.Properties", factoryStart);
+        String factorySource = source.substring(factoryStart, factoryEnd);
+
+        assertTrue(factorySource.contains("new GasStateConverterBlock("));
+        assertFalse(factorySource.contains("RotatableBlock"));
     }
 
     @Test
@@ -171,6 +183,24 @@ class CloudCraftRegistryDefinitionsTest {
         assertGeneratedResource("data/cloudcraft/loot_table/blocks/cumulonimbus_cloud_block.json");
         assertGeneratedResource("data/cloudcraft/loot_table/blocks/cumulonimbus_cloud_block_gas.json");
         assertGeneratedResource("data/cloudcraft/loot_table/blocks/gas_state_converter.json");
+        assertGeneratedResource("data/cloudcraft/advancement/root.json");
+        assertGeneratedResource("data/cloudcraft/advancement/cloud_fragment.json");
+        assertGeneratedResource("data/cloudcraft/advancement/compressed_canister.json");
+        assertGeneratedResource("data/cloudcraft/advancement/cirrus_filament.json");
+        assertGeneratedResource("data/cloudcraft/advancement/storm_core.json");
+        assertGeneratedResource("data/cloudcraft/advancement/basic_jetpack_frame.json");
+        assertGeneratedResource("data/cloudcraft/advancement/cloud_jetpack.json");
+        assertGeneratedResource("data/cloudcraft/advancement/stabilized_cloud_jetpack.json");
+        assertGeneratedResource("data/cloudcraft/advancement/high_pressure_cloud_jetpack.json");
+        assertGeneratedResource("data/cloudcraft/advancement/gas_state_converter.json");
+        assertGeneratedResource("data/cloudcraft/advancement/enter_cloud_dimension.json");
+    }
+
+    @Test
+    void shouldHaveCloudDimensionData() {
+        assertMainResource("data/cloudcraft/dimension/cloud_dimension.json");
+        assertMainResource("data/cloudcraft/dimension_type/cloud_dimension.json");
+        assertMainResource("data/cloudcraft/worldgen/biome/cumulus_fields.json");
     }
 
     private static List<String> definitionIds(String sourceFile) throws IOException {
@@ -240,6 +270,14 @@ class CloudCraftRegistryDefinitionsTest {
         for (String id : definitionValues("CloudCraftItemDefinitions.java")) {
             assertMainResource("assets/cloudcraft/textures/item/" + id + ".png");
         }
+    }
+
+    @Test
+    void shouldNotKeepUnregisteredCumulusArmorTexturesInMainResources() {
+        assertFalse(Files.exists(MAIN_RESOURCES.resolve("assets/cloudcraft/textures/item/cumulus_cloud_helmet.png")));
+        assertFalse(Files.exists(MAIN_RESOURCES.resolve("assets/cloudcraft/textures/item/cumulus_cloud_chestplate.png")));
+        assertFalse(Files.exists(MAIN_RESOURCES.resolve("assets/cloudcraft/textures/item/cumulus_cloud_leggings.png")));
+        assertFalse(Files.exists(MAIN_RESOURCES.resolve("assets/cloudcraft/textures/item/cumulus_cloud_boots.png")));
     }
 
     private static void assertGeneratedResource(String path) {

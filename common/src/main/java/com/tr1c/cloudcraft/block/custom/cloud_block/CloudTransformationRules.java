@@ -6,6 +6,7 @@ import java.util.List;
 public final class CloudTransformationRules {
     public static final double SPLASH_POTION_RADIUS = 1.5;
     public static final double LINGERING_POTION_RADIUS = 3.0;
+    public static final double CONVERTER_RADIUS = 2.5;
     public static final float CLOUD_FRAGMENT_DROP_CHANCE = 0.1f;
 
     private static final List<Offset> EFFECT_OFFSETS = List.of(
@@ -24,6 +25,7 @@ public final class CloudTransformationRules {
     );
     private static final List<Offset> SPLASH_RADIUS_OFFSETS = computeRadiusOffsets(SPLASH_POTION_RADIUS);
     private static final List<Offset> LINGERING_RADIUS_OFFSETS = computeRadiusOffsets(LINGERING_POTION_RADIUS);
+    private static final List<Offset> CONVERTER_RADIUS_OFFSETS = computeRadiusOffsets(CONVERTER_RADIUS);
 
     private CloudTransformationRules() {
     }
@@ -42,6 +44,9 @@ public final class CloudTransformationRules {
         }
         if (radius == LINGERING_POTION_RADIUS) {
             return LINGERING_RADIUS_OFFSETS;
+        }
+        if (radius == CONVERTER_RADIUS) {
+            return CONVERTER_RADIUS_OFFSETS;
         }
         return computeRadiusOffsets(radius);
     }

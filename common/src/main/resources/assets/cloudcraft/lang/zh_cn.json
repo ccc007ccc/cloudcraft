@@ -45,6 +45,32 @@
   "block.cloudcraft.cumulonimbus_cloud_block_gas": "积雨云",
   "block.cloudcraft.gas_state_converter": "气态转换器",
 
-  "effect.cloudcraft.cloud_walker": "云层行者"
+  "effect.cloudcraft.cloud_walker": "云层行者",
+
+  "advancements.cloudcraft.root.title": "云之工艺",
+  "advancements.cloudcraft.root.description": "获得第一份可用的云材料。",
+  "advancements.cloudcraft.cloud_fragment.title": "破云取絮",
+  "advancements.cloudcraft.cloud_fragment.description": "收集一个积云碎片。",
+  "advancements.cloudcraft.compressed_canister.title": "掌中气压",
+  "advancements.cloudcraft.compressed_canister.description": "制作一个用于云科技装备的压缩气罐。",
+  "advancements.cloudcraft.cirrus_filament.title": "高空云丝",
+  "advancements.cloudcraft.cirrus_filament.description": "精炼卷云纤维，为稳定气流部件做准备。",
+  "advancements.cloudcraft.storm_core.title": "握住风暴",
+  "advancements.cloudcraft.storm_core.description": "用积雨云材料凝聚一个风暴核心。",
+  "advancements.cloudcraft.basic_jetpack_frame.title": "飞行骨架",
+  "advancements.cloudcraft.basic_jetpack_frame.description": "制作云喷气背包的基础框架。",
+  "advancements.cloudcraft.cloud_jetpack.title": "初次升空",
+  "advancements.cloudcraft.cloud_jetpack.description": "制作一个云喷气背包。",
+  "advancements.cloudcraft.stabilized_cloud_jetpack.title": "稳定推进",
+  "advancements.cloudcraft.stabilized_cloud_jetpack.description": "升级为稳定云喷气背包。",
+  "advancements.cloudcraft.high_pressure_cloud_jetpack.title": "高压飞行",
+  "advancements.cloudcraft.high_pressure_cloud_jetpack.description": "完成高压云喷气背包。",
+  "advancements.cloudcraft.gas_state_converter.title": "凝云装置",
+  "advancements.cloudcraft.gas_state_converter.description": "制作气态转换器，用它固化附近的气态云。",
+  "advancements.cloudcraft.enter_cloud_dimension.title": "云上之地",
+  "advancements.cloudcraft.enter_cloud_dimension.description": "把气态转换器作为凝云锚点，进入云之维度。",
+
+  "message.cloudcraft.cloud_dimension_unavailable": "云之维度尚不可用。",
+  "message.cloudcraft.gas_state_converter.no_targets": "附近没有可凝结的气态云。"
 }
 

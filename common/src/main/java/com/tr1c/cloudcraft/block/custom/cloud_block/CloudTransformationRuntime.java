@@ -15,12 +15,12 @@ public final class CloudTransformationRuntime {
     private CloudTransformationRuntime() {
     }
 
-    public static void solidifyAroundEntity(ServerLevel level, BlockPos center) {
-        solidify(level, center, CloudTransformationRules.effectOffsets());
+    public static int solidifyAroundEntity(ServerLevel level, BlockPos center) {
+        return solidify(level, center, CloudTransformationRules.effectOffsets());
     }
 
-    public static void solidifyInRadius(Level level, BlockPos center, double radius) {
-        solidify(level, center, CloudTransformationRules.radiusOffsets(radius));
+    public static int solidifyInRadius(Level level, BlockPos center, double radius) {
+        return solidify(level, center, CloudTransformationRules.radiusOffsets(radius));
     }
 
     public static boolean hasCloudWalker(ItemStack stack, Holder<MobEffect> cloudWalkerEffect) {
@@ -48,14 +48,17 @@ public final class CloudTransformationRuntime {
         return false;
     }
 
-    private static void solidify(Level level, BlockPos center, Iterable<CloudTransformationRules.Offset> offsets) {
+    private static int solidify(Level level, BlockPos center, Iterable<CloudTransformationRules.Offset> offsets) {
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        int converted = 0;
         for (CloudTransformationRules.Offset offset : offsets) {
             mutablePos.set(center.getX() + offset.x(), center.getY() + offset.y(), center.getZ() + offset.z());
             BlockState targetState = level.getBlockState(mutablePos);
             if (targetState.getBlock() instanceof GasCloudBlock gasBlock) {
                 gasBlock.solidify(level, mutablePos.immutable());
+                converted++;
             }
         }
+        return converted;
     }
 }

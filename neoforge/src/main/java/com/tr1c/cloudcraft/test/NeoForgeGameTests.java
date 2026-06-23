@@ -5,6 +5,9 @@ import com.tr1c.cloudcraft.block.NeoForgeModBlocks;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRules;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRuntime;
 import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
+import com.tr1c.cloudcraft.registry.ModIds;
+import com.tr1c.cloudcraft.world.CloudDimensionKeys;
+import com.tr1c.cloudcraft.world.CloudDimensionTravel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -13,9 +16,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.gametest.framework.TestData;
 import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.levelgen.presets.WorldPreset;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -43,6 +48,15 @@ public final class NeoForgeGameTests {
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WALKER_SHORT_CIRCUIT_KEEPS_DISTANT_GAS = TEST_FUNCTIONS.register(
             "cloud_walker_short_circuit_keeps_distant_gas",
             () -> NeoForgeGameTests::cloudWalkerShortCircuitKeepsDistantGas);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> GAS_STATE_CONVERTER_SOLIDIFIES_GAS_CLOUDS = TEST_FUNCTIONS.register(
+            "gas_state_converter_solidifies_gas_clouds",
+            () -> NeoForgeGameTests::gasStateConverterSolidifiesGasClouds);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LOADS = TEST_FUNCTIONS.register(
+            "cloud_dimension_loads",
+            () -> NeoForgeGameTests::cloudDimensionLoads);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR = TEST_FUNCTIONS.register(
+            "cloud_dimension_landing_creates_return_anchor",
+            () -> NeoForgeGameTests::cloudDimensionLandingCreatesReturnAnchor);
 
     private NeoForgeGameTests() {
     }
@@ -59,6 +73,9 @@ public final class NeoForgeGameTests {
         register(event, environment, CLOUD_WALKER_EFFECT_KEEPS_GAS_CLOUD_CROSS);
         register(event, environment, SOLIDIFY_IN_RADIUS_KEEPS_NON_GAS_BLOCKS);
         register(event, environment, CLOUD_WALKER_SHORT_CIRCUIT_KEEPS_DISTANT_GAS);
+        register(event, environment, GAS_STATE_CONVERTER_SOLIDIFIES_GAS_CLOUDS);
+        register(event, environment, CLOUD_DIMENSION_LOADS);
+        register(event, environment, CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR);
     }
 
     private static void register(RegisterGameTestsEvent event, Holder<TestEnvironmentDefinition> environment, DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> testFunction) {
@@ -158,6 +175,48 @@ public final class NeoForgeGameTests {
 
         helper.runAfterDelay(2, () -> {
             helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), distantTarget);
+            helper.succeed();
+        });
+    }
+
+    private static void gasStateConverterSolidifiesGasClouds(GameTestHelper helper) {
+        BlockPos converter = new BlockPos(0, 0, 0);
+        BlockPos nearTarget = new BlockPos(2, 0, 0);
+        BlockPos farTarget = new BlockPos(3, 0, 0);
+        helper.setBlock(converter, NeoForgeModBlocks.GAS_STATE_CONVERTER.get());
+        helper.setBlock(nearTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(farTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
+
+        helper.useBlock(converter);
+
+        helper.runAfterDelay(2, () -> {
+            helper.assertBlockPresent(NeoForgeModBlocks.GAS_STATE_CONVERTER.get(), converter);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), nearTarget);
+            helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), farTarget);
+            helper.succeed();
+        });
+    }
+
+    private static void cloudDimensionLoads(GameTestHelper helper) {
+        var worldPresetRegistry = helper.getLevel().registryAccess().lookupOrThrow(Registries.WORLD_PRESET);
+        ResourceKey<WorldPreset> cloudPreset = ResourceKey.create(Registries.WORLD_PRESET, ModIds.id(ModIds.CLOUD_DIMENSION));
+
+        helper.assertTrue(
+                worldPresetRegistry.containsKey(cloudPreset),
+                "Cloud dimension world preset should be loaded");
+        helper.succeed();
+    }
+
+    private static void cloudDimensionLandingCreatesReturnAnchor(GameTestHelper helper) {
+        BlockPos anchor = helper.absolutePos(new BlockPos(0, 2, 0));
+
+        helper.runAfterDelay(4, () -> {
+            CloudDimensionTravel.prepareCloudLanding(
+                    helper.getLevel(),
+                    anchor,
+                    NeoForgeModBlocks.GAS_STATE_CONVERTER.get().defaultBlockState());
+            helper.assertTrue(helper.getLevel().getBlockState(anchor).is(NeoForgeModBlocks.GAS_STATE_CONVERTER.get()), "Cloud landing should contain a return converter");
+            helper.assertTrue(helper.getLevel().getBlockState(anchor.below()).is(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get()), "Cloud landing should contain a cumulus platform");
             helper.succeed();
         });
     }

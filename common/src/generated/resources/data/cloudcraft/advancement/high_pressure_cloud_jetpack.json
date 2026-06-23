@@ -1,0 +1,35 @@
+{
+  "parent": "cloudcraft:stabilized_cloud_jetpack",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloudcraft:high_pressure_cloud_jetpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.cloudcraft.high_pressure_cloud_jetpack.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "id": "cloudcraft:high_pressure_cloud_jetpack"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.cloudcraft.high_pressure_cloud_jetpack.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

@@ -1,6 +1,6 @@
 package com.tr1c.cloudcraft.registry;
 
-import com.tr1c.cloudcraft.block.RotatableBlock;
+import com.tr1c.cloudcraft.block.custom.GasStateConverterBlock;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudBlock;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudMotionRules;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlock;
@@ -55,7 +55,7 @@ public final class CloudCraftBlockDefinitions {
     }
 
     public static Block createGasStateConverter(BlockBehaviour.Properties properties) {
-        return new RotatableBlock(properties.destroyTime(1.0F).explosionResistance(6.0F), false);
+        return new GasStateConverterBlock(properties.destroyTime(1.0F).explosionResistance(6.0F));
     }
 
     private static BlockBehaviour.Properties cloudProperties(BlockBehaviour.Properties properties) {
