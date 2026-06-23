@@ -4,10 +4,15 @@ import com.tr1c.cloudcraft.block.RotatableBlock;
 import com.tr1c.cloudcraft.block.entity.GasStateConverterBlockEntity;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRules;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRuntime;
+import com.tr1c.cloudcraft.visual.CloudFeedbackRules;
 import com.tr1c.cloudcraft.world.CloudDimensionTravel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -91,8 +96,31 @@ public class GasStateConverterBlock extends RotatableBlock implements EntityBloc
         if (level.getBlockEntity(pos) instanceof GasStateConverterBlockEntity converter) {
             converter.recordConversion(operation, converted);
         }
-        level.levelEvent(2002, pos, operation == GasStateConverterOperation.SOLIDIFY ? SOLIDIFY_PARTICLE_COLOR : GASIFY_PARTICLE_COLOR);
+        playConversionFeedback(level, pos, operation, converted);
         return InteractionResult.SUCCESS_SERVER;
+    }
+
+    private static void playConversionFeedback(Level level, BlockPos pos, GasStateConverterOperation operation, int converted) {
+        level.levelEvent(2002, pos, operation == GasStateConverterOperation.SOLIDIFY ? SOLIDIFY_PARTICLE_COLOR : GASIFY_PARTICLE_COLOR);
+        level.playSound(
+                null,
+                pos,
+                operation == GasStateConverterOperation.SOLIDIFY ? SoundEvents.BOTTLE_FILL : SoundEvents.FIRE_EXTINGUISH,
+                SoundSource.BLOCKS,
+                0.7F,
+                operation == GasStateConverterOperation.SOLIDIFY ? 1.25F : 1.45F);
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(
+                    ParticleTypes.CLOUD,
+                    pos.getX() + 0.5D,
+                    pos.getY() + 1.05D,
+                    pos.getZ() + 0.5D,
+                    CloudFeedbackRules.converterParticleCount(converted),
+                    0.45D,
+                    0.35D,
+                    0.45D,
+                    0.025D);
+        }
     }
 
     private static Component noTargetsMessage(GasStateConverterOperation operation) {

@@ -1,9 +1,12 @@
 package com.tr1c.cloudcraft.block.custom.cloud_block;
 
+import com.tr1c.cloudcraft.visual.CloudFeedbackRules;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
@@ -37,6 +40,21 @@ public abstract class GasCloudBlock extends HalfTransparentBlock {
         if (!level.isClientSide()) {
             level.setBlock(pos, getSolidState(), 3);
         }
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (!CloudFeedbackRules.shouldEmitAmbientParticle(random.nextInt(CloudFeedbackRules.GAS_CLOUD_AMBIENT_PARTICLE_ROLLS))) {
+            return;
+        }
+        level.addParticle(
+                ParticleTypes.CLOUD,
+                pos.getX() + random.nextDouble(),
+                pos.getY() + random.nextDouble(),
+                pos.getZ() + random.nextDouble(),
+                (random.nextDouble() - 0.5D) * 0.018D,
+                0.004D,
+                (random.nextDouble() - 0.5D) * 0.018D);
     }
 
     @Override

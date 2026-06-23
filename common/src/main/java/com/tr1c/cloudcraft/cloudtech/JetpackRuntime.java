@@ -2,8 +2,11 @@ package com.tr1c.cloudcraft.cloudtech;
 
 import com.tr1c.cloudcraft.progression.CloudProgressionRules;
 import com.tr1c.cloudcraft.progression.CloudProgressionState;
+import com.tr1c.cloudcraft.visual.CloudFeedbackRules;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.state.BlockState;
@@ -86,6 +89,20 @@ public final class JetpackRuntime {
         player.setDeltaMovement(movement);
         player.hurtMarked = true;
         player.fallDistance = 0.0F;
+        playThrustFeedback(player, jetpackId);
+    }
+
+    private static void playThrustFeedback(ServerPlayer player, String jetpackId) {
+        if (!CloudFeedbackRules.shouldPlayJetpackThrustSound(player.tickCount)) {
+            return;
+        }
+        player.level().playSound(
+                null,
+                player.blockPosition(),
+                SoundEvents.WIND_CHARGE_THROW,
+                SoundSource.PLAYERS,
+                0.28F,
+                CloudFeedbackRules.jetpackThrustPitch(jetpackId));
     }
 
     static Vec3 applyThrustMovement(Vec3 movement, Vec3 moveIntent, String jetpackId) {
