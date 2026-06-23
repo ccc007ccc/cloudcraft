@@ -14,16 +14,16 @@
 
 ## 1. 执行原则
 
-- [ ] 每一条玩法规则只能有一个公共真相源。
-- [ ] 平台无关规则优先放在 `common`。
-- [ ] 平台模块只做注册、事件接入、网络接入和客户端挂接。
-- [ ] 新增机制先做纯规则类和测试，再接世界行为。
-- [ ] Datagen 生成内容必须与实际注册内容同步。
-- [ ] 玩家可见名称必须匹配真实功能，不能保留误导性空壳。
-- [ ] 未注册、未使用或已废弃的资源必须分类到设计参考区，或接入正式玩法。
-- [ ] 贴图源文件、预览图、游戏资源图必须一一可追踪。
-- [ ] 每轮修改后运行与改动范围匹配的测试。
-- [ ] 大范围资源或玩法改动后运行 `build` 和必要的游戏内烟测。
+- [x] 每一条玩法规则只能有一个公共真相源。
+- [x] 平台无关规则优先放在 `common`。
+- [x] 平台模块只做注册、事件接入、网络接入和客户端挂接。
+- [x] 新增机制先做纯规则类和测试，再接世界行为。
+- [x] Datagen 生成内容必须与实际注册内容同步。
+- [x] 玩家可见名称必须匹配真实功能，不能保留误导性空壳。
+- [x] 未注册、未使用或已废弃的资源必须分类到设计参考区，或接入正式玩法。
+- [x] 贴图源文件、预览图、游戏资源图必须一一可追踪。
+- [x] 每轮修改后运行与改动范围匹配的测试。
+- [x] 大范围资源或玩法改动后运行 `build` 和必要的游戏内烟测。
 
 ## 2. 已完成系统守护项
 
@@ -73,7 +73,7 @@
 
 - [x] 审核 `cumulus_cloud_helmet/chestplate/leggings/boots` 是否被注册、引用或生成。
 - [x] 若本轮不实现盔甲线，将贴图源和预览移动到设计参考分类，避免误导。
-- [ ] 若实现盔甲线，必须补齐注册、材料、模型、语言、配方、贴图和测试。
+- [x] 本阶段不实现盔甲线；若后续实现，必须补齐注册、材料、模型、语言、配方、贴图和测试。
 - [x] 盔甲贴图若保留为正式资源，必须对称、居中、像素风统一。
 - [x] `TEXTURE_PROMPTS.md` 更新为反映实际状态。
 
@@ -122,7 +122,7 @@
 - [x] 高层云定位为中速、遮光、过渡材料。
 - [x] 雨层云定位为慢速、潮湿、水循环。
 - [x] 积雨云定位为危险、高压、雷暴材料。
-- [ ] 更新 `CLOUD_DIMENSION_PLAN.md` 时只写长期设定，不写短期实现噪音。
+- [x] 更新 `CLOUD_DIMENSION_PLAN.md` 时只写长期设定，不写短期实现噪音。
 
 ## 6. P2 云之维度最小垂直切片
 
@@ -226,3 +226,4 @@
 - [x] `docs/COMPATIBILITY_STRATEGY.md` 已明确 JEI/REI/EMI 展示顺序、气态转换器展示语义、科技 mod optional integration 边界和电力兼容门槛；`CompatibilityBoundaryTest` 验证当前源码与 Gradle 仍未硬依赖配方查看器或能量 API。
 - [x] `CloudTextureAssetTest` 验证云方块 APX 源、预览和游戏 PNG 可追踪；固态云全不透明，气态云平均 alpha 40-150 且透明像素充足；云方块边缘 RGBA 差异不超过 16；六类云按亮度、冷暖和气态密度保持可区分视觉定位。
 - [x] Fabric 客户端烟测 `fabric-client-smoke-20260624-013521` 启动到 Minecraft 1.21.11 主菜单；日志显示 ResourceManager 加载 `cloudcraft`，并成功创建 `minecraft:textures/atlas/blocks.png-atlas` 与 `minecraft:textures/atlas/items.png-atlas`。
+- [x] `ArchitectureBoundaryTest` 验证 `common/src/main/java` 不引用 Fabric/NeoForge/Forge 加载器 API，Fabric/NeoForge 平台模块不定义 `*Rules.java` 玩法规则类；`CloudCraftRegistryDefinitionsTest`、`CompatibilityBoundaryTest` 和 `CloudTextureAssetTest` 分别守护 datagen 同步、第三方兼容边界与贴图追踪。
