@@ -179,11 +179,11 @@
 
 - [ ] 云方块气态和固态透明度在游戏内可读。
 - [ ] 云方块贴图可平铺，无明显断边。
-- [ ] 所有物品贴图居中。
-- [ ] 对称装备和机器部件必须对称。
-- [ ] 碎片类物品允许不对称，但轮廓必须清晰。
-- [ ] `cloud.png` 维持用户原始造型，但调色必须像素画化。
-- [ ] `cumulus_cloud_fragment.png` 需要保留“碎片”特征，不做成瓶子或整团云。
+- [x] 所有物品贴图居中。
+- [x] 对称装备和机器部件必须对称。
+- [x] 碎片类物品允许不对称，但轮廓必须清晰。
+- [x] `cloud.png` 维持用户原始造型，但调色必须像素画化。
+- [x] `cumulus_cloud_fragment.png` 需要保留“碎片”特征，不做成瓶子或整团云。
 - [ ] 气态转换器贴图若修改，优先从原贴图工程改，不凭空重画。
 - [x] 增加云内粒子效果。
 - [x] 增加转换器工作粒子。
@@ -208,7 +208,7 @@
 - [x] 改 datagen 后运行 `.\gradlew.bat :neoforge:runCommonData`。
 - [x] 改注册、资源或跨模块逻辑后运行 `.\gradlew.bat build`。
 - [x] 改 NeoForge 平台行为后运行 `.\gradlew.bat :neoforge:runGameTestServer`。
-- [ ] 改客户端渲染、贴图或 UI 后运行实际客户端烟测。
+- [x] 改客户端渲染、贴图或 UI 后运行实际客户端烟测。
 - [x] 改 Fabric 平台行为后运行 Fabric 客户端或服务端烟测。
 - [x] 提交前检查 `git status --short`，确认只包含本轮相关文件。
 - [x] 提交信息使用中文。
@@ -217,3 +217,5 @@
 
 - [x] NeoForge GameTest 服务端可加载 `cloudcraft:cloud_dimension` world preset，并验证云维度落点平台与返回转换器。
 - [x] Fabric 服务端烟测可加载 `cloudcraft 1.0.0`，使用 `level-type=cloudcraft:cloud_dimension` 创建新世界，加载 1490 recipes / 1595 advancements，并启动到 `Done`。
+- [x] 物品贴图审计显示所有正式 `textures/item/*.png` 的可见像素边界都在画布中心 ±0.5 像素内；喷气背包、基础框架、压缩气罐、稳定喷口、高压腔体等对称部件镜像差异为 0%。
+- [x] Fabric 客户端烟测可启动到 Minecraft 1.21.11 主菜单；日志显示 ResourceManager 加载 `cloudcraft`，并成功创建 `minecraft:textures/atlas/items.png-atlas`。
