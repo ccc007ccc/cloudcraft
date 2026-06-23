@@ -141,7 +141,7 @@
 - [x] 添加 dimension type 数据。
 - [x] 添加 minimal noise settings 或等效世界生成配置。
 - [x] 添加最小 biome。
-- [ ] Fabric 和 NeoForge 都能加载维度数据。
+- [x] Fabric 和 NeoForge 都能加载维度数据。
 - [x] 不引入平台层重复维度规则。
 - [x] 添加 `cloudcraft:cloud_dimension` 世界预设，选择该预设的新世界会包含云维度。
 
@@ -209,6 +209,11 @@
 - [x] 改注册、资源或跨模块逻辑后运行 `.\gradlew.bat build`。
 - [x] 改 NeoForge 平台行为后运行 `.\gradlew.bat :neoforge:runGameTestServer`。
 - [ ] 改客户端渲染、贴图或 UI 后运行实际客户端烟测。
-- [ ] 改 Fabric 平台行为后运行 Fabric 客户端或服务端烟测。
+- [x] 改 Fabric 平台行为后运行 Fabric 客户端或服务端烟测。
 - [x] 提交前检查 `git status --short`，确认只包含本轮相关文件。
 - [x] 提交信息使用中文。
+
+## 11. 手工/烟测记录
+
+- [x] NeoForge GameTest 服务端可加载 `cloudcraft:cloud_dimension` world preset，并验证云维度落点平台与返回转换器。
+- [x] Fabric 服务端烟测可加载 `cloudcraft 1.0.0`，使用 `level-type=cloudcraft:cloud_dimension` 创建新世界，加载 1490 recipes / 1595 advancements，并启动到 `Done`。
