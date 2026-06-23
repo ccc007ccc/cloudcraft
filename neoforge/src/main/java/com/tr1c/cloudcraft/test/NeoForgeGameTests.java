@@ -14,6 +14,8 @@ import com.tr1c.cloudcraft.entity.CloudWispEntity;
 import com.tr1c.cloudcraft.entity.NeoForgeModEntities;
 import com.tr1c.cloudcraft.item.NeoForgeModItems;
 import com.tr1c.cloudcraft.registry.ModIds;
+import com.tr1c.cloudcraft.weather.CloudWeatherRules;
+import com.tr1c.cloudcraft.weather.CloudWeatherRuntime;
 import com.tr1c.cloudcraft.world.CloudDimensionKeys;
 import com.tr1c.cloudcraft.world.CloudDimensionTravel;
 import net.minecraft.core.BlockPos;
@@ -31,6 +33,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
@@ -82,6 +85,12 @@ public final class NeoForgeGameTests {
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WISP_SPAWNS_AS_PASSIVE_DRIFTER = TEST_FUNCTIONS.register(
             "cloud_wisp_spawns_as_passive_drifter",
             () -> NeoForgeGameTests::cloudWispSpawnsAsPassiveDrifter);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CUMULONIMBUS_CLOUDS_SUMMON_THUNDERSTORM = TEST_FUNCTIONS.register(
+            "cumulonimbus_clouds_summon_thunderstorm",
+            () -> NeoForgeGameTests::cumulonimbusCloudsSummonThunderstorm);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> NIMBOSTRATUS_CLOUDS_CONDENSE_WATER = TEST_FUNCTIONS.register(
+            "nimbostratus_clouds_condense_water",
+            () -> NeoForgeGameTests::nimbostratusCloudsCondenseWater);
 
     private NeoForgeGameTests() {
     }
@@ -105,6 +114,8 @@ public final class NeoForgeGameTests {
         register(event, environment, CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE);
         register(event, environment, CLOUD_DIMENSION_BIOME_HAS_NATURAL_FEATURES);
         register(event, environment, CLOUD_WISP_SPAWNS_AS_PASSIVE_DRIFTER);
+        register(event, environment, CUMULONIMBUS_CLOUDS_SUMMON_THUNDERSTORM);
+        register(event, environment, NIMBOSTRATUS_CLOUDS_CONDENSE_WATER);
     }
 
     private static void register(RegisterGameTestsEvent event, Holder<TestEnvironmentDefinition> environment, DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> testFunction) {
@@ -320,6 +331,38 @@ public final class NeoForgeGameTests {
         helper.assertEntityProperty(wisp, CloudWispEntity::isNoGravity, true, net.minecraft.network.chat.Component.literal("Cloud wisp should float"));
         helper.assertEntityProperty(wisp, CloudWispEntity::isCharging, false, net.minecraft.network.chat.Component.literal("Cloud wisp should not charge attacks"));
         helper.assertEntityProperty(wisp, CloudWispEntity::getExplosionPower, 0, net.minecraft.network.chat.Component.literal("Cloud wisp should not explode"));
+        helper.succeed();
+    }
+
+    private static void cumulonimbusCloudsSummonThunderstorm(GameTestHelper helper) {
+        BlockPos center = new BlockPos(0, 3, 0);
+        helper.setBlock(center, NeoForgeModBlocks.CUMULONIMBUS_CLOUD_BLOCK.get());
+        helper.setBlock(center.east(), NeoForgeModBlocks.CUMULONIMBUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(center.west(), NeoForgeModBlocks.CUMULONIMBUS_CLOUD_BLOCK.get());
+
+        CloudWeatherRules.WeatherEvent event = CloudWeatherRuntime.runWeatherCycle(helper.getLevel(), helper.absolutePos(center), 0, 0);
+
+        helper.assertTrue(event == CloudWeatherRules.WeatherEvent.THUNDERSTORM, "Cumulonimbus cluster should trigger a thunderstorm event");
+        helper.assertEntityPresent(EntityType.LIGHTNING_BOLT, center, 2.0);
+        helper.succeed();
+    }
+
+    private static void nimbostratusCloudsCondenseWater(GameTestHelper helper) {
+        BlockPos cloud = new BlockPos(0, 4, 0);
+        BlockPos support = new BlockPos(0, 0, 0);
+        BlockPos water = new BlockPos(0, 1, 0);
+        helper.setBlock(support, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get());
+        helper.setBlock(water, Blocks.AIR);
+        helper.setBlock(new BlockPos(0, 2, 0), Blocks.AIR);
+        helper.setBlock(new BlockPos(0, 3, 0), Blocks.AIR);
+        helper.setBlock(cloud, NeoForgeModBlocks.NIMBOSTRATUS_CLOUD_BLOCK.get());
+        helper.setBlock(cloud.east(), NeoForgeModBlocks.NIMBOSTRATUS_CLOUD_BLOCK_GAS.get());
+        helper.setBlock(cloud.west(), NeoForgeModBlocks.NIMBOSTRATUS_CLOUD_BLOCK.get());
+
+        CloudWeatherRules.WeatherEvent event = CloudWeatherRuntime.runWeatherCycle(helper.getLevel(), helper.absolutePos(cloud), 1, 0);
+
+        helper.assertTrue(event == CloudWeatherRules.WeatherEvent.RAIN, "Nimbostratus cluster should trigger rain condensation");
+        helper.assertBlockPresent(Blocks.WATER, water);
         helper.succeed();
     }
 
