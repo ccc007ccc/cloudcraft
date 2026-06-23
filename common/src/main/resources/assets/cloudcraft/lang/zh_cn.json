@@ -71,6 +71,9 @@
   "advancements.cloudcraft.enter_cloud_dimension.description": "把气态转换器作为凝云锚点，进入云之维度。",
 
   "message.cloudcraft.cloud_dimension_unavailable": "云之维度尚不可用。",
-  "message.cloudcraft.gas_state_converter.no_targets": "附近没有可凝结的气态云。"
+  "message.cloudcraft.gas_state_converter.requires_catalyst": "使用云碎片凝结气态云，或使用卷云纤维汽化固态云。",
+  "message.cloudcraft.gas_state_converter.no_targets": "附近没有可凝结的气态云。",
+  "message.cloudcraft.gas_state_converter.no_gas_targets": "附近没有可凝结的气态云。",
+  "message.cloudcraft.gas_state_converter.no_solid_targets": "附近没有可汽化的固态云。"
 }
 

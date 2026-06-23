@@ -5,6 +5,7 @@ import java.util.List;
 public final class CloudCraftRegistryDefinitions {
     private static final List<String> ITEM_IDS = CloudCraftItemDefinitions.ids();
     private static final List<String> BLOCK_IDS = CloudCraftBlockDefinitions.ids();
+    private static final List<String> BLOCK_ENTITY_IDS = List.of(ModIds.GAS_STATE_CONVERTER);
     private static final List<String> BLOCK_ITEM_IDS = BLOCK_IDS;
     private static final List<String> EFFECT_IDS = CloudCraftEffectDefinitions.ids();
     private static final List<String> POTION_IDS = CloudCraftPotionDefinitions.ids();
@@ -18,6 +19,10 @@ public final class CloudCraftRegistryDefinitions {
 
     public static List<String> blockIds() {
         return BLOCK_IDS;
+    }
+
+    public static List<String> blockEntityIds() {
+        return BLOCK_ENTITY_IDS;
     }
 
     public static List<String> blockItemIds() {

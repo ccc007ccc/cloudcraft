@@ -1,5 +1,6 @@
 package com.tr1c.cloudcraft.block.custom.cloud_block;
 
+import com.tr1c.cloudcraft.registry.ModIds;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -64,5 +65,20 @@ class CloudTransformationRulesTest {
         assertTrue(offsets.contains(new CloudTransformationRules.Offset(0, 0, 1)));
         assertTrue(offsets.contains(new CloudTransformationRules.Offset(0, 0, -1)));
         assertFalse(offsets.contains(new CloudTransformationRules.Offset(0, 1, 0)));
+    }
+
+    @Test
+    void shouldMapSolidCloudFamiliesToGasCloudFamilies() {
+        assertTrue(CloudTransformationRules.isSolidCloudId(ModIds.CUMULUS_CLOUD_BLOCK));
+        assertTrue(CloudTransformationRules.isSolidCloudId(ModIds.STRATUS_CLOUD_BLOCK));
+        assertTrue(CloudTransformationRules.isSolidCloudId(ModIds.CIRRUS_CLOUD_BLOCK));
+        assertTrue(CloudTransformationRules.isSolidCloudId(ModIds.ALTOSTRATUS_CLOUD_BLOCK));
+        assertTrue(CloudTransformationRules.isSolidCloudId(ModIds.NIMBOSTRATUS_CLOUD_BLOCK));
+        assertTrue(CloudTransformationRules.isSolidCloudId(ModIds.CUMULONIMBUS_CLOUD_BLOCK));
+
+        assertSame(ModIds.CUMULUS_CLOUD_BLOCK_GAS, CloudTransformationRules.gasCloudIdForSolidCloudId(ModIds.CUMULUS_CLOUD_BLOCK));
+        assertSame(ModIds.STRATUS_CLOUD_BLOCK_GAS, CloudTransformationRules.gasCloudIdForSolidCloudId(ModIds.STRATUS_CLOUD_BLOCK));
+        assertSame(ModIds.CIRRUS_CLOUD_BLOCK_GAS, CloudTransformationRules.gasCloudIdForSolidCloudId(ModIds.CIRRUS_CLOUD_BLOCK));
+        assertFalse(CloudTransformationRules.isSolidCloudId(ModIds.GAS_STATE_CONVERTER));
     }
 }

@@ -72,5 +72,8 @@
   "advancements.cloudcraft.enter_cloud_dimension.description": "Use a gas state converter as a cloud anchor and enter the cloud dimension.",
 
   "message.cloudcraft.cloud_dimension_unavailable": "The cloud dimension is not available.",
-  "message.cloudcraft.gas_state_converter.no_targets": "No nearby gas clouds to condense."
+  "message.cloudcraft.gas_state_converter.requires_catalyst": "Use a cloud fragment to condense gas clouds or cirrus filament to vaporize solid clouds.",
+  "message.cloudcraft.gas_state_converter.no_targets": "No nearby gas clouds to condense.",
+  "message.cloudcraft.gas_state_converter.no_gas_targets": "No nearby gas clouds to condense.",
+  "message.cloudcraft.gas_state_converter.no_solid_targets": "No nearby solid cloud blocks to vaporize."
 }

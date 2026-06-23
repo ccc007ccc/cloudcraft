@@ -59,6 +59,14 @@ class CloudCraftRegistryDefinitionsTest {
     }
 
     @Test
+    void shouldKeepBlockEntityDefinitionIdsComplete() throws IOException {
+        String source = Files.readString(REGISTRY_SOURCE.resolve("CloudCraftRegistryDefinitions.java"));
+
+        assertTrue(source.contains("private static final List<String> BLOCK_ENTITY_IDS = List.of(ModIds.GAS_STATE_CONVERTER);"));
+        assertTrue(source.contains("public static List<String> blockEntityIds()"));
+    }
+
+    @Test
     void shouldCreateFunctionalGasStateConverterBlock() throws IOException {
         String source = Files.readString(REGISTRY_SOURCE.resolve("CloudCraftBlockDefinitions.java"));
         int factoryStart = source.indexOf("public static Block createGasStateConverter");

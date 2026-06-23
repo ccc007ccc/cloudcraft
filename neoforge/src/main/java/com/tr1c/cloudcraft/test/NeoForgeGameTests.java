@@ -2,12 +2,15 @@ package com.tr1c.cloudcraft.test;
 
 import com.tr1c.cloudcraft.CloudCraft;
 import com.tr1c.cloudcraft.block.NeoForgeModBlocks;
+import com.tr1c.cloudcraft.block.custom.GasStateConverterOperation;
+import com.tr1c.cloudcraft.block.entity.GasStateConverterBlockEntity;
 import com.tr1c.cloudcraft.cloudtech.CloudPressureProfile;
 import com.tr1c.cloudcraft.cloudtech.CompressedAirRules;
 import com.tr1c.cloudcraft.cloudtech.JetpackRuntime;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRules;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRuntime;
 import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
+import com.tr1c.cloudcraft.item.NeoForgeModItems;
 import com.tr1c.cloudcraft.registry.ModIds;
 import com.tr1c.cloudcraft.world.CloudDimensionKeys;
 import com.tr1c.cloudcraft.world.CloudDimensionTravel;
@@ -20,8 +23,11 @@ import net.minecraft.gametest.framework.TestData;
 import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 import net.neoforged.bus.api.IEventBus;
@@ -54,6 +60,9 @@ public final class NeoForgeGameTests {
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> GAS_STATE_CONVERTER_SOLIDIFIES_GAS_CLOUDS = TEST_FUNCTIONS.register(
             "gas_state_converter_solidifies_gas_clouds",
             () -> NeoForgeGameTests::gasStateConverterSolidifiesGasClouds);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> GAS_STATE_CONVERTER_GASIFIES_SOLID_CLOUDS = TEST_FUNCTIONS.register(
+            "gas_state_converter_gasifies_solid_clouds",
+            () -> NeoForgeGameTests::gasStateConverterGasifiesSolidClouds);
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LOADS = TEST_FUNCTIONS.register(
             "cloud_dimension_loads",
             () -> NeoForgeGameTests::cloudDimensionLoads);
@@ -80,6 +89,7 @@ public final class NeoForgeGameTests {
         register(event, environment, SOLIDIFY_IN_RADIUS_KEEPS_NON_GAS_BLOCKS);
         register(event, environment, CLOUD_WALKER_SHORT_CIRCUIT_KEEPS_DISTANT_GAS);
         register(event, environment, GAS_STATE_CONVERTER_SOLIDIFIES_GAS_CLOUDS);
+        register(event, environment, GAS_STATE_CONVERTER_GASIFIES_SOLID_CLOUDS);
         register(event, environment, CLOUD_DIMENSION_LOADS);
         register(event, environment, CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR);
         register(event, environment, CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE);
@@ -194,12 +204,46 @@ public final class NeoForgeGameTests {
         helper.setBlock(nearTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
         helper.setBlock(farTarget, NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get());
 
-        helper.useBlock(converter);
+        var player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(NeoForgeModItems.itemById(ModIds.CUMULUS_CLOUD_FRAGMENT)));
+        helper.useBlock(converter, player);
 
         helper.runAfterDelay(2, () -> {
             helper.assertBlockPresent(NeoForgeModBlocks.GAS_STATE_CONVERTER.get(), converter);
             helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get(), nearTarget);
             helper.assertBlockPresent(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK_GAS.get(), farTarget);
+            helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Converter should consume one cumulus fragment");
+            helper.assertBlockEntityData(
+                    converter,
+                    GasStateConverterBlockEntity.class,
+                    entity -> entity.lastOperation() == GasStateConverterOperation.SOLIDIFY && entity.lastConvertedCount() == 1,
+                    () -> net.minecraft.network.chat.Component.literal("Converter should record solidify work"));
+            helper.succeed();
+        });
+    }
+
+    private static void gasStateConverterGasifiesSolidClouds(GameTestHelper helper) {
+        BlockPos converter = new BlockPos(0, 0, 0);
+        BlockPos nearTarget = new BlockPos(2, 0, 0);
+        BlockPos farTarget = new BlockPos(3, 0, 0);
+        helper.setBlock(converter, NeoForgeModBlocks.GAS_STATE_CONVERTER.get());
+        helper.setBlock(nearTarget, NeoForgeModBlocks.CIRRUS_CLOUD_BLOCK.get());
+        helper.setBlock(farTarget, NeoForgeModBlocks.CIRRUS_CLOUD_BLOCK.get());
+
+        var player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(NeoForgeModItems.itemById(ModIds.CIRRUS_FILAMENT)));
+        helper.useBlock(converter, player);
+
+        helper.runAfterDelay(2, () -> {
+            helper.assertBlockPresent(NeoForgeModBlocks.GAS_STATE_CONVERTER.get(), converter);
+            helper.assertBlockPresent(NeoForgeModBlocks.CIRRUS_CLOUD_BLOCK_GAS.get(), nearTarget);
+            helper.assertBlockPresent(NeoForgeModBlocks.CIRRUS_CLOUD_BLOCK.get(), farTarget);
+            helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "Converter should consume one cirrus filament");
+            helper.assertBlockEntityData(
+                    converter,
+                    GasStateConverterBlockEntity.class,
+                    entity -> entity.lastOperation() == GasStateConverterOperation.GASIFY && entity.lastConvertedCount() == 1,
+                    () -> net.minecraft.network.chat.Component.literal("Converter should record gasify work"));
             helper.succeed();
         });
     }

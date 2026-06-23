@@ -1,6 +1,7 @@
 package com.tr1c.cloudcraft;
 
 import com.tr1c.cloudcraft.block.FabricModBlocks;
+import com.tr1c.cloudcraft.block.FabricModBlockEntities;
 import com.tr1c.cloudcraft.cloudtech.FabricCloudTechBootstrap;
 import com.tr1c.cloudcraft.config.FabricCloudCraftConfig;
 import com.tr1c.cloudcraft.item.FabricModCreativeModeTabs;
@@ -17,6 +18,7 @@ public class CloudCraftFabric implements ModInitializer {
     public void onInitialize() {
         FabricCloudCraftConfig.load();
         FabricModBlocks.register();
+        FabricModBlockEntities.register();
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FabricModCreativeModeTabs.CLOUD_TAB_KEY, FabricModCreativeModeTabs.CLOUD_TAB);
 
         CloudCraftBrewingDefinitions.BrewingMix solidCloud = CloudCraftBrewingDefinitions.solidCloud(FabricModItems.CUMULUS_CLOUD_FRAGMENT, FabricModPotions.SOLID_CLOUD);

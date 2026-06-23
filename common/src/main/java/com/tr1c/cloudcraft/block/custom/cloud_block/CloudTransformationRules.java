@@ -1,7 +1,11 @@
 package com.tr1c.cloudcraft.block.custom.cloud_block;
 
+import com.tr1c.cloudcraft.registry.ModIds;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class CloudTransformationRules {
     public static final double SPLASH_POTION_RADIUS = 1.5;
@@ -26,6 +30,7 @@ public final class CloudTransformationRules {
     private static final List<Offset> SPLASH_RADIUS_OFFSETS = computeRadiusOffsets(SPLASH_POTION_RADIUS);
     private static final List<Offset> LINGERING_RADIUS_OFFSETS = computeRadiusOffsets(LINGERING_POTION_RADIUS);
     private static final List<Offset> CONVERTER_RADIUS_OFFSETS = computeRadiusOffsets(CONVERTER_RADIUS);
+    private static final Map<String, String> SOLID_TO_GAS_IDS = solidToGasIds();
 
     private CloudTransformationRules() {
     }
@@ -49,6 +54,25 @@ public final class CloudTransformationRules {
             return CONVERTER_RADIUS_OFFSETS;
         }
         return computeRadiusOffsets(radius);
+    }
+
+    public static String gasCloudIdForSolidCloudId(String solidCloudId) {
+        return SOLID_TO_GAS_IDS.get(solidCloudId);
+    }
+
+    public static boolean isSolidCloudId(String blockId) {
+        return SOLID_TO_GAS_IDS.containsKey(blockId);
+    }
+
+    private static Map<String, String> solidToGasIds() {
+        Map<String, String> ids = new LinkedHashMap<>();
+        ids.put(ModIds.CUMULUS_CLOUD_BLOCK, ModIds.CUMULUS_CLOUD_BLOCK_GAS);
+        ids.put(ModIds.STRATUS_CLOUD_BLOCK, ModIds.STRATUS_CLOUD_BLOCK_GAS);
+        ids.put(ModIds.CIRRUS_CLOUD_BLOCK, ModIds.CIRRUS_CLOUD_BLOCK_GAS);
+        ids.put(ModIds.ALTOSTRATUS_CLOUD_BLOCK, ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS);
+        ids.put(ModIds.NIMBOSTRATUS_CLOUD_BLOCK, ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS);
+        ids.put(ModIds.CUMULONIMBUS_CLOUD_BLOCK, ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS);
+        return Map.copyOf(ids);
     }
 
     private static List<Offset> computeRadiusOffsets(double radius) {

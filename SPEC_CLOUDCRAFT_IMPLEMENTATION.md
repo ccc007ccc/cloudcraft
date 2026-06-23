@@ -83,18 +83,18 @@
 
 - [x] 明确 `gas_state_converter` 是主路径机器，而不是装饰方块。
 - [x] 明确它支持气态云到固态云的转换。
-- [ ] 明确是否支持固态云到气态云的反向转换。
+- [x] 明确支持固态云到气态云的反向转换。
 - [x] 明确输入输出交互方式：右键、物品槽、区域扫描或红石触发。
-- [ ] 明确消耗资源：Cloud Walker 药水、云碎片、压缩空气或时间。
+- [x] 明确消耗资源：积云碎片固化气态云，卷云丝线气化固态云。
 - [x] 保留投掷药水固化作为发现性机制或备用机制。
 
 ### 4.2 BlockEntity 与规则层
 
 - [x] 增加或扩展平台无关的转换规则类。
 - [x] 增加转换器 Block 或 BlockEntity 需要的公共行为类。
-- [ ] 不把平台注册对象回填到 `common` 可变静态字段。
-- [ ] 为 NeoForge 注册 BlockEntityType。
-- [ ] 为 Fabric 注册 BlockEntityType。
+- [x] 不把平台注册对象回填到 `common` 可变静态字段。
+- [x] 为 NeoForge 注册 BlockEntityType。
+- [x] 为 Fabric 注册 BlockEntityType。
 - [x] 如果需要菜单，先做最小无 GUI 交互；GUI 后置。
 - [x] 转换扫描半径必须复用或扩展 `CloudTransformationRules`。
 - [x] 转换结果必须保留云属，不允许所有气云变同一种固云。

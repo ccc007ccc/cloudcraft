@@ -1,6 +1,7 @@
 package com.tr1c.cloudcraft;
 
 import com.tr1c.cloudcraft.block.NeoForgeModBlocks;
+import com.tr1c.cloudcraft.block.NeoForgeModBlockEntities;
 import com.tr1c.cloudcraft.cloudtech.NeoForgeCloudTechBootstrap;
 import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
 import com.tr1c.cloudcraft.item.NeoForgeModCreativeModeTabs;
@@ -21,6 +22,7 @@ public final class NeoForgeBootstrap {
         modEventBus.addListener((RegisterGameTestsEvent event) -> NeoForgeGameTests.register(event));
 
         NeoForgeModBlocks.register(modEventBus);
+        NeoForgeModBlockEntities.register(modEventBus);
         NeoForgeModItems.register(modEventBus);
         NeoForgeModPotions.register(modEventBus);
         NeoForgeModEffects.register(modEventBus);
