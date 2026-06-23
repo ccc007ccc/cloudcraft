@@ -198,9 +198,9 @@
 - [x] 天气事件规则。
 - [x] 积雨云雷暴事件。
 - [x] 雨层云降雨/水循环事件。
-- [ ] JEI/REI/EMI 配方展示策略。
-- [ ] 与其他科技 mod 的兼容策略。
-- [ ] 只在压缩空气闭环完整后再接电力兼容。
+- [x] JEI/REI/EMI 配方展示策略。
+- [x] 与其他科技 mod 的兼容策略。
+- [x] 只在压缩空气闭环完整后再接电力兼容。
 
 ## 10. 验证门槛
 
@@ -223,3 +223,4 @@
 - [x] NeoForge GameTest 已验证普通服务器世界中 `MinecraftServer#getLevel(cloudcraft:cloud_dimension)` 非空，云维度不依赖手动选择自定义 world preset 才能被传送逻辑访问。
 - [x] NeoForge GameTest 已验证 `cloudcraft:cloud_wisp` 可生成，且保持浮空、非充能、无爆炸。
 - [x] NeoForge GameTest 已验证积雨云簇会生成视觉闪电雷暴事件，雨层云簇会在承托面上方凝结水源；17 个必需测试全部通过。
+- [x] `docs/COMPATIBILITY_STRATEGY.md` 已明确 JEI/REI/EMI 展示顺序、气态转换器展示语义、科技 mod optional integration 边界和电力兼容门槛；`CompatibilityBoundaryTest` 验证当前源码与 Gradle 仍未硬依赖配方查看器或能量 API。

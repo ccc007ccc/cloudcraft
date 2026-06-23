@@ -56,6 +56,10 @@ CloudCraft 的基础数值配置由 `common` 的 `CloudCraftConfig` 统一生效
 - `gasCloudHorizontalTargetSpeedMultiplier`：气态云水平目标速度
 - `gasCloudHorizontalConvergenceMultiplier`：气态云水平速度收敛强度
 
+## 兼容策略
+
+配方查看器和其他科技 mod 的接入边界记录在 `docs/COMPATIBILITY_STRATEGY.md`。当前版本不把 JEI、REI、EMI 或电力 API 接成运行时依赖；后续兼容必须保持 optional integration，并以 CloudCraft 自己的压缩空气闭环为核心。
+
 ## 验证重点
 
 每次修改核心玩法后至少确认：
