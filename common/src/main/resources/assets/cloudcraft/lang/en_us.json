@@ -50,6 +50,7 @@
   "block.cloudcraft.gas_state_converter": "Gas State Converter",
 
   "effect.cloudcraft.cloud_walker": "Cloud Walker",
+  "entity.cloudcraft.cloud_wisp": "Cloud Wisp",
 
   "advancements.cloudcraft.root.title": "CloudCraft",
   "advancements.cloudcraft.root.description": "Find your first usable cloud material.",

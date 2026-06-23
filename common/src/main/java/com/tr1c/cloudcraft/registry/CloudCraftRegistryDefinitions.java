@@ -9,6 +9,7 @@ public final class CloudCraftRegistryDefinitions {
     private static final List<String> BLOCK_ITEM_IDS = BLOCK_IDS;
     private static final List<String> EFFECT_IDS = CloudCraftEffectDefinitions.ids();
     private static final List<String> POTION_IDS = CloudCraftPotionDefinitions.ids();
+    private static final List<String> ENTITY_TYPE_IDS = CloudCraftEntityDefinitions.ids();
 
     private CloudCraftRegistryDefinitions() {
     }
@@ -35,5 +36,9 @@ public final class CloudCraftRegistryDefinitions {
 
     public static List<String> potionIds() {
         return POTION_IDS;
+    }
+
+    public static List<String> entityTypeIds() {
+        return ENTITY_TYPE_IDS;
     }
 }

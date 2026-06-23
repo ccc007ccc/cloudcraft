@@ -10,6 +10,8 @@ import com.tr1c.cloudcraft.cloudtech.JetpackRuntime;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRules;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRuntime;
 import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
+import com.tr1c.cloudcraft.entity.CloudWispEntity;
+import com.tr1c.cloudcraft.entity.NeoForgeModEntities;
 import com.tr1c.cloudcraft.item.NeoForgeModItems;
 import com.tr1c.cloudcraft.registry.ModIds;
 import com.tr1c.cloudcraft.world.CloudDimensionKeys;
@@ -77,6 +79,9 @@ public final class NeoForgeGameTests {
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_BIOME_HAS_NATURAL_FEATURES = TEST_FUNCTIONS.register(
             "cloud_dimension_biome_has_natural_features",
             () -> NeoForgeGameTests::cloudDimensionBiomeHasNaturalFeatures);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_WISP_SPAWNS_AS_PASSIVE_DRIFTER = TEST_FUNCTIONS.register(
+            "cloud_wisp_spawns_as_passive_drifter",
+            () -> NeoForgeGameTests::cloudWispSpawnsAsPassiveDrifter);
 
     private NeoForgeGameTests() {
     }
@@ -99,6 +104,7 @@ public final class NeoForgeGameTests {
         register(event, environment, CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR);
         register(event, environment, CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE);
         register(event, environment, CLOUD_DIMENSION_BIOME_HAS_NATURAL_FEATURES);
+        register(event, environment, CLOUD_WISP_SPAWNS_AS_PASSIVE_DRIFTER);
     }
 
     private static void register(RegisterGameTestsEvent event, Holder<TestEnvironmentDefinition> environment, DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> testFunction) {
@@ -303,6 +309,17 @@ public final class NeoForgeGameTests {
         assertHasPlacedFeature(helper, biome, "nimbostratus_cloud_patch");
         assertHasPlacedFeature(helper, biome, "cumulonimbus_cloud_patch");
         assertHasPlacedFeature(helper, biome, "cirrus_gas_wisps");
+        helper.succeed();
+    }
+
+    private static void cloudWispSpawnsAsPassiveDrifter(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(0, 2, 0);
+        CloudWispEntity wisp = helper.spawn(NeoForgeModEntities.CLOUD_WISP.get(), pos);
+
+        helper.assertEntityPresent(NeoForgeModEntities.CLOUD_WISP.get(), pos, 2.0);
+        helper.assertEntityProperty(wisp, CloudWispEntity::isNoGravity, true, net.minecraft.network.chat.Component.literal("Cloud wisp should float"));
+        helper.assertEntityProperty(wisp, CloudWispEntity::isCharging, false, net.minecraft.network.chat.Component.literal("Cloud wisp should not charge attacks"));
+        helper.assertEntityProperty(wisp, CloudWispEntity::getExplosionPower, 0, net.minecraft.network.chat.Component.literal("Cloud wisp should not explode"));
         helper.succeed();
     }
 

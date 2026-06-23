@@ -6,6 +6,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 
 public final class ModIds {
@@ -41,6 +42,7 @@ public final class ModIds {
     public static final String CLOUD_TAB = "cloud_tab";
     public static final String CLOUD_DIMENSION = "cloud_dimension";
     public static final String CUMULUS_FIELDS = "cumulus_fields";
+    public static final String CLOUD_WISP = "cloud_wisp";
 
     private ModIds() {
     }
@@ -59,5 +61,9 @@ public final class ModIds {
 
     public static ResourceKey<Potion> potionKey(String path) {
         return ResourceKey.create(Registries.POTION, id(path));
+    }
+
+    public static ResourceKey<EntityType<?>> entityTypeKey(String path) {
+        return ResourceKey.create(Registries.ENTITY_TYPE, id(path));
     }
 }

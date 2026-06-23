@@ -70,6 +70,15 @@ class CloudCraftRegistryDefinitionsTest {
     }
 
     @Test
+    void shouldKeepEntityDefinitionIdsComplete() throws IOException {
+        assertEquals(List.of("CLOUD_WISP"), definitionIds("CloudCraftEntityDefinitions.java"));
+        String source = Files.readString(REGISTRY_SOURCE.resolve("CloudCraftRegistryDefinitions.java"));
+
+        assertTrue(source.contains("private static final List<String> ENTITY_TYPE_IDS = CloudCraftEntityDefinitions.ids();"));
+        assertTrue(source.contains("public static List<String> entityTypeIds()"));
+    }
+
+    @Test
     void shouldCreateFunctionalGasStateConverterBlock() throws IOException {
         String source = Files.readString(REGISTRY_SOURCE.resolve("CloudCraftBlockDefinitions.java"));
         int factoryStart = source.indexOf("public static Block createGasStateConverter");
@@ -130,6 +139,9 @@ class CloudCraftRegistryDefinitionsTest {
             assertTrue(languageKeys.contains("item.minecraft.potion.effect." + id));
             assertTrue(languageKeys.contains("item.minecraft.splash_potion.effect." + id));
             assertTrue(languageKeys.contains("item.minecraft.lingering_potion.effect." + id));
+        }
+        for (String id : definitionValues("CloudCraftEntityDefinitions.java")) {
+            assertTrue(languageKeys.contains("entity." + MOD_ID + "." + id));
         }
     }
 
@@ -290,6 +302,7 @@ class CloudCraftRegistryDefinitionsTest {
             case "GAS_STATE_CONVERTER" -> "gas_state_converter";
             case "CLOUD_WALKER" -> "cloud_walker";
             case "SOLID_CLOUD_POTION" -> "solid_cloud";
+            case "CLOUD_WISP" -> "cloud_wisp";
             default -> throw new IllegalArgumentException(constantName);
         };
     }
