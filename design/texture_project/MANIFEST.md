@@ -5,6 +5,7 @@
 APX sources in `source/item/` export to `common/src/main/resources/assets/cloudcraft/textures/item/`.
 
 - `basic_jetpack_frame.apx` -> `basic_jetpack_frame.png`
+- `altostratus_veil.apx` -> `altostratus_veil.png`
 - `cirrus_filament.apx` -> `cirrus_filament.png`
 - `cloud.apx` -> `cloud.png`
 - `cloud_jetpack.apx` -> `cloud_jetpack.png`
@@ -12,8 +13,10 @@ APX sources in `source/item/` export to `common/src/main/resources/assets/cloudc
 - `cumulus_cloud_fragment.apx` -> `cumulus_cloud_fragment.png`
 - `high_pressure_chamber.apx` -> `high_pressure_chamber.png`
 - `high_pressure_cloud_jetpack.apx` -> `high_pressure_cloud_jetpack.png`
+- `nimbostratus_fleece.apx` -> `nimbostratus_fleece.png`
 - `stabilized_cloud_jetpack.apx` -> `stabilized_cloud_jetpack.png`
 - `stabilized_nozzle.apx` -> `stabilized_nozzle.png`
+- `stratus_wisp.apx` -> `stratus_wisp.png`
 - `storm_core.apx` -> `storm_core.png`
 
 ## Unregistered Armor Reference

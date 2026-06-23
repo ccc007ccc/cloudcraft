@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "cloudcraft:stratus_cloud_block"
+  ],
+  "result": {
+    "count": 4,
+    "id": "cloudcraft:stratus_wisp"
+  }
+}

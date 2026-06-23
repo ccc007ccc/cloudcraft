@@ -4,12 +4,13 @@
   "key": {
     "C": "cloudcraft:compressed_canister",
     "I": "minecraft:iron_block",
+    "N": "cloudcraft:nimbostratus_fleece",
     "S": "cloudcraft:storm_core"
   },
   "pattern": [
-    " I ",
+    "NIN",
     "SCS",
-    " I "
+    "NIN"
   ],
   "result": {
     "count": 1,

@@ -40,6 +40,13 @@ Minecraft item texture, fluffy edible cloud puff, soft white cloud bun, slightly
 Minecraft item texture, small broken chunk of cumulus cloud, bright white soft fragment with faint sky-blue rim light, looks lightweight and slightly crystalline, compact readable silhouette, transparent background, 16x16 pixel art.
 ```
 
+#### `textures/item/stratus_wisp.png`
+用途：层云材料，转换器稳定絮
+
+```text
+Minecraft item texture, stratus cloud wisp, flat horizontal fog strand with soft gray-blue shadow and pale white highlights, airy layered mist material, centered readable silhouette, transparent background, 16x16 pixel art.
+```
+
 #### `textures/item/compressed_canister.png`
 用途：压缩空气核心材料
 
@@ -52,6 +59,20 @@ Minecraft item texture, compact compressed air canister, small metallic cylinder
 
 ```text
 Minecraft item texture, cirrus filament, thin airy fiber bundle made of icy-white cloud strands, slight cyan shimmer, elegant lightweight shape, delicate but readable at tiny size, transparent background, 16x16 pixel art.
+```
+
+#### `textures/item/altostratus_veil.png`
+用途：高层云材料，稳定喷口薄幕
+
+```text
+Minecraft item texture, altostratus veil, thin folded sheet of high cloud membrane, pale silver blue translucent-looking folds, subtle cyan edge light, vertical curtain-like silhouette, transparent background, 16x16 pixel art.
+```
+
+#### `textures/item/nimbostratus_fleece.png`
+用途：雨层云材料，高压舱阻尼湿絮
+
+```text
+Minecraft item texture, nimbostratus fleece, damp heavy cloud wool clump with cool gray-blue shadows and tiny rain droplets, wet weather material, compact centered silhouette, transparent background, 16x16 pixel art.
 ```
 
 #### `textures/item/storm_core.png`

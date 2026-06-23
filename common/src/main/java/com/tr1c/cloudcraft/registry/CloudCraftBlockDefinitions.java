@@ -3,6 +3,7 @@ package com.tr1c.cloudcraft.registry;
 import com.tr1c.cloudcraft.block.custom.GasStateConverterBlock;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudBlock;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudMotionRules;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CloudResourceRules;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlock;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CumulusCloudBlockGas;
 import com.tr1c.cloudcraft.block.custom.cloud_block.MotionGasCloudBlock;
@@ -30,12 +31,12 @@ public final class CloudCraftBlockDefinitions {
         return List.copyOf(DEFINITIONS.keySet());
     }
 
-    public static Block create(String id, BlockBehaviour.Properties properties, Holder<MobEffect> cloudWalkerEffect, Supplier<Item> fragmentItem, SolidStateLookup solidStateLookup) {
+    public static Block create(String id, BlockBehaviour.Properties properties, Holder<MobEffect> cloudWalkerEffect, ItemLookup itemLookup, SolidStateLookup solidStateLookup) {
         BlockFactory factory = DEFINITIONS.get(id);
         if (factory == null) {
             throw new IllegalArgumentException("Unknown block definition: " + id);
         }
-        return factory.create(id, properties, cloudWalkerEffect, fragmentItem, solidStateLookup);
+        return factory.create(id, properties, cloudWalkerEffect, itemLookup, solidStateLookup);
     }
 
     public static Block createCumulusCloudBlock(BlockBehaviour.Properties properties, Holder<MobEffect> cloudWalkerEffect, Supplier<Item> fragmentItem) {
@@ -73,25 +74,35 @@ public final class CloudCraftBlockDefinitions {
 
     private static Map<String, BlockFactory> definitions() {
         Map<String, BlockFactory> definitions = new LinkedHashMap<>();
-        definitions.put(ModIds.CUMULUS_CLOUD_BLOCK, (id, properties, effect, fragment, solid) -> createCumulusCloudBlock(properties, effect, fragment));
+        definitions.put(ModIds.CUMULUS_CLOUD_BLOCK, (id, properties, effect, items, solid) -> createCumulusCloudBlock(properties, effect, cloudDropItem(id, items)));
         definitions.put(ModIds.CUMULUS_CLOUD_BLOCK_GAS, (id, properties, effect, fragment, solid) -> createCumulusCloudBlockGas(properties, solid.get(ModIds.CUMULUS_CLOUD_BLOCK), effect));
-        definitions.put(ModIds.STRATUS_CLOUD_BLOCK, (id, properties, effect, fragment, solid) -> createCloudBlock(properties, effect, fragment));
+        definitions.put(ModIds.STRATUS_CLOUD_BLOCK, (id, properties, effect, items, solid) -> createCloudBlock(properties, effect, cloudDropItem(id, items)));
         definitions.put(ModIds.STRATUS_CLOUD_BLOCK_GAS, (id, properties, effect, fragment, solid) -> createMotionGasCloudBlock(properties, solid.get(ModIds.STRATUS_CLOUD_BLOCK), effect, CloudMotionRules.STRATUS_GAS));
-        definitions.put(ModIds.CIRRUS_CLOUD_BLOCK, (id, properties, effect, fragment, solid) -> createCloudBlock(properties, effect, fragment));
+        definitions.put(ModIds.CIRRUS_CLOUD_BLOCK, (id, properties, effect, items, solid) -> createCloudBlock(properties, effect, cloudDropItem(id, items)));
         definitions.put(ModIds.CIRRUS_CLOUD_BLOCK_GAS, (id, properties, effect, fragment, solid) -> createMotionGasCloudBlock(properties, solid.get(ModIds.CIRRUS_CLOUD_BLOCK), effect, CloudMotionRules.CIRRUS_GAS));
-        definitions.put(ModIds.ALTOSTRATUS_CLOUD_BLOCK, (id, properties, effect, fragment, solid) -> createCloudBlock(properties, effect, fragment));
+        definitions.put(ModIds.ALTOSTRATUS_CLOUD_BLOCK, (id, properties, effect, items, solid) -> createCloudBlock(properties, effect, cloudDropItem(id, items)));
         definitions.put(ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS, (id, properties, effect, fragment, solid) -> createMotionGasCloudBlock(properties, solid.get(ModIds.ALTOSTRATUS_CLOUD_BLOCK), effect, CloudMotionRules.ALTOSTRATUS_GAS));
-        definitions.put(ModIds.NIMBOSTRATUS_CLOUD_BLOCK, (id, properties, effect, fragment, solid) -> createCloudBlock(properties, effect, fragment));
+        definitions.put(ModIds.NIMBOSTRATUS_CLOUD_BLOCK, (id, properties, effect, items, solid) -> createCloudBlock(properties, effect, cloudDropItem(id, items)));
         definitions.put(ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS, (id, properties, effect, fragment, solid) -> createMotionGasCloudBlock(properties, solid.get(ModIds.NIMBOSTRATUS_CLOUD_BLOCK), effect, CloudMotionRules.NIMBOSTRATUS_GAS));
-        definitions.put(ModIds.CUMULONIMBUS_CLOUD_BLOCK, (id, properties, effect, fragment, solid) -> createCloudBlock(properties, effect, fragment));
+        definitions.put(ModIds.CUMULONIMBUS_CLOUD_BLOCK, (id, properties, effect, items, solid) -> createCloudBlock(properties, effect, cloudDropItem(id, items)));
         definitions.put(ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS, (id, properties, effect, fragment, solid) -> createMotionGasCloudBlock(properties, solid.get(ModIds.CUMULONIMBUS_CLOUD_BLOCK), effect, CloudMotionRules.CUMULONIMBUS_GAS));
         definitions.put(ModIds.GAS_STATE_CONVERTER, (id, properties, effect, fragment, solid) -> createGasStateConverter(properties));
         return Collections.unmodifiableMap(definitions);
     }
 
+    private static Supplier<Item> cloudDropItem(String solidCloudId, ItemLookup itemLookup) {
+        String dropItemId = CloudResourceRules.primaryDropForSolidCloud(solidCloudId).itemId();
+        return () -> itemLookup.get(dropItemId);
+    }
+
     @FunctionalInterface
     private interface BlockFactory {
-        Block create(String id, BlockBehaviour.Properties properties, Holder<MobEffect> cloudWalkerEffect, Supplier<Item> fragmentItem, SolidStateLookup solidStateLookup);
+        Block create(String id, BlockBehaviour.Properties properties, Holder<MobEffect> cloudWalkerEffect, ItemLookup itemLookup, SolidStateLookup solidStateLookup);
+    }
+
+    @FunctionalInterface
+    public interface ItemLookup {
+        Item get(String id);
     }
 
     @FunctionalInterface

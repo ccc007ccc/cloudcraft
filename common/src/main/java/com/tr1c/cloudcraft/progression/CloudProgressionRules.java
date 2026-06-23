@@ -13,8 +13,11 @@ public final class CloudProgressionRules {
             ModIds.HIGH_PRESSURE_CLOUD_JETPACK);
     private static final Map<String, CloudTier> MATERIAL_TIERS = Map.of(
             ModIds.CUMULUS_CLOUD_FRAGMENT, CloudTier.CUMULUS,
+            ModIds.STRATUS_WISP, CloudTier.STRATUS,
             ModIds.COMPRESSED_CANISTER, CloudTier.CUMULUS,
             ModIds.CIRRUS_FILAMENT, CloudTier.CIRRUS,
+            ModIds.ALTOSTRATUS_VEIL, CloudTier.ALTOSTRATUS,
+            ModIds.NIMBOSTRATUS_FLEECE, CloudTier.NIMBOSTRATUS,
             ModIds.STABILIZED_NOZZLE, CloudTier.ALTOSTRATUS,
             ModIds.STORM_CORE, CloudTier.CUMULONIMBUS,
             ModIds.HIGH_PRESSURE_CHAMBER, CloudTier.CUMULONIMBUS);

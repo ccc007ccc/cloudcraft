@@ -59,7 +59,7 @@ public final class FabricModBlocks {
                 id,
                 BlockBehaviour.Properties.of().setId(ModIds.blockKey(id)),
                 FabricModEffects.CLOUD_WALKER,
-                () -> FabricModItems.CUMULUS_CLOUD_FRAGMENT,
+                FabricModItems::itemById,
                 solidId -> blocks.get(solidId).defaultBlockState());
     }
 

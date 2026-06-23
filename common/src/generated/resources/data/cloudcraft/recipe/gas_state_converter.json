@@ -5,10 +5,11 @@
     "B": "minecraft:glass_bottle",
     "G": "minecraft:glass_pane",
     "I": "minecraft:iron_ingot",
-    "J": "minecraft:gold_ingot"
+    "J": "minecraft:gold_ingot",
+    "W": "cloudcraft:stratus_wisp"
   },
   "pattern": [
-    "III",
+    "IWI",
     "BGB",
     "IJI"
   ],

@@ -27,8 +27,11 @@ class CloudCraftRegistryDefinitionsTest {
         assertEquals(List.of(
                 "CLOUD",
                 "CUMULUS_CLOUD_FRAGMENT",
+                "STRATUS_WISP",
                 "COMPRESSED_CANISTER",
                 "CIRRUS_FILAMENT",
+                "ALTOSTRATUS_VEIL",
+                "NIMBOSTRATUS_FLEECE",
                 "STORM_CORE",
                 "BASIC_JETPACK_FRAME",
                 "STABILIZED_NOZZLE",
@@ -133,8 +136,11 @@ class CloudCraftRegistryDefinitionsTest {
     @Test
     void shouldKeepGeneratedResourcesComplete() {
         assertGeneratedResource("assets/cloudcraft/items/cloud.json");
+        assertGeneratedResource("assets/cloudcraft/items/stratus_wisp.json");
         assertGeneratedResource("assets/cloudcraft/items/compressed_canister.json");
         assertGeneratedResource("assets/cloudcraft/items/cirrus_filament.json");
+        assertGeneratedResource("assets/cloudcraft/items/altostratus_veil.json");
+        assertGeneratedResource("assets/cloudcraft/items/nimbostratus_fleece.json");
         assertGeneratedResource("assets/cloudcraft/items/storm_core.json");
         assertGeneratedResource("assets/cloudcraft/items/basic_jetpack_frame.json");
         assertGeneratedResource("assets/cloudcraft/items/stabilized_nozzle.json");
@@ -143,7 +149,10 @@ class CloudCraftRegistryDefinitionsTest {
         assertGeneratedResource("assets/cloudcraft/items/stabilized_cloud_jetpack.json");
         assertGeneratedResource("assets/cloudcraft/items/high_pressure_cloud_jetpack.json");
         assertGeneratedResource("assets/cloudcraft/models/item/compressed_canister.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/stratus_wisp.json");
         assertGeneratedResource("assets/cloudcraft/models/item/cirrus_filament.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/altostratus_veil.json");
+        assertGeneratedResource("assets/cloudcraft/models/item/nimbostratus_fleece.json");
         assertGeneratedResource("assets/cloudcraft/models/item/storm_core.json");
         assertGeneratedResource("assets/cloudcraft/models/item/basic_jetpack_frame.json");
         assertGeneratedResource("assets/cloudcraft/models/item/stabilized_nozzle.json");
@@ -165,7 +174,10 @@ class CloudCraftRegistryDefinitionsTest {
         assertGeneratedResource("assets/cloudcraft/models/block/cumulonimbus_cloud_block_gas.json");
         assertGeneratedResource("assets/cloudcraft/blockstates/gas_state_converter.json");
         assertGeneratedResource("data/cloudcraft/recipe/compressed_canister.json");
+        assertGeneratedResource("data/cloudcraft/recipe/stratus_wisp.json");
         assertGeneratedResource("data/cloudcraft/recipe/cirrus_filament.json");
+        assertGeneratedResource("data/cloudcraft/recipe/altostratus_veil.json");
+        assertGeneratedResource("data/cloudcraft/recipe/nimbostratus_fleece.json");
         assertGeneratedResource("data/cloudcraft/recipe/storm_core.json");
         assertGeneratedResource("data/cloudcraft/recipe/basic_jetpack_frame.json");
         assertGeneratedResource("data/cloudcraft/recipe/stabilized_nozzle.json");
@@ -229,8 +241,11 @@ class CloudCraftRegistryDefinitionsTest {
         return switch (constantName) {
             case "CLOUD" -> "cloud";
             case "CUMULUS_CLOUD_FRAGMENT" -> "cumulus_cloud_fragment";
+            case "STRATUS_WISP" -> "stratus_wisp";
             case "COMPRESSED_CANISTER" -> "compressed_canister";
             case "CIRRUS_FILAMENT" -> "cirrus_filament";
+            case "ALTOSTRATUS_VEIL" -> "altostratus_veil";
+            case "NIMBOSTRATUS_FLEECE" -> "nimbostratus_fleece";
             case "STORM_CORE" -> "storm_core";
             case "BASIC_JETPACK_FRAME" -> "basic_jetpack_frame";
             case "STABILIZED_NOZZLE" -> "stabilized_nozzle";

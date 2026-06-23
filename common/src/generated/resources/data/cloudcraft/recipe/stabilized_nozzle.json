@@ -4,11 +4,11 @@
   "key": {
     "C": "cloudcraft:compressed_canister",
     "F": "cloudcraft:cirrus_filament",
-    "R": "minecraft:copper_ingot"
+    "V": "cloudcraft:altostratus_veil"
   },
   "pattern": [
     " F ",
-    "RCR",
+    "VCV",
     " F "
   ],
   "result": {

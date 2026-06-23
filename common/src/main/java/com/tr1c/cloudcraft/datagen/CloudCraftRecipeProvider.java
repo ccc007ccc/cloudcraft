@@ -50,6 +50,11 @@ public final class CloudCraftRecipeProvider implements DataProvider {
                 .unlockedBy("has_cumulus_cloud_block", has(item(ModIds.CUMULUS_CLOUD_BLOCK)))
                 .save(recipeOutput, recipeKey(ModIds.CUMULUS_CLOUD_FRAGMENT));
 
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.STRATUS_WISP), 4)
+                .requires(item(ModIds.STRATUS_CLOUD_BLOCK))
+                .unlockedBy("has_stratus_cloud_block", has(item(ModIds.STRATUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.STRATUS_WISP));
+
         ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.STRATUS_CLOUD_BLOCK))
                 .requires(item(ModIds.CUMULUS_CLOUD_BLOCK))
                 .requires(Items.SNOWBALL)
@@ -92,6 +97,16 @@ public final class CloudCraftRecipeProvider implements DataProvider {
                 .unlockedBy("has_cirrus_cloud_block", has(item(ModIds.CIRRUS_CLOUD_BLOCK)))
                 .save(recipeOutput, recipeKey(ModIds.CIRRUS_FILAMENT));
 
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.ALTOSTRATUS_VEIL), 4)
+                .requires(item(ModIds.ALTOSTRATUS_CLOUD_BLOCK))
+                .unlockedBy("has_altostratus_cloud_block", has(item(ModIds.ALTOSTRATUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.ALTOSTRATUS_VEIL));
+
+        ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.NIMBOSTRATUS_FLEECE), 4)
+                .requires(item(ModIds.NIMBOSTRATUS_CLOUD_BLOCK))
+                .unlockedBy("has_nimbostratus_cloud_block", has(item(ModIds.NIMBOSTRATUS_CLOUD_BLOCK)))
+                .save(recipeOutput, recipeKey(ModIds.NIMBOSTRATUS_FLEECE));
+
         ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.STORM_CORE))
                 .requires(item(ModIds.CUMULONIMBUS_CLOUD_BLOCK))
                 .requires(Items.BLAZE_POWDER)
@@ -110,9 +125,9 @@ public final class CloudCraftRecipeProvider implements DataProvider {
         ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.MISC, item(ModIds.STABILIZED_NOZZLE))
                 .define('F', item(ModIds.CIRRUS_FILAMENT))
                 .define('C', item(ModIds.COMPRESSED_CANISTER))
-                .define('R', Items.COPPER_INGOT)
+                .define('V', item(ModIds.ALTOSTRATUS_VEIL))
                 .pattern(" F ")
-                .pattern("RCR")
+                .pattern("VCV")
                 .pattern(" F ")
                 .unlockedBy("has_cirrus_filament", has(item(ModIds.CIRRUS_FILAMENT)))
                 .save(recipeOutput, recipeKey(ModIds.STABILIZED_NOZZLE));
@@ -121,9 +136,10 @@ public final class CloudCraftRecipeProvider implements DataProvider {
                 .define('S', item(ModIds.STORM_CORE))
                 .define('C', item(ModIds.COMPRESSED_CANISTER))
                 .define('I', Items.IRON_BLOCK)
-                .pattern(" I ")
+                .define('N', item(ModIds.NIMBOSTRATUS_FLEECE))
+                .pattern("NIN")
                 .pattern("SCS")
-                .pattern(" I ")
+                .pattern("NIN")
                 .unlockedBy("has_storm_core", has(item(ModIds.STORM_CORE)))
                 .save(recipeOutput, recipeKey(ModIds.HIGH_PRESSURE_CHAMBER));
 
@@ -162,10 +178,11 @@ public final class CloudCraftRecipeProvider implements DataProvider {
                 .define('B', Items.GLASS_BOTTLE)
                 .define('G', Items.GLASS_PANE)
                 .define('J', Items.GOLD_INGOT)
-                .pattern("III")
+                .define('W', item(ModIds.STRATUS_WISP))
+                .pattern("IWI")
                 .pattern("BGB")
                 .pattern("IJI")
-                .unlockedBy("has_glass_bottle", has(Items.GLASS_BOTTLE))
+                .unlockedBy("has_stratus_wisp", has(item(ModIds.STRATUS_WISP)))
                 .save(recipeOutput, recipeKey(ModIds.GAS_STATE_CONVERTER));
 
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));

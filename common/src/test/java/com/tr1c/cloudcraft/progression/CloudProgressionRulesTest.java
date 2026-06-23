@@ -26,8 +26,12 @@ class CloudProgressionRulesTest {
 
     @Test
     void shouldMapMaterialsToExpectedTiers() {
+        assertEquals(CloudTier.CUMULUS, CloudProgressionRules.tierForMaterial(ModIds.CUMULUS_CLOUD_FRAGMENT));
+        assertEquals(CloudTier.STRATUS, CloudProgressionRules.tierForMaterial(ModIds.STRATUS_WISP));
         assertEquals(CloudTier.CUMULUS, CloudProgressionRules.tierForMaterial(ModIds.COMPRESSED_CANISTER));
         assertEquals(CloudTier.CIRRUS, CloudProgressionRules.tierForMaterial(ModIds.CIRRUS_FILAMENT));
+        assertEquals(CloudTier.ALTOSTRATUS, CloudProgressionRules.tierForMaterial(ModIds.ALTOSTRATUS_VEIL));
+        assertEquals(CloudTier.NIMBOSTRATUS, CloudProgressionRules.tierForMaterial(ModIds.NIMBOSTRATUS_FLEECE));
         assertEquals(CloudTier.CUMULONIMBUS, CloudProgressionRules.tierForMaterial(ModIds.STORM_CORE));
     }
 

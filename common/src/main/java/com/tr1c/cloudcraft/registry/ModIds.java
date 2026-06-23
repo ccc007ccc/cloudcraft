@@ -11,8 +11,11 @@ import net.minecraft.world.level.block.Block;
 public final class ModIds {
     public static final String CLOUD = "cloud";
     public static final String CUMULUS_CLOUD_FRAGMENT = "cumulus_cloud_fragment";
+    public static final String STRATUS_WISP = "stratus_wisp";
     public static final String COMPRESSED_CANISTER = "compressed_canister";
     public static final String CIRRUS_FILAMENT = "cirrus_filament";
+    public static final String ALTOSTRATUS_VEIL = "altostratus_veil";
+    public static final String NIMBOSTRATUS_FLEECE = "nimbostratus_fleece";
     public static final String STORM_CORE = "storm_core";
     public static final String BASIC_JETPACK_FRAME = "basic_jetpack_frame";
     public static final String STABILIZED_NOZZLE = "stabilized_nozzle";

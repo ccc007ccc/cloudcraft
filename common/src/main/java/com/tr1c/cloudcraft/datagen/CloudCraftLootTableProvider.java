@@ -2,6 +2,7 @@ package com.tr1c.cloudcraft.datagen;
 
 import com.mojang.serialization.JsonOps;
 import com.tr1c.cloudcraft.CloudCraft;
+import com.tr1c.cloudcraft.block.custom.cloud_block.CloudResourceRules;
 import com.tr1c.cloudcraft.registry.CloudCraftRegistryDefinitions;
 import com.tr1c.cloudcraft.registry.ModIds;
 import net.minecraft.core.HolderLookup;
@@ -80,28 +81,29 @@ public final class CloudCraftLootTableProvider implements DataProvider {
         @Override
         public void generate() {
             HolderLookup.RegistryLookup<net.minecraft.world.item.enchantment.Enchantment> enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
-            addCloudBlockLoot(enchantments, ModIds.CUMULUS_CLOUD_BLOCK);
+            addCloudBlockLoot(enchantments, CloudResourceRules.primaryDropForSolidCloud(ModIds.CUMULUS_CLOUD_BLOCK));
             add(block(ModIds.CUMULUS_CLOUD_BLOCK_GAS), noDrop());
-            addCloudBlockLoot(enchantments, ModIds.STRATUS_CLOUD_BLOCK);
+            addCloudBlockLoot(enchantments, CloudResourceRules.primaryDropForSolidCloud(ModIds.STRATUS_CLOUD_BLOCK));
             add(block(ModIds.STRATUS_CLOUD_BLOCK_GAS), noDrop());
-            addCloudBlockLoot(enchantments, ModIds.CIRRUS_CLOUD_BLOCK);
+            addCloudBlockLoot(enchantments, CloudResourceRules.primaryDropForSolidCloud(ModIds.CIRRUS_CLOUD_BLOCK));
             add(block(ModIds.CIRRUS_CLOUD_BLOCK_GAS), noDrop());
-            addCloudBlockLoot(enchantments, ModIds.ALTOSTRATUS_CLOUD_BLOCK);
+            addCloudBlockLoot(enchantments, CloudResourceRules.primaryDropForSolidCloud(ModIds.ALTOSTRATUS_CLOUD_BLOCK));
             add(block(ModIds.ALTOSTRATUS_CLOUD_BLOCK_GAS), noDrop());
-            addCloudBlockLoot(enchantments, ModIds.NIMBOSTRATUS_CLOUD_BLOCK);
+            addCloudBlockLoot(enchantments, CloudResourceRules.primaryDropForSolidCloud(ModIds.NIMBOSTRATUS_CLOUD_BLOCK));
             add(block(ModIds.NIMBOSTRATUS_CLOUD_BLOCK_GAS), noDrop());
-            addCloudBlockLoot(enchantments, ModIds.CUMULONIMBUS_CLOUD_BLOCK);
+            addCloudBlockLoot(enchantments, CloudResourceRules.primaryDropForSolidCloud(ModIds.CUMULONIMBUS_CLOUD_BLOCK));
             add(block(ModIds.CUMULONIMBUS_CLOUD_BLOCK_GAS), noDrop());
             dropSelf(block(ModIds.GAS_STATE_CONVERTER));
         }
 
-        private void addCloudBlockLoot(HolderLookup.RegistryLookup<net.minecraft.world.item.enchantment.Enchantment> enchantments, String id) {
-            add(block(id), createSilkTouchDispatchTable(
-                    block(id),
-                    LootItem.lootTableItem(item(ModIds.CUMULUS_CLOUD_FRAGMENT))
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+        private void addCloudBlockLoot(HolderLookup.RegistryLookup<net.minecraft.world.item.enchantment.Enchantment> enchantments, CloudResourceRules.Drop drop) {
+            String blockId = drop.solidCloudId();
+            add(block(blockId), createSilkTouchDispatchTable(
+                    block(blockId),
+                    LootItem.lootTableItem(item(drop.itemId()))
+                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(drop.minCount(), drop.maxCount())))
                             .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE), 1))
-                            .apply(LimitCount.limitCount(IntRange.range(1, 4)))
+                            .apply(LimitCount.limitCount(IntRange.range(drop.minCount(), drop.maxCount())))
                             .apply(ApplyExplosionDecay.explosionDecay())));
         }
 

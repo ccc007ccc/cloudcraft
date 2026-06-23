@@ -66,8 +66,11 @@ public final class CloudCraftItemDefinitions {
         Map<String, ItemFactory> definitions = new LinkedHashMap<>();
         definitions.put(ModIds.CLOUD, CloudCraftItemDefinitions::createCloud);
         definitions.put(ModIds.CUMULUS_CLOUD_FRAGMENT, CloudCraftItemDefinitions::createCumulusCloudFragment);
+        definitions.put(ModIds.STRATUS_WISP, CloudCraftItemDefinitions::createProgressionMaterial);
         definitions.put(ModIds.COMPRESSED_CANISTER, CloudCraftItemDefinitions::createProgressionMaterial);
         definitions.put(ModIds.CIRRUS_FILAMENT, CloudCraftItemDefinitions::createProgressionMaterial);
+        definitions.put(ModIds.ALTOSTRATUS_VEIL, CloudCraftItemDefinitions::createProgressionMaterial);
+        definitions.put(ModIds.NIMBOSTRATUS_FLEECE, CloudCraftItemDefinitions::createProgressionMaterial);
         definitions.put(ModIds.STORM_CORE, CloudCraftItemDefinitions::createProgressionMaterial);
         definitions.put(ModIds.BASIC_JETPACK_FRAME, CloudCraftItemDefinitions::createJetpackUpgrade);
         definitions.put(ModIds.STABILIZED_NOZZLE, CloudCraftItemDefinitions::createJetpackUpgrade);

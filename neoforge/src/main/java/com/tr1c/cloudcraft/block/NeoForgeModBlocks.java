@@ -63,7 +63,7 @@ public final class NeoForgeModBlocks {
                 id,
                 BlockBehaviour.Properties.of().setId(ModIds.blockKey(id)),
                 NeoForgeModEffects.CLOUD_WALKER,
-                () -> NeoForgeModItems.CUMULUS_CLOUD_FRAGMENT.get(),
+                NeoForgeModItems::itemById,
                 solidId -> blocks.get(solidId).get().defaultBlockState());
     }
 
