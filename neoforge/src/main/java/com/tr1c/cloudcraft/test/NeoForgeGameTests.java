@@ -2,6 +2,9 @@ package com.tr1c.cloudcraft.test;
 
 import com.tr1c.cloudcraft.CloudCraft;
 import com.tr1c.cloudcraft.block.NeoForgeModBlocks;
+import com.tr1c.cloudcraft.cloudtech.CloudPressureProfile;
+import com.tr1c.cloudcraft.cloudtech.CompressedAirRules;
+import com.tr1c.cloudcraft.cloudtech.JetpackRuntime;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRules;
 import com.tr1c.cloudcraft.block.custom.cloud_block.CloudTransformationRuntime;
 import com.tr1c.cloudcraft.effect.NeoForgeModEffects;
@@ -57,6 +60,9 @@ public final class NeoForgeGameTests {
     private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR = TEST_FUNCTIONS.register(
             "cloud_dimension_landing_creates_return_anchor",
             () -> NeoForgeGameTests::cloudDimensionLandingCreatesReturnAnchor);
+    private static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE = TEST_FUNCTIONS.register(
+            "cloud_dimension_landing_supports_jetpack_recharge",
+            () -> NeoForgeGameTests::cloudDimensionLandingSupportsJetpackRecharge);
 
     private NeoForgeGameTests() {
     }
@@ -76,6 +82,7 @@ public final class NeoForgeGameTests {
         register(event, environment, GAS_STATE_CONVERTER_SOLIDIFIES_GAS_CLOUDS);
         register(event, environment, CLOUD_DIMENSION_LOADS);
         register(event, environment, CLOUD_DIMENSION_LANDING_CREATES_RETURN_ANCHOR);
+        register(event, environment, CLOUD_DIMENSION_LANDING_SUPPORTS_JETPACK_RECHARGE);
     }
 
     private static void register(RegisterGameTestsEvent event, Holder<TestEnvironmentDefinition> environment, DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> testFunction) {
@@ -217,6 +224,23 @@ public final class NeoForgeGameTests {
                     NeoForgeModBlocks.GAS_STATE_CONVERTER.get().defaultBlockState());
             helper.assertTrue(helper.getLevel().getBlockState(anchor).is(NeoForgeModBlocks.GAS_STATE_CONVERTER.get()), "Cloud landing should contain a return converter");
             helper.assertTrue(helper.getLevel().getBlockState(anchor.below()).is(NeoForgeModBlocks.CUMULUS_CLOUD_BLOCK.get()), "Cloud landing should contain a cumulus platform");
+            helper.succeed();
+        });
+    }
+
+    private static void cloudDimensionLandingSupportsJetpackRecharge(GameTestHelper helper) {
+        BlockPos anchor = helper.absolutePos(new BlockPos(0, 2, 0));
+
+        helper.runAfterDelay(4, () -> {
+            CloudDimensionTravel.prepareCloudLanding(
+                    helper.getLevel(),
+                    anchor,
+                    NeoForgeModBlocks.GAS_STATE_CONVERTER.get().defaultBlockState());
+            CloudPressureProfile profile = JetpackRuntime.rechargeProfileAt(helper.getLevel(), anchor.offset(2, 0, 0));
+            helper.assertTrue(profile == CloudPressureProfile.CUMULUS, "Cloud landing surface should expose cumulus recharge");
+            helper.assertTrue(
+                    CompressedAirRules.rechargeRate(profile, ModIds.CLOUD_JETPACK) > 0,
+                    "Cloud landing surface should recharge cloud jetpacks");
             helper.succeed();
         });
     }

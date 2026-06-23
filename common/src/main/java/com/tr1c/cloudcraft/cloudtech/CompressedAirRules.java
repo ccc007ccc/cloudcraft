@@ -9,7 +9,9 @@ public final class CompressedAirRules {
     public static final int CHARGE_PER_CLOUD_FRAGMENT = 150;
     public static final int THRUST_COST = 20;
     public static final int HOVER_COST = 12;
-    public static final int IDLE_RECHARGE = 4;
+    public static final int CUMULUS_RECHARGE = 4;
+    public static final int STRATUS_RECHARGE = 3;
+    public static final int IDLE_RECHARGE = CUMULUS_RECHARGE;
     public static final int CIRRUS_RECHARGE = 12;
     public static final int ALTOSTRATUS_RECHARGE = 8;
     public static final int NIMBOSTRATUS_RECHARGE = 6;
@@ -62,12 +64,21 @@ public final class CompressedAirRules {
     }
 
     public static int rechargeRate(String cloudId) {
-        CloudPressureProfile profile = CloudPressureProfile.find(cloudId);
-        return profile == null ? 0 : CloudCraftConfig.scalePressureRecharge(profile.rechargeRate());
+        return rechargeRate(CloudPressureProfile.find(cloudId));
     }
 
     public static int rechargeRate(String cloudId, String jetpackId) {
-        CloudPressureProfile profile = CloudPressureProfile.find(cloudId);
+        return rechargeRate(CloudPressureProfile.find(cloudId), jetpackId);
+    }
+
+    public static int rechargeRate(CloudPressureProfile profile) {
+        if (profile == null) {
+            return 0;
+        }
+        return CloudCraftConfig.scalePressureRecharge(profile.rechargeRate());
+    }
+
+    public static int rechargeRate(CloudPressureProfile profile, String jetpackId) {
         if (profile == null) {
             return 0;
         }

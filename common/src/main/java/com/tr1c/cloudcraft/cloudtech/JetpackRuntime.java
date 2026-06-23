@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public final class JetpackRuntime {
@@ -53,13 +54,12 @@ public final class JetpackRuntime {
     }
 
     private static void rechargeFromCloud(ServerPlayer player, ItemStack jetpack) {
-        String cloudId = gasCloudIdAt(player);
-        CloudPressureProfile profile = CloudPressureProfile.find(cloudId);
+        CloudPressureProfile profile = rechargeProfileAt(player.level(), player.blockPosition());
         if (profile == null) {
             return;
         }
         String jetpackId = CloudTechItems.jetpackId(jetpack);
-        int recharge = CompressedAirRules.rechargeRate(cloudId, jetpackId);
+        int recharge = CompressedAirRules.rechargeRate(profile, jetpackId);
         if (recharge <= 0) {
             return;
         }
@@ -127,16 +127,16 @@ public final class JetpackRuntime {
         return player.getDeltaMovement().y < 0.0D;
     }
 
-    private static String gasCloudIdAt(ServerPlayer player) {
-        BlockPos center = player.blockPosition();
+    public static CloudPressureProfile rechargeProfileAt(Level level, BlockPos center) {
         BlockPos[] positions = new BlockPos[]{center, center.above(), center.below()};
         for (BlockPos pos : positions) {
-            BlockState state = player.level().getBlockState(pos);
+            BlockState state = level.getBlockState(pos);
             String path = state.getBlockHolder().unwrapKey().map(key -> key.identifier().getPath()).orElse("");
-            if (path.endsWith("_gas")) {
-                return path;
+            CloudPressureProfile profile = CloudPressureProfile.find(path);
+            if (profile != null) {
+                return profile;
             }
         }
-        return "";
+        return null;
     }
 }

@@ -2,6 +2,8 @@ package com.tr1c.cloudcraft.cloudtech;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,12 +40,33 @@ class CompressedAirRulesTest {
     @Test
     void shouldExposeCloudSpecificRechargeRates() {
         assertEquals(CompressedAirRules.CIRRUS_RECHARGE, CompressedAirRules.rechargeRate("cirrus_cloud_block_gas"));
+        assertEquals(CompressedAirRules.CIRRUS_RECHARGE, CompressedAirRules.rechargeRate("cirrus_cloud_block"));
         assertEquals(CompressedAirRules.ALTOSTRATUS_RECHARGE, CompressedAirRules.rechargeRate("altostratus_cloud_block_gas"));
+        assertEquals(CompressedAirRules.ALTOSTRATUS_RECHARGE, CompressedAirRules.rechargeRate("altostratus_cloud_block"));
         assertEquals(CompressedAirRules.NIMBOSTRATUS_RECHARGE, CompressedAirRules.rechargeRate("nimbostratus_cloud_block_gas"));
+        assertEquals(CompressedAirRules.NIMBOSTRATUS_RECHARGE, CompressedAirRules.rechargeRate("nimbostratus_cloud_block"));
         assertEquals(CompressedAirRules.CUMULONIMBUS_RECHARGE, CompressedAirRules.rechargeRate("cumulonimbus_cloud_block_gas"));
-        assertEquals(CompressedAirRules.IDLE_RECHARGE, CompressedAirRules.rechargeRate("cumulus_cloud_block_gas"));
+        assertEquals(CompressedAirRules.CUMULONIMBUS_RECHARGE, CompressedAirRules.rechargeRate("cumulonimbus_cloud_block"));
+        assertEquals(CompressedAirRules.CUMULUS_RECHARGE, CompressedAirRules.rechargeRate("cumulus_cloud_block_gas"));
+        assertEquals(CompressedAirRules.CUMULUS_RECHARGE, CompressedAirRules.rechargeRate("cumulus_cloud_block"));
+        assertEquals(CompressedAirRules.STRATUS_RECHARGE, CompressedAirRules.rechargeRate("stratus_cloud_block_gas"));
+        assertEquals(CompressedAirRules.STRATUS_RECHARGE, CompressedAirRules.rechargeRate("stratus_cloud_block"));
         assertEquals(0, CompressedAirRules.rechargeRate("unknown"));
         assertEquals(CompressedAirRules.CIRRUS_RECHARGE + 2, CompressedAirRules.rechargeRate("cirrus_cloud_block_gas", com.tr1c.cloudcraft.registry.ModIds.STABILIZED_CLOUD_JETPACK));
+        assertEquals(CompressedAirRules.CIRRUS_RECHARGE + 2, CompressedAirRules.rechargeRate("cirrus_cloud_block", com.tr1c.cloudcraft.registry.ModIds.STABILIZED_CLOUD_JETPACK));
+    }
+
+    @Test
+    void shouldKeepEachCloudFamilyRechargeRateDistinct() {
+        Set<Integer> rates = Set.of(
+                CompressedAirRules.CUMULUS_RECHARGE,
+                CompressedAirRules.STRATUS_RECHARGE,
+                CompressedAirRules.CIRRUS_RECHARGE,
+                CompressedAirRules.ALTOSTRATUS_RECHARGE,
+                CompressedAirRules.NIMBOSTRATUS_RECHARGE,
+                CompressedAirRules.CUMULONIMBUS_RECHARGE);
+
+        assertEquals(6, rates.size());
     }
 
     @Test
