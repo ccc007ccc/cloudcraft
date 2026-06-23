@@ -1,5 +1,6 @@
 package com.tr1c.cloudcraft.progression;
 
+import com.tr1c.cloudcraft.config.CloudCraftConfig;
 import com.tr1c.cloudcraft.registry.ModIds;
 
 import java.util.Map;
@@ -73,27 +74,27 @@ public final class CloudProgressionRules {
     }
 
     public static int maxPressure(String itemId) {
-        return MAX_PRESSURE.getOrDefault(itemId, MAX_PRESSURE.get(ModIds.CLOUD_JETPACK));
+        return CloudCraftConfig.scalePressureCapacity(MAX_PRESSURE.getOrDefault(itemId, MAX_PRESSURE.get(ModIds.CLOUD_JETPACK)));
     }
 
     public static int thrustCost(String itemId) {
-        return THRUST_COST.getOrDefault(itemId, THRUST_COST.get(ModIds.CLOUD_JETPACK));
+        return CloudCraftConfig.scalePressureCost(THRUST_COST.getOrDefault(itemId, THRUST_COST.get(ModIds.CLOUD_JETPACK)));
     }
 
     public static double thrustVerticalSpeed(String itemId) {
-        return THRUST_VERTICAL_SPEED.getOrDefault(itemId, THRUST_VERTICAL_SPEED.get(ModIds.CLOUD_JETPACK));
+        return CloudCraftConfig.scaleJetpackVerticalSpeed(THRUST_VERTICAL_SPEED.getOrDefault(itemId, THRUST_VERTICAL_SPEED.get(ModIds.CLOUD_JETPACK)));
     }
 
     public static double thrustHorizontalAcceleration(String itemId) {
-        return THRUST_HORIZONTAL_ACCELERATION.getOrDefault(itemId, THRUST_HORIZONTAL_ACCELERATION.get(ModIds.CLOUD_JETPACK));
+        return CloudCraftConfig.scaleJetpackHorizontalAcceleration(THRUST_HORIZONTAL_ACCELERATION.getOrDefault(itemId, THRUST_HORIZONTAL_ACCELERATION.get(ModIds.CLOUD_JETPACK)));
     }
 
     public static double thrustHorizontalMaxSpeed(String itemId) {
-        return THRUST_HORIZONTAL_MAX_SPEED.getOrDefault(itemId, THRUST_HORIZONTAL_MAX_SPEED.get(ModIds.CLOUD_JETPACK));
+        return CloudCraftConfig.scaleJetpackHorizontalMaxSpeed(THRUST_HORIZONTAL_MAX_SPEED.getOrDefault(itemId, THRUST_HORIZONTAL_MAX_SPEED.get(ModIds.CLOUD_JETPACK)));
     }
 
     public static int hoverCost(String itemId) {
-        return HOVER_COST.getOrDefault(itemId, HOVER_COST.get(ModIds.CLOUD_JETPACK));
+        return CloudCraftConfig.scalePressureCost(HOVER_COST.getOrDefault(itemId, HOVER_COST.get(ModIds.CLOUD_JETPACK)));
     }
 
     public static int rechargeBonus(String itemId) {

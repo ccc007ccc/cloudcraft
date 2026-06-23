@@ -41,6 +41,21 @@ git diff --exit-code -- common/src/generated/resources
 - `common/src/generated/resources`：datagen 产物，不手工修改
 - `fabric` / `neoforge`：只放平台专属资源，不复制 common 资源
 
+## 配置
+
+CloudCraft 的基础数值配置由 `common` 的 `CloudCraftConfig` 统一生效。NeoForge 使用原生 common config，Fabric 首次启动时会生成 `config/cloudcraft.json`。
+
+当前配置键全部是倍率，默认值均为 `1.0`，表示保持代码默认手感：
+
+- `pressureCapacityMultiplier`：喷气背包最大压力容量
+- `pressureCostMultiplier`：推进和悬停压力消耗
+- `pressureRechargeMultiplier`：云内充压与云碎片充压
+- `jetpackVerticalSpeedMultiplier`：喷气背包垂直推力
+- `jetpackHorizontalAccelerationMultiplier`：喷气背包水平加速度
+- `jetpackHorizontalMaxSpeedMultiplier`：喷气背包水平最大速度
+- `gasCloudHorizontalTargetSpeedMultiplier`：气态云水平目标速度
+- `gasCloudHorizontalConvergenceMultiplier`：气态云水平速度收敛强度
+
 ## 验证重点
 
 每次修改核心玩法后至少确认：

@@ -1,5 +1,7 @@
 package com.tr1c.cloudcraft.block.custom.cloud_block;
 
+import com.tr1c.cloudcraft.config.CloudCraftConfig;
+
 public final class CloudMotionRules {
     public static final Motion CUMULUS_GAS = new Motion(0.34, 0.08, 0.98);
     public static final Motion STRATUS_GAS = new Motion(0.16, 0.22, 0.96);
@@ -21,11 +23,13 @@ public final class CloudMotionRules {
 
     private static HorizontalMovement convergeHorizontalMovement(double x, double z, Motion motion) {
         double speed = Math.hypot(x, z);
-        if (speed <= motion.horizontalTargetSpeed() || speed == 0.0) {
+        double targetSpeed = CloudCraftConfig.scaleGasCloudHorizontalTargetSpeed(motion.horizontalTargetSpeed());
+        if (speed <= targetSpeed || speed == 0.0) {
             return new HorizontalMovement(x, z);
         }
 
-        double adjustedSpeed = speed + (motion.horizontalTargetSpeed() - speed) * motion.horizontalConvergence();
+        double convergence = CloudCraftConfig.scaleGasCloudHorizontalConvergence(motion.horizontalConvergence());
+        double adjustedSpeed = speed + (targetSpeed - speed) * convergence;
         double scale = adjustedSpeed / speed;
         return new HorizontalMovement(x * scale, z * scale);
     }

@@ -1,5 +1,6 @@
 package com.tr1c.cloudcraft.cloudtech;
 
+import com.tr1c.cloudcraft.config.CloudCraftConfig;
 import com.tr1c.cloudcraft.progression.CloudProgressionRules;
 import com.tr1c.cloudcraft.registry.ModIds;
 
@@ -18,7 +19,7 @@ public final class CompressedAirRules {
     }
 
     public static int clamp(int pressure) {
-        return clamp(pressure, MAX_PRESSURE);
+        return clamp(pressure, CloudCraftConfig.scalePressureCapacity(MAX_PRESSURE));
     }
 
     public static int clamp(int pressure, int maxPressure) {
@@ -26,7 +27,7 @@ public final class CompressedAirRules {
     }
 
     public static int fillFromFragment(int pressure) {
-        return add(pressure, CHARGE_PER_CLOUD_FRAGMENT);
+        return add(pressure, CloudCraftConfig.scalePressureRecharge(CHARGE_PER_CLOUD_FRAGMENT));
     }
 
     public static int add(int pressure, int amount) {
@@ -62,10 +63,14 @@ public final class CompressedAirRules {
 
     public static int rechargeRate(String cloudId) {
         CloudPressureProfile profile = CloudPressureProfile.find(cloudId);
-        return profile == null ? 0 : profile.rechargeRate();
+        return profile == null ? 0 : CloudCraftConfig.scalePressureRecharge(profile.rechargeRate());
     }
 
     public static int rechargeRate(String cloudId, String jetpackId) {
-        return rechargeRate(cloudId) + CloudProgressionRules.rechargeBonus(jetpackId);
+        CloudPressureProfile profile = CloudPressureProfile.find(cloudId);
+        if (profile == null) {
+            return 0;
+        }
+        return CloudCraftConfig.scalePressureRecharge(profile.rechargeRate() + CloudProgressionRules.rechargeBonus(jetpackId));
     }
 }

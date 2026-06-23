@@ -1,5 +1,6 @@
 package com.tr1c.cloudcraft.cloudtech;
 
+import com.tr1c.cloudcraft.config.CloudCraftConfig;
 import com.tr1c.cloudcraft.progression.CloudProgressionRules;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +24,7 @@ public final class JetpackStackState {
 
     private static int maxPressure(ItemStack stack) {
         if (!CloudTechItems.isJetpack(stack)) {
-            return CompressedAirRules.MAX_PRESSURE;
+            return CloudCraftConfig.scalePressureCapacity(CompressedAirRules.MAX_PRESSURE);
         }
         return CloudProgressionRules.maxPressure(CloudTechItems.jetpackId(stack));
     }
