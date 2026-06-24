@@ -17,6 +17,8 @@
 ./gradlew :neoforge:runCommonData
 ```
 
+游戏启动和手工烟测见 `docs/PLAYTEST_GUIDE.md`。新一轮故事、玩法和重构规格见 `CLOUDCRAFT_STORY_AND_GAMEPLAY.md` 与 `SPEC_CLOUDCRAFT_REWORK.md`。
+
 涉及客户端、渲染或平台接入时，还需要手工运行：
 
 ```bash

@@ -1,6 +1,6 @@
 # CloudCraft 实施规格与检查清单
 
-本文把外部审查结论、现有规划和当前代码状态整理成可执行 checklist。后续实现必须以这里的勾选状态和对应代码/资源/测试证据为准。
+本文把外部审查结论、现有规划和当时代码状态整理成上一阶段可执行 checklist。它记录历史闭环，不代表当前最终玩法目标；新一轮故事、玩法和重构任务以 `CLOUDCRAFT_STORY_AND_GAMEPLAY.md` 与 `SPEC_CLOUDCRAFT_REWORK.md` 为准。
 
 ## 0. 取证基线
 
